@@ -1,0 +1,47 @@
+{
+  "name": "wice-client-api",
+  "version": "1.0.0",
+  "description": "Wice CRM Client API",
+  "main": "index.js",
+  "repository": "",
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "nodemon index.js",
+    "pretest": "eslint api tests --ext .js --ext .json",
+    "lint-fix": "eslint api tests --ext .js --ext .json --fix",
+    "test": "nyc --reporter=html --reporter=text mocha tests/* --exit",
+    "test-mocha": "mocha tests/*",
+    "test-watch": "nodemon --exec \"npm test\"",
+    "test_jenkins": "jenkins-mocha tests/* --exit"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
+    "chai-http": "^4.2.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "request-promise": "^4.2.2",
+    "swagger-ui-express": "^4.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-json": "^1.2.1",
+    "eslint-plugin-mocha": "^5.2.0",
+    "mocha": "^5.2.0",
+    "nock": "^9.6.1",
+    "nyc": "^13.0.1",
+    "supertest": "^3.3.0"
+  },
+  "nyc": {
+    "exclude": [
+      "./config",
+      "./tests"
+    ]
+  },
+  "author": "Shterion Yanev",
+  "license": "ISC"
+}
