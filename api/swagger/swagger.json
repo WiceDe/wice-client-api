@@ -1,0 +1,2219 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is a client API for Wice CRM",
+    "version": "0.0.1",
+    "title": "Wice CRM API",
+    "termsOfService": "https://wice.de",
+    "contact": {
+      "email": "syanev@wice.de"
+    },
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "tags": [],
+  "security": [{
+    "ApiKeyAuth": [],
+    "CookieAuth": []
+  }],
+  "paths": {
+    "/healthcheck": {
+      "get": {
+        "tags": [
+          "misc"
+        ],
+        "summary": "Cluster tools",
+        "description": "",
+        "operationId": "performHealthCheck",
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/person": {
+      "get": {
+        "tags": [
+          "persons"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Get all persons",
+        "description": "Returns all available persons",
+        "parameters": [{
+            "name": "page",
+            "in": "query",
+            "description": "page we start with (min 1)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "max Number of requested results",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of all persons objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "persons"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Create a person",
+        "description": "Returns the new created person.",
+        "responses": {
+          "200": {
+            "description": "Supplies the new created person",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createPersonRequest"
+              }
+            }
+          },
+          "description": "First name and last name which will be passed on to the server",
+          "required": true
+        }
+      },
+      "delete": {
+        "tags": [
+          "persons"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Delete multiple persons",
+        "description": "Returns all deleted persons",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deletePersonsRequest"
+              }
+            }
+          },
+          "description": "Persons uids",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "An array of all persons objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deletePersonsResponse"
+                }
+              }
+            }
+          },
+          "207": {
+            "description": "An array of all persons objects and false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,{\"_id\": \"5b9a5113d76e887b8d59120a\",\"firstName\": \"John\",\"lastName\": \"Doe\",\"uid\": \"12345\",\"_v\": \"1\"}, false]"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Snazzy Contacts",
+    "url": "https://snazzycontacts.com"
+  },
+  "servers": [{
+    "url": "http://localhost:5000/"
+  }],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      },
+      "CookieAuth": {
+        "type": "apiKey",
+        "in": "body",
+        "name": "cookie"
+      }
+    },
+    "schemas": {
+      "getPersonResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "firstName": {
+              "type": "string",
+              "example": "John"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Doe"
+            },
+            "uid": {
+              "type": "string",
+              "example": "yj57s1jmkdd8ob"
+            },
+            "addresses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "3gbbu1jmkewc87"
+                  },
+                  "street": {
+                    "type": "string",
+                    "example": "Wendenstr"
+                  },
+                  "streetNumber": {
+                    "type": "string",
+                    "example": "120"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "example": "Hammerbrook"
+                  },
+                  "zipcode": {
+                    "type": "string",
+                    "example": "20537"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Hamburg"
+                  },
+                  "district": {
+                    "type": "string",
+                    "example": "HH-Hamburg"
+                  },
+                  "region": {
+                    "type": "string",
+                    "example": "Hamburg"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Germany"
+                  },
+                  "countryCode": {
+                    "type": "string",
+                    "example": "0049"
+                  },
+                  "primaryContact": {
+                    "type": "string",
+                    "example": "true"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Private Address"
+                  }
+                }
+              }
+            },
+            "contactData": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Value of the contact data",
+                    "example": "example@test.de"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the contact data",
+                    "example": "email"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Can be used for a categorization of same types of contact data or for additional information",
+                    "example": "primary"
+                  }
+                }
+              }
+            },
+            "_v": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        }
+      },
+      "getPersonRelationsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "type": {
+              "type": "string",
+              "example": "PersonToPerson"
+            },
+            "uids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": ["12345", "67890"]
+            },
+            "uid": {
+              "type": "string",
+              "example": "yj57s1jmkdd8ob"
+            },
+            "_v": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        }
+      },
+      "getCategoriesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "label": {
+              "type": "string",
+              "example": "Testcategory1"
+            },
+            "description": {
+              "type": "string",
+              "example": "Some desc"
+            }
+          }
+        }
+      },
+      "getCategoryMembersResponse": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "example": "5b9a5113d76e887b8d59120a"
+          },
+          "label": {
+            "type": "string",
+            "example": "Testcat1"
+          },
+          "description": {
+            "type": "string",
+            "example": "Some desc"
+          },
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "5b9a5113d76e887b8d59120a"
+              },
+              "type": {
+                "type": "string",
+                "example": "Person"
+              },
+              "name": {
+                "type": "string",
+                "example": "Mustermann"
+              }
+            }
+          }
+        }
+      },
+      "createPersonRequest": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "street": {
+                  "type": "string",
+                  "example": "Wendenstr"
+                },
+                "streetNumber": {
+                  "type": "string",
+                  "example": "120"
+                },
+                "unit": {
+                  "type": "string",
+                  "example": "Hammerbrook"
+                },
+                "zipcode": {
+                  "type": "string",
+                  "example": "20537"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Hamburg"
+                },
+                "district": {
+                  "type": "string",
+                  "example": "HH-Hamburg"
+                },
+                "region": {
+                  "type": "string",
+                  "example": "Hamburg"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "Germany"
+                },
+                "countryCode": {
+                  "type": "string",
+                  "example": "0049"
+                },
+                "primaryContact": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Private Address"
+                }
+              }
+            }
+          },
+          "contactData": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "description": "Value of the contact data",
+                  "example": "example@test.de"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Type of the contact data",
+                  "example": "email"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Can be used for a categorization of same types of contact data or for additional information",
+                  "example": "primary"
+                }
+              }
+            }
+          }
+        }
+      },
+      "createRelationRequest": {
+        "type": "object",
+        "required": [
+          "label",
+          "type"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Colleague"
+          },
+          "type": {
+            "type": "string",
+            "example": "PersonToPerson"
+          },
+          "uids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["12345", "67890"]
+          }
+        }
+      },
+      "createCategoryRequest": {
+        "type": "object",
+        "required": [
+          "label"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Testcategory1"
+          },
+          "description": {
+            "type": "string",
+            "example": "Some description"
+          }
+        }
+      },
+      "createPersonResponse": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "PersonCreated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1538386602109"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+
+          "payload": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "example": "John"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Doe"
+              },
+              "addresses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "example": "3gbbk1jmpzr69r"
+                    },
+                    "street": {
+                      "type": "string",
+                      "example": "Wendenstr"
+                    },
+                    "streetNumber": {
+                      "type": "string",
+                      "example": "120"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "example": "Hammerbrook"
+                    },
+                    "zipcode": {
+                      "type": "string",
+                      "example": "20537"
+                    },
+                    "city": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "district": {
+                      "type": "string",
+                      "example": "HH-Hamburg"
+                    },
+                    "region": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "country": {
+                      "type": "string",
+                      "example": "Germany"
+                    },
+                    "countryCode": {
+                      "type": "string",
+                      "example": "0049"
+                    },
+                    "primaryContact": {
+                      "type": "string",
+                      "example": "true"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Private Address"
+                    }
+                  }
+                }
+              },
+              "uid": {
+                "type": "string",
+                "example": "3gbbk1jmq0i53k"
+              }
+            }
+          }
+        }
+      },
+      "createRelationResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "RelationPersonToPersonCreated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "label": {
+                "type": "string",
+                "example": "Team-Colleague"
+              }
+            }
+          }
+        }
+      },
+      "createCategoryResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryCreated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "label": {
+                "type": "string",
+                "example": "Testcategory1"
+              },
+              "description": {
+                "type": "string",
+                "example": "Some desc"
+              }
+            }
+          }
+        }
+      },
+      "updateRelationRequest": {
+        "type": "object",
+        "required": [
+          "uid",
+          "label",
+          "type"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Team-Colleague"
+          },
+          "type": {
+            "type": "string",
+            "example": "PersonToPerson"
+          }
+        }
+      },
+      "updateCategoryRequest": {
+        "type": "object",
+        "required": [
+          "uid",
+          "label",
+          "type"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "NewCategory1"
+          },
+          "description": {
+            "type": "string",
+            "example": "this is an updated category!"
+          }
+        }
+      },
+      "updatePersonRequest": {
+        "type": "object",
+        "properties": {
+          "dto": {
+            "type": "object",
+            "properties": {
+              "lastName": {
+                "type": "string",
+                "example": "Stevens"
+              },
+              "addresses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "example": "3gbbk1jmpzr69r"
+                    },
+                    "street": {
+                      "type": "string",
+                      "example": "Wendenstr"
+                    },
+                    "streetNumber": {
+                      "type": "string",
+                      "example": "120"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "example": "Hammerbrook"
+                    },
+                    "zipcode": {
+                      "type": "string",
+                      "example": "20537"
+                    },
+                    "city": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "district": {
+                      "type": "string",
+                      "example": "HH-Hamburg"
+                    },
+                    "region": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "country": {
+                      "type": "string",
+                      "example": "Germany"
+                    },
+                    "countryCode": {
+                      "type": "string",
+                      "example": "0049"
+                    },
+                    "primaryContact": {
+                      "type": "string",
+                      "example": "true"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Private Address"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "createRelationTypeRequest": {
+        "type": "object",
+        "required": [
+          "label"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Colleague"
+          }
+        }
+      },
+      "createRelationTypeResponse": {
+        "type": "object",
+        "required": [
+          "label",
+          "type"
+        ],
+        "properties": {
+          "uid": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "label": {
+            "type": "string",
+            "example": "Colleague"
+          },
+          "type": {
+            "type": "string",
+            "example": "PersonToPerson"
+          }
+        }
+      },
+
+      "updateRelationTypeResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "uid"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "3gbbk1jmq1l9m1"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "RelationTypePersonToPersonUpdated"
+            },
+            "timeStamp": {
+              "type": "string",
+              "example": "1537791125834"
+            },
+            "causalId": {
+              "type": "string",
+              "example": "0"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "example": "3gbbt1jmfzrnd5"
+                },
+                "label": {
+                  "type": "string",
+                  "example": "Team-Colleague"
+                }
+              }
+            }
+          }
+        }
+      },
+      "deleteRelationTypeResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "uid"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "3gbbk1jmq1l9m1"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "RelationTypePersonToPersonDeleted"
+            },
+            "timeStamp": {
+              "type": "string",
+              "example": "1537791125834"
+            },
+            "causalId": {
+              "type": "string",
+              "example": "0"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "example": "3gbbt1jmfzrnd5"
+                },
+                "label": {
+                  "type": "string",
+                  "example": "Team-Colleague"
+                }
+              }
+            }
+          }
+        }
+      },
+      "updateRelationResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "uid"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "3gbbk1jmq1l9m1"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "RelationPersonToPersonLabelUpdated"
+            },
+            "timeStamp": {
+              "type": "string",
+              "example": "1537791125834"
+            },
+            "causalId": {
+              "type": "string",
+              "example": "0"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "example": "3gbbt1jmfzrnd5"
+                },
+                "label": {
+                  "type": "string",
+                  "example": "Team-Colleague"
+                }
+              }
+            }
+          }
+        }
+      },
+      "updateCategoryResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "uid"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "example": "3gbbk1jmq1l9m1"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "CategoryNameUpdated"
+            },
+            "timeStamp": {
+              "type": "string",
+              "example": "1537791125834"
+            },
+            "causalId": {
+              "type": "string",
+              "example": "0"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "example": "UpdatedCategory1"
+                }
+              }
+            }
+          }
+        }
+      },
+      "addCategoryToPersonResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryPersonAdded"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "addCategoryToOrganizationResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryOrganizationAdded"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "addCategoryToAddressResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryAddressAdded"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "addCategoryToContactDataResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryContactDataAdded"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "removeCategoryFromPersonResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryPersonRemoved"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "removeCategoryFromOrganizationResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryOrganizationRemoved"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "removeCategoryFromAddressResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryAddressRemoved"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "removeCategoryFromContactDataResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryContactDataRemoved"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "1234"
+              },
+              "member": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4321"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "updatePersonResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq1l9m1"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "PersonUpdated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "dto": {
+
+                "type": "object",
+                "properties": {
+                  "lastName": {
+                    "type": "string",
+                    "example": "Stevens"
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "uid": {
+                          "type": "string",
+                          "example": "3gbbk1jmpzr69r"
+                        },
+                        "street": {
+                          "type": "string",
+                          "example": "Wendenstr"
+                        },
+                        "streetNumber": {
+                          "type": "string",
+                          "example": "120"
+                        },
+                        "unit": {
+                          "type": "string",
+                          "example": "Hammerbrook"
+                        },
+                        "zipcode": {
+                          "type": "string",
+                          "example": "20537"
+                        },
+                        "city": {
+                          "type": "string",
+                          "example": "Hamburg"
+                        },
+                        "district": {
+                          "type": "string",
+                          "example": "HH-Hamburg"
+                        },
+                        "region": {
+                          "type": "string",
+                          "example": "Hamburg"
+                        },
+                        "country": {
+                          "type": "string",
+                          "example": "Germany"
+                        },
+                        "countryCode": {
+                          "type": "string",
+                          "example": "0049"
+                        },
+                        "primaryContact": {
+                          "type": "string",
+                          "example": "true"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Private Address"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deletePersonsRequest": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": "[\"3gbbp1jm6ez2o4\", \"3gbbp1jm6f2q7y\"]"
+      },
+      "deletePersonsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "3gbbk1jmq5dkg6"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "PersonDeleted"
+            },
+            "timeStamp": {
+              "type": "string",
+              "example": "1537791877918"
+            },
+            "causalId": {
+              "type": "string",
+              "example": "0"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "example": "3gbbp1jm6ez2o4"
+                }
+              }
+            }
+          }
+        }
+      },
+      "deletePersonResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "PersonDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              }
+            }
+          }
+        }
+      },
+      "deleteRelationResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "RelationPersonToPersonDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              }
+            }
+          }
+        }
+      },
+      "deleteCategoryResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "CategoryDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              }
+            }
+          }
+        }
+      },
+      "deletePersonAddressResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123456"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "PersonAddressDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "addresses": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4gbbt1jmfzrnd5"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deletePersonContactDataResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123456"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "PersonContactDataDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "contactData": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4gbbt1jmfzrnd5"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deleteOrganizationAddressResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123456"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "OrganizationAddressDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "addresses": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4gbbt1jmfzrnd5"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deleteOrganizationContactDataResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123456"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "OrganizationContactDataDeleted"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791877918"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "contactData": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "4gbbt1jmfzrnd5"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "getOrganizationResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "name": {
+              "type": "string",
+              "example": "Wice GmbH"
+            },
+            "logo": {
+              "type": "string",
+              "example": "Logo"
+            },
+            "uid": {
+              "type": "string",
+              "example": "3gbbj1jmg24hmh"
+            },
+            "addresses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "example": "3gbbu1jmkewc87"
+                  },
+                  "street": {
+                    "type": "string",
+                    "example": "Wendenstr"
+                  },
+                  "streetNumber": {
+                    "type": "string",
+                    "example": "120"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "example": "Hammerbrook"
+                  },
+                  "zipcode": {
+                    "type": "string",
+                    "example": "20537"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Hamburg"
+                  },
+                  "district": {
+                    "type": "string",
+                    "example": "HH-Hamburg"
+                  },
+                  "region": {
+                    "type": "string",
+                    "example": "Hamburg"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Germany"
+                  },
+                  "countryCode": {
+                    "type": "string",
+                    "example": "0049"
+                  },
+                  "primaryContact": {
+                    "type": "string",
+                    "example": "true"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Public Address"
+                  }
+                }
+              }
+            },
+            "_v": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        }
+      },
+      "getOrganizationRelationsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "type": {
+              "type": "string",
+              "example": "OrganizationToPerson"
+            },
+            "uids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": ["12345", "67890"]
+            },
+            "uid": {
+              "type": "string",
+              "example": "yj57s1jmkdd8ob"
+            },
+            "_v": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        }
+      },
+      "getEventResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "5b9a5113d76e887b8d59120a"
+            },
+            "eventName": {
+              "type": "string",
+              "example": "PersonCreated"
+            },
+            "eventId": {
+              "type": "string",
+              "example": "3gbbj1jmg24hmh"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "example": "3sadaj1jasfh7mh"
+                }
+              }
+            },
+            "_v": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        }
+      },
+      "createOrganizationRequest": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Wice GmbH"
+          },
+          "logo": {
+            "type": "string",
+            "example": "Logo"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "street": {
+                  "type": "string",
+                  "example": "Wendenstr"
+                },
+                "streetNumber": {
+                  "type": "string",
+                  "example": "120"
+                },
+                "unit": {
+                  "type": "string",
+                  "example": "Hammerbrook"
+                },
+                "zipcode": {
+                  "type": "string",
+                  "example": "20537"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Hamburg"
+                },
+                "district": {
+                  "type": "string",
+                  "example": "HH-Hamburg"
+                },
+                "region": {
+                  "type": "string",
+                  "example": "Hamburg"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "Germany"
+                },
+                "countryCode": {
+                  "type": "string",
+                  "example": "0049"
+                },
+                "primaryContact": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Private Address"
+                }
+              }
+            }
+          }
+        }
+      },
+      "createOrganizationResponse": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbk1jmq3nv5q"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "OrganizationCreated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1538386602109"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Wice GmbH"
+              },
+              "logo": {
+                "type": "string",
+                "example": "Logo"
+              },
+              "addresses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "example": "3gbbk1jmpzr69r"
+                    },
+                    "street": {
+                      "type": "string",
+                      "example": "Wendenstr"
+                    },
+                    "streetNumber": {
+                      "type": "string",
+                      "example": "120"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "example": "Hammerbrook"
+                    },
+                    "zipcode": {
+                      "type": "string",
+                      "example": "20537"
+                    },
+                    "city": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "district": {
+                      "type": "string",
+                      "example": "HH-Hamburg"
+                    },
+                    "region": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "country": {
+                      "type": "string",
+                      "example": "Germany"
+                    },
+                    "countryCode": {
+                      "type": "string",
+                      "example": "0049"
+                    },
+                    "primaryContact": {
+                      "type": "string",
+                      "example": "true"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Public Address"
+                    }
+                  }
+                }
+              },
+              "uid": {
+                "type": "string",
+                "example": "3gbbk1jmq0i53k"
+              }
+            }
+          }
+        }
+      },
+      "updateOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "dto": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Changed GmbH"
+              },
+              "addresses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "example": "3gbbu1jmkewc87"
+                    },
+                    "street": {
+                      "type": "string",
+                      "example": "Wendenstr"
+                    },
+                    "streetNumber": {
+                      "type": "string",
+                      "example": "120"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "example": "Hammerbrook"
+                    },
+                    "zipcode": {
+                      "type": "string",
+                      "example": "20537"
+                    },
+                    "city": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "district": {
+                      "type": "string",
+                      "example": "HH-Hamburg"
+                    },
+                    "region": {
+                      "type": "string",
+                      "example": "Hamburg"
+                    },
+                    "country": {
+                      "type": "string",
+                      "example": "Germany"
+                    },
+                    "countryCode": {
+                      "type": "string",
+                      "example": "0049"
+                    },
+                    "primaryContact": {
+                      "type": "string",
+                      "example": "true"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Private Address"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "updateOrganizationResponse": {
+        "type": "object",
+        "required": [
+          "uid"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3gbbj1jmg9ko6j"
+          },
+          "eventName": {
+            "type": "string",
+            "example": "OrganizationUpdated"
+          },
+          "timeStamp": {
+            "type": "string",
+            "example": "1537791125834"
+          },
+          "causalId": {
+            "type": "string",
+            "example": "0"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "example": "3gbbt1jmfzrnd5"
+              },
+              "dto": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Changed GmbH"
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "uid": {
+                          "type": "string",
+                          "example": "3gbbu1jmkewc87"
+                        },
+                        "street": {
+                          "type": "string",
+                          "example": "Wendenstr"
+                        },
+                        "streetNumber": {
+                          "type": "string",
+                          "example": "120"
+                        },
+                        "unit": {
+                          "type": "string",
+                          "example": "Hammerbrook"
+                        },
+                        "zipcode": {
+                          "type": "string",
+                          "example": "20537"
+                        },
+                        "city": {
+                          "type": "string",
+                          "example": "Hamburg"
+                        },
+                        "district": {
+                          "type": "string",
+                          "example": "HH-Hamburg"
+                        },
+                        "region": {
+                          "type": "string",
+                          "example": "Hamburg"
+                        },
+                        "country": {
+                          "type": "string",
+                          "example": "Germany"
+                        },
+                        "countryCode": {
+                          "type": "string",
+                          "example": "0049"
+                        },
+                        "primaryContact": {
+                          "type": "string",
+                          "example": "true"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Private Address"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
