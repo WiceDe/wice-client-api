@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const swaggerDocument = require('./api/swagger/swagger.json');
 const log = require('./api/utils/logger');
 
-// const person = require('./api/controllers/person');
+const user = require('./api/controllers/user');
 
 class Server {
   constructor() {
@@ -44,7 +44,7 @@ class Server {
       });
     });
 
-    // this.app.use('/api/v1/person', person);
+    this.app.use('/api/v1/user', user);
 
     log.info('Routes set.');
   }
