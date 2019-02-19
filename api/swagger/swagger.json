@@ -13,12 +13,55 @@
       "url": ""
     }
   },
-  "tags": [],
+  "tags": [{
+    "name": "user",
+    "description": "User management",
+    "externalDocs": {
+      "description": "Find out more",
+      "url": "https://wice.de"
+    }
+    }],
   "security": [{
     "ApiKeyAuth": [],
     "CookieAuth": []
   }],
   "paths": {
+    "/api/v1/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "x-swagger-router-controller": "user",
+        "summary": "Login user",
+        "description": "Login in Wice CRM.",
+        "responses": {
+          "200": {
+            "description": "Supplies the cookie after successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginUser"
+              }
+            }
+          },
+          "description": "First name and last name which will be passed on to the server",
+          "required": true
+        }
+      }
+    },
     "/healthcheck": {
       "get": {
         "tags": [
@@ -192,6 +235,28 @@
       }
     },
     "schemas": {
+      "loginUser": {
+        "type": "object",
+        "required": [
+          "mandant_name",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "mandant_name": {
+            "type": "string",
+            "example": "companygmbh"
+          },
+          "username": {
+            "type": "string",
+            "example": "maxmustermann"
+          },
+          "password": {
+            "type": "string",
+            "example": "yourpassword"
+          }
+        }
+      },
       "getPersonResponse": {
         "type": "array",
         "items": {
