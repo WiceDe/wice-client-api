@@ -230,8 +230,8 @@
       },
       "CookieAuth": {
         "type": "apiKey",
-        "in": "body",
-        "name": "cookie"
+        "in": "header",
+        "name": "wice-cookie"
       }
     },
     "schemas": {
