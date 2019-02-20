@@ -168,4 +168,48 @@ router.get('/:rowid', async (req, res) => {
   }
 });
 
+// @route   PUT /api/v1/person/:rowid
+// @desc    Update a person by rowid
+// @access  Private
+router.put('/:rowid', async (req, res) => {
+  const apiKey = req.headers['x-api-key'];
+  const cookie = req.headers['wice-cookie'];
+  const input = req.body;
+  input.rowid = req.params.rowid;
+
+  const options = {
+    method: 'POST',
+    uri,
+    form: {
+      method: 'update_contact',
+      cookie,
+      data: JSON.stringify(input),
+    },
+    headers: {
+      'X-API-KEY': apiKey,
+    },
+    json: true,
+    resolveWithFullResponse: true,
+  };
+
+
+  try {
+    const response = await request(options);
+
+    if (response.statusCode !== 200) {
+      res.status(response.statusCode).send(response.body);
+    } else {
+      // TODO: Check if array is empty
+      // TODO: Custom person format
+      res.status(response.statusCode).send({
+        rowid: response.body.rowid,
+        status: 'updated',
+      });
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+
 module.exports = router;
