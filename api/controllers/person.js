@@ -6,12 +6,13 @@ const router = require('express').Router();
 // @access  Private
 router.get('/', async (req, res) => {
   // const url = 'https://demo2.wice-net.de/pserv/base/json';
-  const url = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
+  const uri = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['wice-cookie'];
+
   const options = {
     method: 'POST',
-    uri: url,
+    uri,
     form: {
       method: 'get_all_persons',
       full_list: 1,
@@ -35,6 +36,46 @@ router.get('/', async (req, res) => {
       const persons = response.body.loop_addresses;
       console.log(persons.length);
       res.status(response.statusCode).send(persons);
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+// @route   GET /api/v1/person/
+// @desc    Get a person by rowid
+// @access  Private
+router.get('/:rowid', async (req, res) => {
+  // const url = 'https://demo2.wice-net.de/pserv/base/json';
+  const uri = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
+  const apiKey = req.headers['x-api-key'];
+  const cookie = req.headers['wice-cookie'];
+  const { rowid } = req.params;
+
+  const options = {
+    method: 'POST',
+    uri,
+    form: {
+      method: 'get_person',
+      cookie,
+      pkey: rowid,
+    },
+    headers: {
+      'X-API-KEY': apiKey,
+    },
+    json: true,
+    resolveWithFullResponse: true,
+  };
+
+  try {
+    const response = await request(options);
+
+    if (response.statusCode !== 200) {
+      res.status(response.statusCode).send(response.body);
+    } else {
+      // TODO: Check if array is empty
+      // TODO: Custom person format
+      res.status(response.statusCode).send(response.body);
     }
   } catch (e) {
     res.send(e);
