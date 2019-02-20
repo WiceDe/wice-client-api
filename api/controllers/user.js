@@ -1,27 +1,30 @@
 const request = require('request-promise');
 const router = require('express').Router();
+const { uri } = require('../../config/keys');
 
+// @route   POST /api/v1/user/login
+// @desc    Login User
+// @access  Private
 router.post('/login', async (req, res) => {
-  // const url = 'https://demo2.wice-net.de/pserv/base/json';
-  const url = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
+  const apiKey = req.headers['x-api-key'];
   const options = {
     method: 'POST',
-    uri: url,
+    uri,
     form: {
       method: 'login',
       mandant_name: req.body.mandant_name,
       username: req.body.username,
       password: req.body.password,
     },
-    // headers: { 'X-API-KEY': cfg.apikey }
+    headers: {
+      'X-API-KEY': apiKey,
+    },
     json: true,
     resolveWithFullResponse: true,
   };
 
   try {
     const response = await request(options);
-    console.log(response.body);
-
     if (response.statusCode !== 200) {
       res.status(response.statusCode).send(response.body);
     } else {
