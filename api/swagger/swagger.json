@@ -14,13 +14,22 @@
     }
   },
   "tags": [{
-    "name": "user",
-    "description": "User management",
-    "externalDocs": {
-      "description": "Find out more",
-      "url": "https://wice.de"
+      "name": "user",
+      "description": "User management",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "person",
+      "description": "Persons actions",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
     }
-    }],
+  ],
   "security": [{
     "ApiKeyAuth": [],
     "CookieAuth": []
@@ -74,38 +83,17 @@
           "200": {
             "description": "Service is healthy"
           }
-        },
-        "security": []
+        }
       }
     },
-    "/api/person": {
+    "/api/v1/person": {
       "get": {
         "tags": [
-          "persons"
+          "person"
         ],
         "x-swagger-router-controller": "person",
         "summary": "Get all persons",
         "description": "Returns all available persons",
-        "parameters": [{
-            "name": "page",
-            "in": "query",
-            "description": "page we start with (min 1)",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
-            }
-          },
-          {
-            "name": "num",
-            "in": "query",
-            "description": "max Number of requested results",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "An array of all persons objects",
@@ -203,6 +191,41 @@
                 "schema": {
                   "type": "string",
                   "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/person/{rowid}": {
+      "get": {
+        "tags": [
+          "person"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Get a person by a given rowid",
+        "description": "Returns the single person ",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "Person's rowid",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Person object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPersonResponse"
                 }
               }
             }
