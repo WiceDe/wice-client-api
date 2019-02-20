@@ -112,7 +112,7 @@
       },
       "post": {
         "tags": [
-          "persons"
+          "person"
         ],
         "x-swagger-router-controller": "person",
         "summary": "Create a person",
@@ -143,62 +143,6 @@
           "description": "First name and last name which will be passed on to the server",
           "required": true
         }
-      },
-      "delete": {
-        "tags": [
-          "persons"
-        ],
-        "x-swagger-router-controller": "person",
-        "summary": "Delete multiple persons",
-        "description": "Returns all deleted persons",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deletePersonsRequest"
-              }
-            }
-          },
-          "description": "Persons uids",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "An array of all persons objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deletePersonsResponse"
-                }
-              }
-            }
-          },
-          "207": {
-            "description": "An array of all persons objects and false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": "[false,{\"_id\": \"5b9a5113d76e887b8d59120a\",\"firstName\": \"John\",\"lastName\": \"Doe\",\"uid\": \"12345\",\"_v\": \"1\"}, false]"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": "[false,false,false]"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
       }
     },
     "/api/v1/person/{rowid}": {
@@ -226,6 +170,105 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "person"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Update a person",
+        "description": "Returns updated person",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The rowid of the person to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          },
+          "description": "Some description.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "An array of all persons objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "person"
+        ],
+        "x-swagger-router-controller": "person",
+        "summary": "Delete a person",
+        "description": "Returns deleted person's rowid",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The id of the user to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "An array of all persons objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
                 }
               }
             }
@@ -476,92 +519,21 @@
       "createPersonRequest": {
         "type": "object",
         "required": [
-          "firstName",
-          "lastName"
+          "name",
+          "firstname"
         ],
         "properties": {
-          "firstName": {
+          "firstname": {
             "type": "string",
             "example": "John"
           },
-          "lastName": {
+          "name": {
             "type": "string",
             "example": "Doe"
           },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "street": {
-                  "type": "string",
-                  "example": "Wendenstr"
-                },
-                "streetNumber": {
-                  "type": "string",
-                  "example": "120"
-                },
-                "unit": {
-                  "type": "string",
-                  "example": "Hammerbrook"
-                },
-                "zipcode": {
-                  "type": "string",
-                  "example": "20537"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "Hamburg"
-                },
-                "district": {
-                  "type": "string",
-                  "example": "HH-Hamburg"
-                },
-                "region": {
-                  "type": "string",
-                  "example": "Hamburg"
-                },
-                "country": {
-                  "type": "string",
-                  "example": "Germany"
-                },
-                "countryCode": {
-                  "type": "string",
-                  "example": "0049"
-                },
-                "primaryContact": {
-                  "type": "string",
-                  "example": "true"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Private Address"
-                }
-              }
-            }
-          },
-          "contactData": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "string",
-                  "description": "Value of the contact data",
-                  "example": "example@test.de"
-                },
-                "type": {
-                  "type": "string",
-                  "description": "Type of the contact data",
-                  "example": "email"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Can be used for a categorization of same types of contact data or for additional information",
-                  "example": "primary"
-                }
-              }
-            }
+          "email": {
+            "type": "string",
+            "example": "jdoe@mail.com"
           }
         }
       },
