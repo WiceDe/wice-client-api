@@ -1,9 +1,5 @@
 process.env.NODE_CONFIG_DIR = './config';
 
-if (process.env.NODE_ENV !== 'canary' && process.env.NODE_ENV !== 'production') {
-  process.env.NODE_ENV = 'test';
-}
-
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
@@ -11,6 +7,7 @@ const swaggerDocument = require('./api/swagger/swagger.json');
 const log = require('./api/utils/logger');
 
 const user = require('./api/controllers/user');
+const person = require('./api/controllers/person');
 
 class Server {
   constructor() {
@@ -45,6 +42,7 @@ class Server {
     });
 
     this.app.use('/api/v1/user', user);
+    this.app.use('/api/v1/person', person);
 
     log.info('Routes set.');
   }
