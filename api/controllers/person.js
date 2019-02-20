@@ -1,12 +1,11 @@
 const request = require('request-promise');
 const router = require('express').Router();
+const { uri } = require('../../config/keys');
 
 // @route   GET /api/v1/person/
 // @desc    Get all persons
 // @access  Private
 router.get('/', async (req, res) => {
-  // const url = 'https://demo2.wice-net.de/pserv/base/json';
-  const uri = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['wice-cookie'];
 
@@ -42,12 +41,99 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   GET /api/v1/person/
+// @route   POST /api/v1/person/
+// @desc    Create a person
+// @access  Private
+router.post('/', async (req, res) => {
+  const apiKey = req.headers['x-api-key'];
+  const cookie = req.headers['wice-cookie'];
+  const input = req.body;
+
+  const options = {
+    method: 'POST',
+    uri,
+    headers: {
+      'X-API-KEY': apiKey,
+    },
+  };
+
+  async function checkForExistingPerson(person, cookie) {
+    let existingRowid = 0;
+    try {
+      options.form = {
+        method: 'get_all_persons',
+        cookie,
+        ext_search_do: 1,
+        name: person.name,
+      };
+
+      const rowid = await request.post(options);
+      const rowidObj = JSON.parse(rowid);
+      if (rowidObj.loop_addresses) {
+        existingRowid = rowidObj.loop_addresses[0].rowid;
+        console.log(`Person already exists - ROWID: ${existingRowid}`);
+      }
+      return existingRowid;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async function createOrUpdatePerson(existingRowid, cookie) {
+    input.same_contactperson = 'auto';
+    const data = JSON.stringify(input);
+    try {
+      options.form = {
+        cookie,
+        data,
+      };
+      if (existingRowid == 0) {
+        console.log('Creating person ...');
+        options.form.method = 'insert_contact';
+        const person = await request.post(options);
+        return {
+          person,
+          status: 'created',
+          msg: 'Person created!',
+        };
+      }
+      console.log('Updating person ...');
+      input.rowid = existingRowid;
+      options.form.method = 'update_contact';
+      options.form.data = JSON.stringify(input);
+      const person = await request.post(options);
+      return {
+        person,
+        status: 'updated',
+        msg: 'Person already exist!.',
+      };
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  (async function () {
+    try {
+      const existingRowid = await checkForExistingPerson(input, cookie);
+      const result = await createOrUpdatePerson(existingRowid, cookie);
+      result.person = JSON.parse(result.person);
+      if (result.status === 'updated') {
+        return res.status(400).send(result);
+      }
+      // TODO: Check if array is empty
+      // TODO: Custom person format
+
+      res.status(200).send(result);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }());
+});
+
+// @route   GET /api/v1/person/:rowid
 // @desc    Get a person by rowid
 // @access  Private
 router.get('/:rowid', async (req, res) => {
-  // const url = 'https://demo2.wice-net.de/pserv/base/json';
-  const uri = 'https://oihwice.wice-net.de/plugin/wp_elasticio_backend/json';
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['wice-cookie'];
   const { rowid } = req.params;
