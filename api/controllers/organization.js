@@ -129,4 +129,91 @@ router.post('/', async (req, res) => {
   }());
 });
 
+// @route   PUT /api/v1/organization/:rowid
+// @desc    Update an organization by rowid
+// @access  Private
+router.put('/:rowid', async (req, res) => {
+  const apiKey = req.headers['x-api-key'];
+  const cookie = req.headers['wice-cookie'];
+  const input = req.body;
+  input.rowid = req.params.rowid;
+
+  const options = {
+    method: 'POST',
+    uri,
+    form: {
+      method: 'update_company',
+      cookie,
+      data: JSON.stringify(input),
+    },
+    headers: {
+      'X-API-KEY': apiKey,
+    },
+    json: true,
+    resolveWithFullResponse: true,
+  };
+
+
+  try {
+    const response = await request(options);
+
+    if (response.statusCode !== 200) {
+      res.status(response.statusCode).send(response.body);
+    } else {
+      // TODO: Check if array is empty
+      // TODO: Custom organization format
+      res.status(response.statusCode).send({
+        rowid: response.body.rowid,
+        status: 'updated',
+      });
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+// @route   DELETE /api/v1/organization/:rowid
+// @desc    Delete a organization by rowid
+// @access  Private
+router.delete('/:rowid', async (req, res) => {
+  const apiKey = req.headers['x-api-key'];
+  const cookie = req.headers['wice-cookie'];
+
+  const input = {
+    rowid: req.params.rowid,
+  };
+
+  const options = {
+    method: 'POST',
+    uri,
+    form: {
+      method: 'delete_company',
+      cookie,
+      data: JSON.stringify(input),
+    },
+    headers: {
+      'X-API-KEY': apiKey,
+    },
+    json: true,
+    resolveWithFullResponse: true,
+  };
+
+  try {
+    const response = await request(options);
+
+    if (response.statusCode !== 200) {
+      res.status(response.statusCode).send(response.body);
+    } else {
+      // TODO: Check if array is empty
+      // TODO: Custom organization format
+      res.status(response.statusCode).send({
+        rowid: response.body.rowid,
+        status: 'deactivated',
+      });
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
 module.exports = router;
