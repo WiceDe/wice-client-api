@@ -8,6 +8,7 @@ const log = require('./api/utils/logger');
 
 const user = require('./api/controllers/user');
 const person = require('./api/controllers/person');
+const organization = require('./api/controllers/organization');
 
 class Server {
   constructor() {
@@ -43,6 +44,7 @@ class Server {
 
     this.app.use('/api/v1/user', user);
     this.app.use('/api/v1/person', person);
+    this.app.use('/api/v1/organization', organization);
 
     log.info('Routes set.');
   }
