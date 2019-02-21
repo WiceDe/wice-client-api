@@ -28,6 +28,14 @@
         "description": "Find out more",
         "url": "https://wice.de"
       }
+    },
+    {
+      "name": "organization",
+      "description": "Organizations actions",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
     }
   ],
   "security": [{
@@ -254,6 +262,199 @@
         "responses": {
           "200": {
             "description": "An array of all persons objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/organization": {
+      "get": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Get all organizations",
+        "description": "Returns all available organizations",
+        "responses": {
+          "200": {
+            "description": "An array of all organizations objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Create an organization",
+        "description": "Returns the new created organization.",
+        "responses": {
+          "200": {
+            "description": "Supplies the new created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          },
+          "description": "Organization's name which will be passed on to the server",
+          "required": true
+        }
+      }
+    },
+    "/api/v1/organization/{rowid}": {
+      "get": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Get an organization by a given rowid",
+        "description": "Returns the single organization ",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "Organization's rowid",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Organization object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Update an organization",
+        "description": "Returns updated organization",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The rowid of the organization to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          },
+          "description": "Some description.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "An array of all organization objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Delete an organization",
+        "description": "Returns deleted organization's rowid",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The id of the organization to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "An array of all organization objects",
             "content": {
               "application/json": {
                 "schema": {
