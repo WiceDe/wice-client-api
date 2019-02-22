@@ -23,7 +23,7 @@
     },
     {
       "name": "person",
-      "description": "Persons actions",
+      "description": "Person actions",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
@@ -31,7 +31,15 @@
     },
     {
       "name": "organization",
-      "description": "Organizations actions",
+      "description": "Organization actions",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "article",
+      "description": "Article actions",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
@@ -76,21 +84,6 @@
           },
           "description": "First name and last name which will be passed on to the server",
           "required": true
-        }
-      }
-    },
-    "/healthcheck": {
-      "get": {
-        "tags": [
-          "misc"
-        ],
-        "summary": "Cluster tools",
-        "description": "",
-        "operationId": "performHealthCheck",
-        "responses": {
-          "200": {
-            "description": "Service is healthy"
-          }
         }
       }
     },
@@ -476,6 +469,214 @@
           },
           "401": {
             "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/article": {
+      "get": {
+        "tags": [
+          "article"
+        ],
+        "x-swagger-router-controller": "article",
+        "summary": "Get all articles",
+        "description": "Returns all available articles",
+        "responses": {
+          "200": {
+            "description": "An array of all article objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "article"
+        ],
+        "x-swagger-router-controller": "article",
+        "summary": "Create an article",
+        "description": "Returns the new created article.",
+        "responses": {
+          "200": {
+            "description": "Supplies the new created article",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          },
+          "description": "Article's description which will be passed on to the server",
+          "required": true
+        }
+      }
+    },
+    "/api/v1/article/{rowid}": {
+      "get": {
+        "tags": [
+          "article"
+        ],
+        "x-swagger-router-controller": "article",
+        "summary": "Get an article by a given rowid",
+        "description": "Returns the single article ",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "Article's rowid",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Article object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "article"
+        ],
+        "x-swagger-router-controller": "article",
+        "summary": "Update an article",
+        "description": "Returns updated article",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The rowid of the article to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          },
+          "description": "Some description.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "An array of all article objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "article"
+        ],
+        "x-swagger-router-controller": "article",
+        "summary": "Delete an article",
+        "description": "Returns deleted article's rowid",
+        "parameters": [{
+          "name": "rowid",
+          "in": "path",
+          "description": "The id of the article to be deleted",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "An array of all article objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An array with false for each not found uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "[false,false,false]"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/healthcheck": {
+      "get": {
+        "tags": [
+          "misc"
+        ],
+        "summary": "Cluster tools",
+        "description": "",
+        "operationId": "performHealthCheck",
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
           }
         }
       }
