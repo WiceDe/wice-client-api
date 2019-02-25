@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { uri } = require('../../config/keys');
 const { customArticle } = require('../../utils/customArticle');
 
-// @route   GET /api/v1/article/
+// @route   GET /api/v1/articles/
 // @desc    Get all articles
 // @access  Private
 router.get('/', async (req, res) => {
@@ -31,10 +31,9 @@ router.get('/', async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-
       response.body.loop_articles.filter((article) => {
         const currentArticle = customArticle(article);
-        articles.push(currentArticle);
+        return articles.push(currentArticle);
       });
 
       res.status(response.statusCode).send(articles);
@@ -44,12 +43,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   POST /api/v1/article/
+// @route   POST /api/v1/articles/
 // @desc    Create an article
 // @access  Private
 router.post('/', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
   const input = req.body;
 
   const options = {
@@ -88,7 +86,7 @@ router.post('/', async (req, res) => {
         cookie,
         data,
       };
-      if (existingRowid == 0) {
+      if (existingRowid === 0) {
         console.log('Creating article ...');
         options.form.method = 'insert_article';
         const article = await request.post(options);
@@ -113,8 +111,9 @@ router.post('/', async (req, res) => {
     }
   }
 
-  (async function () {
+  (async function execute() {
     try {
+      const cookie = req.headers['wice-cookie'];
       const existingRowid = await checkForExistingArticle(input, cookie);
       const result = await createOrUpdateArticle(existingRowid, cookie);
       result.article = JSON.parse(result.article);
@@ -124,14 +123,14 @@ router.post('/', async (req, res) => {
       // TODO: Check if array is empty
       // TODO: Custom article format
 
-      res.status(200).send(result);
+      return res.status(200).send(result);
     } catch (e) {
       throw new Error(e);
     }
   }());
 });
 
-// @route   GET /api/v1/article/:rowid
+// @route   GET /api/v1/articles/:rowid
 // @desc    Get an article by rowid
 // @access  Private
 router.get('/:rowid', async (req, res) => {
@@ -171,7 +170,7 @@ router.get('/:rowid', async (req, res) => {
   }
 });
 
-// @route   PUT /api/v1/article/:rowid
+// @route   PUT /api/v1/articles/:rowid
 // @desc    Update an article by rowid
 // @access  Private
 router.put('/:rowid', async (req, res) => {
@@ -214,7 +213,7 @@ router.put('/:rowid', async (req, res) => {
   }
 });
 
-// @route   DELETE /api/v1/article/:rowid
+// @route   DELETE /api/v1/articles/:rowid
 // @desc    Delete an article by rowid
 // @access  Private
 router.delete('/:rowid', async (req, res) => {
