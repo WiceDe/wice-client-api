@@ -1,6 +1,7 @@
 const request = require('request-promise');
 const router = require('express').Router();
 const { uri } = require('../../config/keys');
+const { customPerson } = require('../../utils/customPerson');
 
 // @route   GET /api/v1/person/
 // @desc    Get all persons
@@ -26,14 +27,18 @@ router.get('/', async (req, res) => {
   };
 
   try {
+    const persons = [];
     const response = await request(options);
     if (response.statusCode !== 200) {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom person format
-      const persons = response.body.loop_addresses;
-      console.log(persons.length);
+
+      response.body.loop_addresses.filter((person) => {
+        const currentPerson = customPerson(person);
+        persons.push(currentPerson);
+      });
+
       res.status(response.statusCode).send(persons);
     }
   } catch (e) {
@@ -116,12 +121,10 @@ router.post('/', async (req, res) => {
     try {
       const existingRowid = await checkForExistingPerson(input, cookie);
       const result = await createOrUpdatePerson(existingRowid, cookie);
-      result.person = JSON.parse(result.person);
+      result.person = customPerson(JSON.parse(result.person));
       if (result.status === 'updated') {
         return res.status(400).send(result);
       }
-      // TODO: Check if array is empty
-      // TODO: Custom person format
 
       res.status(200).send(result);
     } catch (e) {
@@ -160,8 +163,8 @@ router.get('/:rowid', async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom person format
-      res.status(response.statusCode).send(response.body);
+      const person = customPerson(response.body);
+      res.status(response.statusCode).send(person);
     }
   } catch (e) {
     res.send(e);

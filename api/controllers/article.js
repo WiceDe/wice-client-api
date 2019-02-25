@@ -1,8 +1,7 @@
 const request = require('request-promise');
 const router = require('express').Router();
-const {
-  uri
-} = require('../../config/keys');
+const { uri } = require('../../config/keys');
+const { customArticle } = require('../../utils/customArticle');
 
 // @route   GET /api/v1/article/
 // @desc    Get all articles
@@ -26,14 +25,18 @@ router.get('/', async (req, res) => {
   };
 
   try {
+    const articles = [];
     const response = await request(options);
     if (response.statusCode !== 200) {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom article format
-      const articles = response.body.loop_articles;
-      console.log(articles.length);
+
+      response.body.loop_articles.filter((article) => {
+        const currentArticle = customArticle(article);
+        articles.push(currentArticle);
+      });
+
       res.status(response.statusCode).send(articles);
     }
   } catch (e) {
@@ -110,7 +113,7 @@ router.post('/', async (req, res) => {
     }
   }
 
-  (async function() {
+  (async function () {
     try {
       const existingRowid = await checkForExistingArticle(input, cookie);
       const result = await createOrUpdateArticle(existingRowid, cookie);
@@ -135,7 +138,7 @@ router.get('/:rowid', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['wice-cookie'];
   const {
-    rowid
+    rowid,
   } = req.params;
 
   const options = {
@@ -160,8 +163,8 @@ router.get('/:rowid', async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom article format
-      res.status(response.statusCode).send(response.body);
+      const article = customArticle(response.body);
+      res.status(response.statusCode).send(article);
     }
   } catch (e) {
     res.send(e);

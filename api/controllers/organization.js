@@ -1,6 +1,7 @@
 const request = require('request-promise');
 const router = require('express').Router();
 const { uri } = require('../../config/keys');
+const { customOrganization } = require('../../utils/customOrganization');
 
 // @route   GET /api/v1/organization/
 // @desc    Get all organizations
@@ -26,14 +27,18 @@ router.get('/', async (req, res) => {
   };
 
   try {
+    const organizations = [];
     const response = await request(options);
     if (response.statusCode !== 200) {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom organization format
-      const organizations = response.body.loop_addresses;
-      console.log(organizations.length);
+
+      response.body.loop_addresses.filter((organization) => {
+        const currentOrganization = customOrganization(organization);
+        organizations.push(currentOrganization);
+      });
+
       res.status(response.statusCode).send(organizations);
     }
   } catch (e) {
@@ -115,7 +120,7 @@ router.post('/', async (req, res) => {
     try {
       const existingRowid = await checkForExistingOrganization(input, cookie);
       const result = await createOrUpdateOrganization(existingRowid, cookie);
-      result.organization = JSON.parse(result.organization);
+      result.organization = customOrganization(JSON.parse(result.organization));
       if (result.status === 'updated') {
         return res.status(400).send(result);
       }
@@ -159,8 +164,8 @@ router.get('/:rowid', async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // TODO: Custom organization format
-      res.status(response.statusCode).send(response.body);
+      const orgnaization = customOrganization(response.body);
+      res.status(response.statusCode).send(orgnaization);
     }
   } catch (e) {
     res.send(e);
