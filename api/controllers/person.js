@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { uri } = require('../../config/keys');
 const { customPerson } = require('../../utils/customPerson');
 
-// @route   GET /api/v1/person/
+// @route   GET /api/v1/persons/
 // @desc    Get all persons
 // @access  Private
 router.get('/', async (req, res) => {
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
       response.body.loop_addresses.filter((person) => {
         const currentPerson = customPerson(person);
-        persons.push(currentPerson);
+        return persons.push(currentPerson);
       });
 
       res.status(response.statusCode).send(persons);
@@ -46,12 +46,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   POST /api/v1/person/
+// @route   POST /api/v1/persons/
 // @desc    Create a person
 // @access  Private
 router.post('/', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
   const input = req.body;
 
   const options = {
@@ -92,7 +91,7 @@ router.post('/', async (req, res) => {
         cookie,
         data,
       };
-      if (existingRowid == 0) {
+      if (existingRowid === 0) {
         console.log('Creating person ...');
         options.form.method = 'insert_contact';
         const person = await request.post(options);
@@ -117,8 +116,9 @@ router.post('/', async (req, res) => {
     }
   }
 
-  (async function () {
+  (async function execute() {
     try {
+      const cookie = req.headers['wice-cookie'];
       const existingRowid = await checkForExistingPerson(input, cookie);
       const result = await createOrUpdatePerson(existingRowid, cookie);
       result.person = customPerson(JSON.parse(result.person));
@@ -126,14 +126,14 @@ router.post('/', async (req, res) => {
         return res.status(400).send(result);
       }
 
-      res.status(200).send(result);
+      return res.status(200).send(result);
     } catch (e) {
       throw new Error(e);
     }
   }());
 });
 
-// @route   GET /api/v1/person/:rowid
+// @route   GET /api/v1/persons/:rowid
 // @desc    Get a person by rowid
 // @access  Private
 router.get('/:rowid', async (req, res) => {
@@ -171,7 +171,7 @@ router.get('/:rowid', async (req, res) => {
   }
 });
 
-// @route   PUT /api/v1/person/:rowid
+// @route   PUT /api/v1/persons/:rowid
 // @desc    Update a person by rowid
 // @access  Private
 router.put('/:rowid', async (req, res) => {
@@ -214,7 +214,7 @@ router.put('/:rowid', async (req, res) => {
   }
 });
 
-// @route   DELETE /api/v1/person/:rowid
+// @route   DELETE /api/v1/persons/:rowid
 // @desc    Delete a person by rowid
 // @access  Private
 router.delete('/:rowid', async (req, res) => {

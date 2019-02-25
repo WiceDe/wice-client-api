@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { uri } = require('../../config/keys');
 const { customOrganization } = require('../../utils/customOrganization');
 
-// @route   GET /api/v1/organization/
+// @route   GET /api/v1/organizations/
 // @desc    Get all organizations
 // @access  Private
 router.get('/', async (req, res) => {
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
       response.body.loop_addresses.filter((organization) => {
         const currentOrganization = customOrganization(organization);
-        organizations.push(currentOrganization);
+        return organizations.push(currentOrganization);
       });
 
       res.status(response.statusCode).send(organizations);
@@ -46,12 +46,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   POST /api/v1/organization/
+// @route   POST /api/v1/organizations/
 // @desc    Create an organization
 // @access  Private
 router.post('/', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
   const input = req.body;
 
   const options = {
@@ -91,7 +90,7 @@ router.post('/', async (req, res) => {
         cookie,
         data,
       };
-      if (existingRowid == 0) {
+      if (existingRowid === 0) {
         console.log('Creating organization ...');
         options.form.method = 'insert_company';
         const organization = await request.post(options);
@@ -116,8 +115,9 @@ router.post('/', async (req, res) => {
     }
   }
 
-  (async function () {
+  (async function execute() {
     try {
+      const cookie = req.headers['wice-cookie'];
       const existingRowid = await checkForExistingOrganization(input, cookie);
       const result = await createOrUpdateOrganization(existingRowid, cookie);
       result.organization = customOrganization(JSON.parse(result.organization));
@@ -127,14 +127,14 @@ router.post('/', async (req, res) => {
       // TODO: Check if array is empty
       // TODO: Custom organization format
 
-      res.status(200).send(result);
+      return res.status(200).send(result);
     } catch (e) {
       throw new Error(e);
     }
   }());
 });
 
-// @route   GET /api/v1/organization/:rowid
+// @route   GET /api/v1/organizations/:rowid
 // @desc    Get an organization by rowid
 // @access  Private
 router.get('/:rowid', async (req, res) => {
@@ -172,7 +172,7 @@ router.get('/:rowid', async (req, res) => {
   }
 });
 
-// @route   PUT /api/v1/organization/:rowid
+// @route   PUT /api/v1/organizations/:rowid
 // @desc    Update an organization by rowid
 // @access  Private
 router.put('/:rowid', async (req, res) => {
@@ -215,7 +215,7 @@ router.put('/:rowid', async (req, res) => {
   }
 });
 
-// @route   DELETE /api/v1/organization/:rowid
+// @route   DELETE /api/v1/organizations/:rowid
 // @desc    Delete a organization by rowid
 // @access  Private
 router.delete('/:rowid', async (req, res) => {

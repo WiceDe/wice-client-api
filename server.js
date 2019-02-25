@@ -43,10 +43,10 @@ class Server {
       });
     });
 
-    this.app.use('/api/v1/user', user);
-    this.app.use('/api/v1/person', person);
-    this.app.use('/api/v1/organization', organization);
-    this.app.use('/api/v1/article', article);
+    this.app.use('/api/v1/users', user);
+    this.app.use('/api/v1/persons', person);
+    this.app.use('/api/v1/organizations', organization);
+    this.app.use('/api/v1/articles', article);
 
     log.info('Routes set.');
   }

@@ -51,7 +51,7 @@
     "CookieAuth": []
   }],
   "paths": {
-    "/api/v1/user/login": {
+    "/api/v1/users/login": {
       "post": {
         "tags": [
           "user"
@@ -87,7 +87,7 @@
         }
       }
     },
-    "/api/v1/person": {
+    "/api/v1/persons": {
       "get": {
         "tags": [
           "person"
@@ -146,7 +146,7 @@
         }
       }
     },
-    "/api/v1/person/{rowid}": {
+    "/api/v1/persons/{rowid}": {
       "get": {
         "tags": [
           "person"
@@ -225,7 +225,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -269,7 +269,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -280,7 +280,7 @@
         }
       }
     },
-    "/api/v1/organization": {
+    "/api/v1/organizations": {
       "get": {
         "tags": [
           "organization"
@@ -330,7 +330,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": ""
+                "$ref": "#/components/schemas/createOrganizationRequest"
               }
             }
           },
@@ -339,7 +339,7 @@
         }
       }
     },
-    "/api/v1/organization/{rowid}": {
+    "/api/v1/organizations/{rowid}": {
       "get": {
         "tags": [
           "organization"
@@ -418,7 +418,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -462,7 +462,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -473,7 +473,7 @@
         }
       }
     },
-    "/api/v1/article": {
+    "/api/v1/articles": {
       "get": {
         "tags": [
           "article"
@@ -532,7 +532,7 @@
         }
       }
     },
-    "/api/v1/article/{rowid}": {
+    "/api/v1/articles/{rowid}": {
       "get": {
         "tags": [
           "article"
@@ -611,7 +611,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -655,7 +655,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "example": "[false,false,false]"
+                  "example": ""
                 }
               }
             }
@@ -739,7 +739,92 @@
         "type": "array",
         "items": {
           "type": "object",
-          "properties": {}
+          "properties": {
+            "rowid": {
+              "type": "string",
+              "example": "821528"
+            },
+            "mandant": {
+              "type": "string",
+              "example": "821528"
+            },
+            "for_rowid": {
+              "type": "string",
+              "example": "821528"
+            },
+            "same_contactperson": {
+              "type": "string",
+              "example": "821528"
+            },
+            "name": {
+              "type": "string",
+              "example": "821528"
+            },
+            "firstName": {
+              "type": "string",
+              "example": "821528"
+            },
+            "email": {
+              "type": "string",
+              "example": "821528"
+            },
+            "title": {
+              "type": "string",
+              "example": "821528"
+            },
+            "salutation": {
+              "type": "string",
+              "example": "821528"
+            },
+            "birthday": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_street": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_street_number": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_zip_code": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_town": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_state": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_country": {
+              "type": "string",
+              "example": "821528"
+            },
+            "phone": {
+              "type": "string",
+              "example": "821528"
+            },
+            "fax": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_phone": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_mobile_phone": {
+              "type": "string",
+              "example": "821528"
+            },
+            "private_email": {
+              "type": "string",
+              "example": "821528"
+            }
+          }
         }
       },
       "createPersonRequest": {
@@ -763,7 +848,23 @@
           }
         }
       },
-
+      "createOrganizationRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Company Ltd."
+          },
+          "email": {
+            "type": "string",
+            "example": "info@company.com"
+          }
+        }
+      },
       "createPersonResponse": {
         "type": "object",
         "required": [
@@ -1000,74 +1101,6 @@
             "_v": {
               "type": "string",
               "example": "1"
-            }
-          }
-        }
-      },
-      "createOrganizationRequest": {
-        "type": "object",
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Wice GmbH"
-          },
-          "logo": {
-            "type": "string",
-            "example": "Logo"
-          },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "street": {
-                  "type": "string",
-                  "example": "Wendenstr"
-                },
-                "streetNumber": {
-                  "type": "string",
-                  "example": "120"
-                },
-                "unit": {
-                  "type": "string",
-                  "example": "Hammerbrook"
-                },
-                "zipcode": {
-                  "type": "string",
-                  "example": "20537"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "Hamburg"
-                },
-                "district": {
-                  "type": "string",
-                  "example": "HH-Hamburg"
-                },
-                "region": {
-                  "type": "string",
-                  "example": "Hamburg"
-                },
-                "country": {
-                  "type": "string",
-                  "example": "Germany"
-                },
-                "countryCode": {
-                  "type": "string",
-                  "example": "0049"
-                },
-                "primaryContact": {
-                  "type": "string",
-                  "example": "true"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Private Address"
-                }
-              }
             }
           }
         }
