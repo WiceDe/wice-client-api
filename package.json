@@ -9,8 +9,8 @@
     "start-dev": "nodemon index.js",
     "pretest": "eslint api tests --ext .js --ext .json",
     "lint-fix": "eslint api tests --ext .js --ext .json --fix",
-    "test": "nyc --reporter=html --reporter=text mocha tests/* --exit",
     "test-mocha": "mocha tests/*",
+    "test": "jest --detectOpenHandles",
     "test-watch": "nodemon --exec \"npm test\"",
     "test_jenkins": "jenkins-mocha tests/* --exit"
   },
@@ -32,9 +32,11 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-json": "^1.2.1",
     "eslint-plugin-mocha": "^5.2.0",
+    "jest": "^24.1.0",
     "mocha": "^5.2.0",
     "nock": "^9.6.1",
     "nyc": "^13.0.1",
+    "puppeteer": "^1.12.2",
     "supertest": "^3.3.0"
   },
   "nyc": {
