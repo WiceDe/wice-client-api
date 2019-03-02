@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer');
 let browser;
 let page;
 
-beforeEach(async () => {
+beforeAll(async () => {
   browser = await puppeteer.launch({
     headless: false,
     args: ['--disable-dev-shm-usage'],
@@ -16,9 +16,20 @@ beforeEach(async () => {
   await page.goto('localhost:5000');
 });
 
-afterEach(async () => {
-  await browser.close();
-});
+// Setup for each test
+// beforeEach(async () => {
+//   browser = await puppeteer.launch({
+//     headless: false,
+//     args: ['--disable-dev-shm-usage'],
+//   });
+//   page = await browser.newPage();
+//   await page.setViewport({ width: 1280, height: 1024 });
+//   await page.goto('localhost:5000');
+// });
+//
+// afterEach(async () => {
+//   // await browser.close();
+// });
 
 test('if the header has the correct subtitle', async () => {
   const desc = await page.$eval('.renderedMarkdown > p', el => el.innerHTML);
