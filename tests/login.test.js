@@ -1,19 +1,23 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
-
 const puppeteer = require('puppeteer');
 
+const width = 1920;
+const height = 1080;
 let browser;
 let page;
 
+// Setup page
 beforeAll(async () => {
   browser = await puppeteer.launch({
     headless: false,
-    args: ['--disable-dev-shm-usage'],
+    args: ['--disable-dev-shm-usage', `--window-size=${width},${height}`],
+    // slowMo: 10,
   });
   page = await browser.newPage();
-  await page.setViewport({ width: 1280, height: 1024 });
+  await page.setViewport({ width, height });
   await page.goto('localhost:5000');
+  await page.select('.servers > label:nth-child(1) > select:nth-child(1)', 'http://localhost:5000/');
 });
 
 // Setup for each test
