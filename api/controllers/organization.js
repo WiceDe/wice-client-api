@@ -108,7 +108,7 @@ router.post('/', async (req, res) => {
       return {
         organization,
         status: 'updated',
-        msg: 'Organization already exists!.',
+        msg: 'Organization already exists!',
       };
     } catch (e) {
       throw new Error(e);
