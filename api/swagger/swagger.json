@@ -687,10 +687,10 @@
     "url": "https://wice.de"
   },
   "servers": [{
-      "url": "http://localhost:5000/"
+      "url": "https://wicecrm-api.herokuapp.com/"
     },
     {
-      "url": "https://wicecrm-api.herokuapp.com/"
+      "url": "http://localhost:5000/"
     }
   ],
   "components": {
