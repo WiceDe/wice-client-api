@@ -683,12 +683,16 @@
     }
   },
   "externalDocs": {
-    "description": "Find out more about Snazzy Contacts",
-    "url": "https://snazzycontacts.com"
+    "description": "Find out more about Wice CRM",
+    "url": "https://wice.de"
   },
   "servers": [{
-    "url": "http://localhost:5000/"
-  }],
+      "url": "http://localhost:5000/"
+    },
+    {
+      "url": "https://wicecrm-api.herokuapp.com/"
+    }
+  ],
   "components": {
     "securitySchemes": {
       "ApiKeyAuth": {
@@ -878,7 +882,7 @@
         "properties": {
           "dto": {
             "type": "object",
-            "properties": { }
+            "properties": {}
           }
         }
       },
