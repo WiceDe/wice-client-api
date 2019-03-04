@@ -17,6 +17,37 @@ After you are already registered in [Wice CRM](https://wice.de/) you have to gen
 
 Once the activation is done you have an access to **API Key** which is required for an authentication when you make a request to [Wice CRM](https://wice.de/).
 
+## Installation
+To install the service locally run `npm install` to install all dependencies and then `npm start`. The service must be accessible on `http://localhost:5000/`.
+
 ## Authentication
 
 After you are successfully logged in, you receive a `cookie` which you have to send in the header as `wice-cookie` and don't forget to send your `APIKey` as `X-API-KEY` as well.
+
+## Endpoints
+
+At this point of time the API supports the following endpoints:
+
+###### User management
+- `​POST /api​/v1​/users​/login` - it returns `cookie` if login is successful
+
+###### Person actions
+- `GET /api​/v1​/persons` - it returns an array of objects with all persons
+- `​POST /api​/v1​/persons` - it returns the new created person
+- `GET /api​/v1​/persons/{rowid}` - it returns a person by a given `rowid`
+- `PUT /api​/v1​/persons/{rowid}` - it returns the updated person
+- `DELETE /api​/v1​/persons/{rowid}` - it returns the deleted person
+
+###### Organization actions
+- `GET /api​/v1​/organizations` - it returns an array of objects with all organizations
+- `​POST /api​/v1​/organizations` - it returns the new created organization
+- `GET /api​/v1​/organizations/{rowid}` - it returns an organization by a given `rowid`
+- `PUT /api​/v1​/organizations/{rowid}` - it returns the updated organization
+- `DELETE /api​/v1​/organizations/{rowid}` - it returns the deleted organization
+
+###### Article actions
+- `GET /api​/v1​/articles` - it returns an array of objects with all articles
+- `​POST /api​/v1​/articles` - it returns the new created article
+- `GET /api​/v1​/articles/{rowid}` - it returns an article by a given `rowid`
+- `PUT /api​/v1​/articles/{rowid}` - it returns the updated article
+- `DELETE /api​/v1​/articles/{rowid}` - it returns  the deleted article
