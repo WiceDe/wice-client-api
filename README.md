@@ -18,11 +18,16 @@ After you are already registered in [Wice CRM](https://wice.de/) you have to gen
 Once the activation is done you have an access to **API Key** which is required for an authentication when you make a request to [Wice CRM](https://wice.de/).
 
 ## Installation
-To install the service locally run `npm install` to install all dependencies and then `npm start`. The service must be accessible on `http://localhost:5000/`.
+To install the service locally run `npm install` to install all dependencies and then `npm start`. The service must be accessible on `http://localhost:5000/`
+
 
 ## Authentication
 
 After you are successfully logged in, you receive a `cookie` which you have to send in the header as `wice-cookie` and don't forget to send your `APIKey` as `X-API-KEY` as well.
+
+## Swagger
+
+You could test **Wice Client API** with [Swagger](https://swagger.io/) live on [wicecrm-api.herokuapp.com](https://wicecrm-api.herokuapp.com/)
 
 ## Endpoints
 
