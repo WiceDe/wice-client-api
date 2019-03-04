@@ -45,6 +45,9 @@
       "./tests"
     ]
   },
+  "engines": {
+    "node": "10.x"
+  },
   "author": "Shterion Yanev",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }
