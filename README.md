@@ -5,11 +5,11 @@
 
 ## Before you begin
 
-Before you can use our API you **must be a registered Wice CRM user**. Please visit the home page of [Wice CRM](https://wice.de/) to sign up.
+Before you can use our API you **must be a registered Wice CRM user**. Please visit the home page of [Wice CRM](https://wice.de/register) to sign up.
 > Any attempt to reach [Wice CRM](https://wice.de/) endpoints without registration will not be successful!
 
 After you are already registered in [Wice CRM](https://wice.de/) you have to generate your **API Key**.
-> For activation you **have to be logged in**, then click of ``Admin`` and under ```Plugins``` click of ``Wice OIH backend``. Once you are in click the button ``Create new`` to generate your API key.
+> For activation you **have to be logged in**, then click on ``Admin`` and under ```Plugins``` click on ``Wice Client API backend``. Once you are in, click on ``Create new`` to generate your API key.
 
 ![Administration](assets/Plugins.png)
 ***
@@ -51,3 +51,7 @@ At this point of time the API supports the following endpoints:
 - `GET /api​/v1​/articles/{rowid}` - it returns an article by a given `rowid`
 - `PUT /api​/v1​/articles/{rowid}` - it returns the updated article
 - `DELETE /api​/v1​/articles/{rowid}` - it returns  the deleted article
+
+## License
+
+Apache-2.0 © [Wice GmbH](https://wice.de/)
