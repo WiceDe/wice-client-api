@@ -33,6 +33,9 @@ router.get('/', async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
+      if (response.body.loop_addresses.length === 0) {
+        return res.status(response.statusCode).send('No persons found!');
+      }
 
       response.body.loop_addresses.filter((person) => {
         const currentPerson = customPerson(person);
