@@ -1,6 +1,5 @@
 const request = require('request-promise');
 const router = require('express').Router();
-const { uri } = require('../../config/keys');
 const { customPerson } = require('../../utils/customPerson');
 
 // @route   GET /api/v1/persons/
@@ -8,7 +7,8 @@ const { customPerson } = require('../../utils/customPerson');
 // @access  Private
 router.get('/', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
+  const cookie = req.headers['x-wice-cookie'];
+  const uri = req.server;
 
   const options = {
     method: 'POST',
@@ -54,6 +54,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const input = req.body;
+  const uri = req.server;
 
   const options = {
     method: 'POST',
@@ -120,7 +121,7 @@ router.post('/', async (req, res) => {
 
   (async function execute() {
     try {
-      const cookie = req.headers['wice-cookie'];
+      const cookie = req.headers['x-wice-cookie'];
       const existingRowid = await checkForExistingPerson(input, cookie);
       const result = await createOrUpdatePerson(existingRowid, cookie);
       result.person = customPerson(JSON.parse(result.person));
@@ -140,8 +141,9 @@ router.post('/', async (req, res) => {
 // @access  Private
 router.get('/:rowid', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
+  const cookie = req.headers['x-wice-cookie'];
   const { rowid } = req.params;
+  const uri = req.server;
 
   const options = {
     method: 'POST',
@@ -178,7 +180,8 @@ router.get('/:rowid', async (req, res) => {
 // @access  Private
 router.put('/:rowid', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
+  const cookie = req.headers['x-'];
+  const uri = req.server;
   const input = req.body;
   input.rowid = req.params.rowid;
 
@@ -221,7 +224,8 @@ router.put('/:rowid', async (req, res) => {
 // @access  Private
 router.delete('/:rowid', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['wice-cookie'];
+  const cookie = req.headers['x-wice-cookie'];
+  const uri = req.server;
 
   const input = {
     rowid: req.params.rowid,
