@@ -48,7 +48,8 @@
   ],
   "security": [{
     "ApiKeyAuth": [],
-    "CookieAuth": []
+    "CookieAuth": [],
+    "ServerAuth": []
   }],
   "paths": {
     "/api/v1/users/login": {
@@ -703,7 +704,12 @@
       "CookieAuth": {
         "type": "apiKey",
         "in": "header",
-        "name": "wice-cookie"
+        "name": "X-WICE-COOKIE"
+      },
+      "ServerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-WICE-SERVER"
       }
     },
     "schemas": {
