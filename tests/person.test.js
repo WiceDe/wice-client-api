@@ -45,10 +45,24 @@ test('if the header has the correct subtitle', async () => {
 });
 
 test('user login functionality', async (done) => {
+  // Open 'Authorize' popup
+  await page.click('.btn.authorize');
+  await page.waitForSelector('.modal-ux-content input');
+
+  // Input a server
+  const inputServer = '.modal-ux-content .auth-container:nth-child(3) input';
+  await page.$eval(inputServer, el => el.value = '');
+  await page.focus(inputServer);
+  await page.type(inputServer, 'oihwice.wice-net.de');
+  await page.click('.auth-container:nth-child(3) button');
+  await page.click('.auth-container:nth-child(3) .btn-done');
+  // await page.click('.auth-btn-wrapper:nth-child(3) button[type="submit"]');
+
   // Find login route and input login credentials
   const handle = '.opblock-summary.opblock-summary-post';
   const credentials = '{"mandant_name": "sandbox","username": "shterion","password": "d36adb53"}';
-  const apiKey = 'fsuogsi9p1im1gpnhvapjdtx94z46qye';
+  const apiKey = '                                      ';
+  // const apiKey = 'fsuogsi9p1im1gpnhvapjdtx94z46qye';
   await page.waitForSelector(handle);
   await page.click(handle);
   await page.waitForSelector('.try-out__btn');
@@ -69,8 +83,9 @@ test('user login functionality', async (done) => {
   expect(cookie.length).not.toEqual(0);
 
   // Open 'Authorize' popup
-  await page.click('.btn.authorize');
+  await page.click('.schemes .auth-wrapper .authorize');
   await page.waitForSelector('.modal-ux-content input');
+
   // Input API-KEY
   const inputApi = '.modal-ux-content input';
   await page.$eval(inputApi, el => el.value = '');
@@ -78,9 +93,10 @@ test('user login functionality', async (done) => {
   await page.type(inputApi, apiKey);
   await page.click('.modal-ux-content button[type="submit"]');
 
+
   // Input cookie
   // await page.waitForSelector('.modal-ux-content:nth-child(2) input');
-  const inputCookie = '.modal-ux-content:nth-child(2) input';
+  const inputCookie = '.modal-ux-content .auth-container:nth-child(2) input';
   await page.$eval(inputCookie, el => el.value = '');
   await page.focus(inputCookie);
   await page.type(inputCookie, cookie);
@@ -112,7 +128,7 @@ test('get all persons', async (done) => {
 
   // Check the last person
   const last = jsonResponse.length - 1;
-  expect(jsonResponse[last].rowid).toBe('414360');
+  expect(jsonResponse[last].rowid).toBe(414360);
   expect(jsonResponse[last].name).toBe('Soltero');
   expect(jsonResponse[last].firstname).toBe('Carlos ');
   expect(jsonResponse[last].email).toBe('');
@@ -144,11 +160,11 @@ test('get a single person by a rowid', async (done) => {
   expect(jsonResponse).toBeInstanceOf(Object);
 
   // // Check property values for the specific person
-  expect(jsonResponse.rowid).toBe('414426');
+  expect(jsonResponse.rowid).toBe(414426);
   expect(jsonResponse.name).toBe('Monica');
   expect(jsonResponse.firstname).toBe('Federle');
   expect(jsonResponse.email).toBe('');
-  expect(jsonResponse.same_contactperson).toBe('0');
+  expect(jsonResponse.same_contactperson).toBe(0);
   // expect(jsonResponse.deactivated).toBe('0');
 
   // Close the toggle
@@ -156,7 +172,7 @@ test('get a single person by a rowid', async (done) => {
   await page.click('a[href="#/person/get_api_v1_persons__rowid_"]');
   done();
 }, 8000);
-
+//
 test('create a person', async (done) => {
 // Find the route for getting a single person
   // const handle = 'tr[data-param-name="rowid"] input';
