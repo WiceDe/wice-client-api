@@ -23,7 +23,9 @@ describe('/ - Wice CRM API Documentation', () => {
       .get('/')
       .then((res) => {
         expect(res.text).to.not.be.empty;
-        expect(res.text).to.contain('HTML for static distribution bundle build');
+        expect(res.text).to.contain(
+          'HTML for static distribution bundle build',
+        );
       })
       .catch((err) => {
         log.debug(err);

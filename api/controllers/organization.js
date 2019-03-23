@@ -1,3 +1,4 @@
+/* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
 const { customOrganization } = require('../../utils/customOrganization');
