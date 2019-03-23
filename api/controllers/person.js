@@ -1,6 +1,8 @@
+/* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
 const { customPerson } = require('../../utils/customPerson');
+
 
 // @route   GET /api/v1/persons/
 // @desc    Get all persons
@@ -19,8 +21,7 @@ router.get('/', async (req, res) => {
       cookie,
     },
     headers: {
-      'X-API-KEY':
-       apiKey,
+      'X-API-KEY': apiKey,
     },
     json: true,
     resolveWithFullResponse: true,
@@ -180,7 +181,7 @@ router.get('/:rowid', async (req, res) => {
 // @access  Private
 router.put('/:rowid', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
-  const cookie = req.headers['x-'];
+  const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
   const input = req.body;
   input.rowid = req.params.rowid;
@@ -199,7 +200,6 @@ router.put('/:rowid', async (req, res) => {
     json: true,
     resolveWithFullResponse: true,
   };
-
 
   try {
     const response = await request(options);
