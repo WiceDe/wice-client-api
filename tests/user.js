@@ -11,14 +11,10 @@ const request = require('supertest');
 const server = require('../index.js');
 const log = require('../api/utils/logger');
 
-// const {
-//   loginUser,
-// } = require('./seed/user.seed');
-
 chai.use(chaiHttp);
 
 describe('/ - Wice CRM API Documentation', () => {
-  it('should display the swagger-generated HTML page', (done) => {
+  test('should display the swagger-generated HTML page', (done) => {
     request(server)
       .get('/')
       .then((res) => {
