@@ -5,7 +5,9 @@ process.env.NODE_ENV = 'test';
 
 // const nock = require('nock');
 const chai = require('chai');
-const { expect } = require('chai');
+const {
+  expect,
+} = require('chai');
 const chaiHttp = require('chai-http');
 const request = require('supertest');
 const server = require('../index.js');
