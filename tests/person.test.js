@@ -47,10 +47,10 @@ test('if the header has the correct subtitle', async () => {
 
 test('user login functionality', async (done) => {
   const credentials = {
-    mandant_name: keys.mandant_name,
-    username: keys.username,
-    password: keys.password,
-    apiKey: keys.apiKey,
+    mandant_name: process.env.MANDANT_NAME || keys.mandant_name,
+    username: process.env.USERNAME || keys.username,
+    password: process.env.PASSWORD || keys.password,
+    apiKey: process.env.API_KEY || keys.apiKey,
   };
   // Open 'Authorize' popup
   await page.click('.btn.authorize');
