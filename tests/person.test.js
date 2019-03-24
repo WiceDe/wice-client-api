@@ -1,7 +1,7 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
 const puppeteer = require('puppeteer');
-const keys = require('../config/keys.json');
+const keys = require('../config/keys.js');
 
 const width = 1920;
 const height = 1080;
@@ -46,6 +46,12 @@ test('if the header has the correct subtitle', async () => {
 });
 
 test('user login functionality', async (done) => {
+  const credentials = {
+    mandant_name: keys.mandant_name,
+    username: keys.username,
+    password: keys.password,
+    apiKey: keys.apiKey,
+  };
   // Open 'Authorize' popup
   await page.click('.btn.authorize');
   await page.waitForSelector('.modal-ux-content input');
@@ -61,7 +67,7 @@ test('user login functionality', async (done) => {
 
   // Find login route and input login credentials
   const handle = '.opblock-summary.opblock-summary-post';
-  const credentials = JSON.stringify(keys);
+  const inputCredentials = JSON.stringify(credentials);
   const apiKey = '                                      ';
   // const apiKey = keys.apiKey;
   await page.waitForSelector(handle);
@@ -71,7 +77,7 @@ test('user login functionality', async (done) => {
   await page.waitForSelector('.body-param__text');
   await page.focus('.body-param__text');
   await page.$eval('.body-param__text', el => el.value = '');
-  await page.type('.body-param__text', credentials);
+  await page.type('.body-param__text', inputCredentials);
   await page.click('.opblock-control__btn');
 
   // Get the cookie from response
