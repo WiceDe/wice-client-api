@@ -1,6 +1,7 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
 const puppeteer = require('puppeteer');
+const keys = require('../config/keys.json');
 
 const width = 1920;
 const height = 1080;
@@ -60,9 +61,9 @@ test('user login functionality', async (done) => {
 
   // Find login route and input login credentials
   const handle = '.opblock-summary.opblock-summary-post';
-  const credentials = '{"mandant_name": "sandbox","username": "shterion","password": "d36adb53"}';
+  const credentials = JSON.stringify(keys);
   const apiKey = '                                      ';
-  // const apiKey = 'fsuogsi9p1im1gpnhvapjdtx94z46qye';
+  // const apiKey = keys.apiKey;
   await page.waitForSelector(handle);
   await page.click(handle);
   await page.waitForSelector('.try-out__btn');
