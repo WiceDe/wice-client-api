@@ -3,7 +3,7 @@ process.env.NODE_CONFIG_DIR = './config';
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
-const { verifyServer } = require('./api/utils/verifyServer');
+const { verifyServer } = require('./middlewares/verifyServer');
 const swaggerDocument = require('./api/swagger/swagger.json');
 const log = require('./api/utils/logger');
 
