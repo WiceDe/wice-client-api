@@ -101,7 +101,6 @@ test('user login functionality', async (done) => {
   await page.type(inputApi, apiKey);
   await page.click('.modal-ux-content button[type="submit"]');
 
-
   // Input cookie
   // await page.waitForSelector('.modal-ux-content:nth-child(2) input');
   const inputCookie = '.modal-ux-content .auth-container:nth-child(2) input';
