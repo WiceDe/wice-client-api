@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-const { customOrganization } = require('../../utils/customOrganization');
+const { customOrganization } = require('../utils/customOrganization');
 
 // @route   GET /api/v1/organizations/
 // @desc    Get all organizations

@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-const { customPerson } = require('../../utils/customPerson');
+const { customPerson } = require('../utils/customPerson');
 
 
 // @route   GET /api/v1/persons/

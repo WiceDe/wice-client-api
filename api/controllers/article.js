@@ -1,6 +1,6 @@
 const request = require('request-promise');
 const router = require('express').Router();
-const { customArticle } = require('../../utils/customArticle');
+const { customArticle } = require('../utils/customArticle');
 
 // @route   GET /api/v1/articles/
 // @desc    Get all articles
