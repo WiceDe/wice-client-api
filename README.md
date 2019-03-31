@@ -2,10 +2,9 @@
 
 [Wice CRM](https://wice.de/) is a CRM Software which offers different modules for address management, tasks management, project management, calendars and a knowledge base for knowledge management. The software could be used to manage sales opportunities and offers too. In addition, [Wice CRM](https://wice.de/) offers the possibility to manage and create invoices, open items and incoming payments.
 
-
 ## Before you begin
 
-Before you can use our API you **must be a registered Wice CRM user**. Please visit the home page of [Wice CRM](https://wice.de/register) to sign up.
+Before you can use Wice Client API you **must be a registered Wice CRM user**. Please visit the home page of [Wice CRM](https://wice.de/register) to sign up.
 > Any attempt to reach [Wice CRM](https://wice.de/) endpoints without registration will not be successful!
 
 After you are already registered in [Wice CRM](https://wice.de/) you have to generate your **API Key**.
@@ -23,11 +22,16 @@ To install the service locally run `npm install` to install all dependencies and
 
 ## Authentication
 
-After you are successfully logged in, you receive a `cookie` which you have to send in the header as `wice-cookie` and don't forget to send your `APIKey` as `X-API-KEY` as well.
+Wice Client API expects a custom header - `X-WICE-SERVER`. This means that each request to Wice Client API must contain the header `X-WICE-SERVER` which is the server your are sending the request to. The header should look like:
+- `X-WICE-SERVER`: [demo.wice-net.de](https://demo.wice-net.de/)
+- `X-WICE-SERVER`: [node62.wice-net.de](https://node62.wice-net.de)  
+
+After you are successfully logged in, you receive a `cookie` which you have to attach in each request in the header as `X-WICE-COOKIE` and the server you pointing to - `X-WICE-SERVER`. Don't forget to send your `APIKey` as `X-API-KEY` as well.
 
 ## Swagger
 
-You could test **Wice Client API** with [Swagger](https://swagger.io/) live on [wicecrm-api.herokuapp.com](https://wicecrm-api.herokuapp.com/)
+You could test **Wice Client API** with [Swagger](https://swagger.io/) on [wicecrm-api.herokuapp.com](https://wicecrm-api.herokuapp.com/).
+First you have to specify the server, which you are sending your requests to. You could save your headers in the section **'Authorize'** - `X-WICE-SERVER`, `X-WICE-COOKIE` and `X-WICE-KEY`.
 
 ## Endpoints
 
