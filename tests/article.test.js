@@ -40,86 +40,87 @@ beforeAll(async () => {
 //   // await browser.close();
 // });
 
-test('if the header has the correct subtitle', async () => {
-  const desc = await page.$eval('.renderedMarkdown > p', el => el.innerHTML);
-  expect(desc).toEqual('This is a client API for Wice CRM');
-});
-
-test('user login functionality', async (done) => {
-  const credentials = {
-    mandant_name: keys.mandant_name,
-    username: keys.username,
-    password: keys.password,
-    apiKey: keys.apiKey,
-  };
-
-  // Open 'Authorize' popup
-  await page.click('.btn.authorize');
-  await page.waitForSelector('.modal-ux-content input');
-
-  // Input a server
-  const inputServer = '.modal-ux-content .auth-container:nth-child(3) input';
-  await page.$eval(inputServer, el => el.value = '');
-  await page.focus(inputServer);
-  await page.type(inputServer, 'oihwice.wice-net.de');
-  await page.click('.auth-container:nth-child(3) button');
-  await page.click('.auth-container:nth-child(3) .btn-done');
-  // await page.click('.auth-btn-wrapper:nth-child(3) button[type="submit"]');
-
-  // Find login route and input login credentials
-  const handle = '.opblock-summary.opblock-summary-post';
-  const inputCredentials = JSON.stringify(credentials);
-  const apiKey = '                                      ';
-  // const apiKey = keys.apiKey;
-  await page.waitForSelector(handle);
-  await page.click(handle);
-  await page.waitForSelector('.try-out__btn');
-  await page.click('.try-out__btn');
-  await page.waitForSelector('.body-param__text');
-  await page.focus('.body-param__text');
-  await page.$eval('.body-param__text', el => el.value = '');
-  await page.type('.body-param__text', inputCredentials);
-  await page.click('.opblock-control__btn');
-
-  // Get the cookie from response
-  const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
-  const response = await page.evaluate(el => el.textContent, element);
-  const jsonResponse = JSON.parse(response);
-  const { cookie } = jsonResponse;
-  expect(response).toContain('cookie');
-  expect(cookie).toBeTruthy();
-  expect(cookie.length).not.toEqual(0);
-
-  // Open 'Authorize' popup
-  await page.click('.schemes .auth-wrapper .authorize');
-  await page.waitForSelector('.modal-ux-content input');
-
-  // Input API-KEY
-  const inputApi = '.modal-ux-content input';
-  await page.$eval(inputApi, el => el.value = '');
-  await page.focus(inputApi);
-  await page.type(inputApi, apiKey);
-  await page.click('.modal-ux-content button[type="submit"]');
-
-  // Input cookie
-  // await page.waitForSelector('.modal-ux-content:nth-child(2) input');
-  const inputCookie = '.modal-ux-content .auth-container:nth-child(2) input';
-  await page.$eval(inputCookie, el => el.value = '');
-  await page.focus(inputCookie);
-  await page.type(inputCookie, cookie);
-  // await page.waitForSelector('.modal-ux-content:nth-child(2) button[type="submit"]');
-  await page.click('.modal-ux-content:nth-child(2) button[type="submit"]');
-  await page.click('.modal-ux-content .btn-done');
-  await page.click('.opblock-summary-path');
-  done();
-}, 8000);
+// test('if the header has the correct subtitle', async () => {
+//   const desc = await page.$eval('.renderedMarkdown > p', el => el.innerHTML);
+//   expect(desc).toEqual('This is a client API for Wice CRM');
+// });
+//
+// test('user login functionality', async (done) => {
+//   const credentials = {
+//     mandant_name: keys.mandant_name,
+//     username: keys.username,
+//     password: keys.password,
+//     apiKey: keys.apiKey,
+//   };
+//
+//   // Open 'Authorize' popup
+//   await page.click('.btn.authorize');
+//   await page.waitForSelector('.modal-ux-content input');
+//
+//   // Input a server
+//   const inputServer = '.modal-ux-content .auth-container:nth-child(3) input';
+//   await page.$eval(inputServer, el => el.value = '');
+//   await page.focus(inputServer);
+//   await page.type(inputServer, 'oihwice.wice-net.de');
+//   await page.click('.auth-container:nth-child(3) button');
+//   await page.click('.auth-container:nth-child(3) .btn-done');
+//   // await page.click('.auth-btn-wrapper:nth-child(3) button[type="submit"]');
+//
+//   // Find login route and input login credentials
+//   const handle = '.opblock-summary.opblock-summary-post';
+//   const inputCredentials = JSON.stringify(credentials);
+//   const apiKey = '                                      ';
+//   // const apiKey = keys.apiKey;
+//   await page.waitForSelector(handle);
+//   await page.click(handle);
+//   await page.waitForSelector('.try-out__btn');
+//   await page.click('.try-out__btn');
+//   await page.waitForSelector('.body-param__text');
+//   await page.focus('.body-param__text');
+//   await page.$eval('.body-param__text', el => el.value = '');
+//   await page.type('.body-param__text', inputCredentials);
+//   await page.click('.opblock-control__btn');
+//
+//   // Get the cookie from response
+//   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
+//   const response = await page.evaluate(el => el.textContent, element);
+//   const jsonResponse = JSON.parse(response);
+//   const { cookie } = jsonResponse;
+//   expect(response).toContain('cookie');
+//   expect(cookie).toBeTruthy();
+//   expect(cookie.length).not.toEqual(0);
+//
+//   // Open 'Authorize' popup
+//   await page.click('.schemes .auth-wrapper .authorize');
+//   await page.waitForSelector('.modal-ux-content input');
+//
+//   // Input API-KEY
+//   const inputApi = '.modal-ux-content input';
+//   await page.$eval(inputApi, el => el.value = '');
+//   await page.focus(inputApi);
+//   await page.type(inputApi, apiKey);
+//   await page.click('.modal-ux-content button[type="submit"]');
+//
+//   // Input cookie
+//   // await page.waitForSelector('.modal-ux-content:nth-child(2) input');
+//   const inputCookie = '.modal-ux-content .auth-container:nth-child(2) input';
+//   await page.$eval(inputCookie, el => el.value = '');
+//   await page.focus(inputCookie);
+//   await page.type(inputCookie, cookie);
+//   // await page.waitForSelector('.modal-ux-content:nth-child(2) button[type="submit"]');
+//   await page.click('.modal-ux-content:nth-child(2) button[type="submit"]');
+//   await page.click('.modal-ux-content .btn-done');
+//   await page.click('.opblock-summary-path');
+//   done();
+// }, 8000);
 
 test('get all articless', async (done) => {
   // Find the route for getting persons
   // TODO: change handle
-  const handle = '#operations-person-get_api_v1_persons';
+  const handle = '#operations-article-get_api_v1_articles';
   await page.waitForSelector(handle);
   await page.click(handle);
+  // TODO: Make sure that the right submit button is clicked because it has the same class
   await page.waitForSelector('.try-out__btn');
   await page.click('.try-out__btn');
   await page.click('.execute');
@@ -136,6 +137,7 @@ test('get all articless', async (done) => {
 
   // Check the last articles
   const last = jsonResponse.length - 1;
+  // TODO: Get the right response after execution
   expect(jsonResponse[last].rowid).toBe(414360);
   expect(jsonResponse[last].name).toBe('Soltero');
   expect(jsonResponse[last].firstname).toBe('Carlos ');
@@ -143,23 +145,25 @@ test('get all articless', async (done) => {
 
   // Close the toggle
   // TODO: change the selector and click event attribute
-  await page.waitForSelector('a[href="#/person/get_api_v1_persons"]');
-  await page.click('a[href="#/person/get_api_v1_persons"]');
+  await page.waitForSelector('a[href="#/article/get_api_v1_articles"]');
+  await page.click('a[href="#/article/get_api_v1_articles"]');
   done();
 }, 8000);
 
 test('get a single article by a rowid', async (done) => {
-  // Find the route for getting a single person
+  // Find the route for getting a single article
   // TODO: change the route for articles
-  const route = '#operations-person-get_api_v1_persons__rowid_';
+  const route = '#operations-article-get_api_v1_persons__rowid_';
   const handle = 'tr[data-param-name="rowid"] input';
   await page.waitForSelector(route);
   await page.click(route);
+  // Make sure the click the right button because of class repitition
   await page.waitForSelector('.try-out__btn');
   await page.click('.try-out__btn');
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
+  // TODO: change the rowid with an article rowid
   await page.type(handle, '414426');
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
@@ -171,6 +175,7 @@ test('get a single article by a rowid', async (done) => {
 
   // // Check property values for the specific article
   // TODO: change assertions to match expect values
+  // TODO: Get the real values from the repsosnse
   expect(jsonResponse.rowid).toBe(414426);
   expect(jsonResponse.name).toBe('Monica');
   expect(jsonResponse.firstname).toBe('Federle');
@@ -181,8 +186,8 @@ test('get a single article by a rowid', async (done) => {
 
   // Close the toggle
   // TODO: change selector and click event
-  await page.waitForSelector('a[href="#/person/get_api_v1_persons__rowid_"]');
-  await page.click('a[href="#/person/get_api_v1_persons__rowid_"]');
+  await page.waitForSelector('a[href="#/article/get_api_v1_articles__rowid_"]');
+  await page.click('a[href="#/article/get_api_v1_persons__rowid_"]');
   done();
 }, 8000);
 //
@@ -190,17 +195,18 @@ test('create an article', async (done) => {
   // Find the route for getting a single article
   // const handle = 'tr[data-param-name="rowid"] input';
   // TODO: Create an article object for creation
-  const article = '{"firstname": "John", "name": "Doe", "email": "jdoe@mail.com"}';
+  const article = '{"description": "Sound System Bose", "price": "550", "amount": "10"}';
   // TODO: Change the route
-  const route = '#operations-person-post_api_v1_persons';
+  const route = '#operations-article-post_api_v1_articles';
   await page.waitForSelector(route);
   await page.click(route);
+  // TODO: make sure the rigt submit buttons is clicked because it has the same class
   await page.waitForSelector('.try-out__btn');
   await page.click('.try-out__btn');
   await page.waitForSelector('.body-param__text');
   await page.focus('.body-param__text');
   await page.$eval('.body-param__text', el => el.value = '');
-  await page.type('.body-param__text', person);
+  await page.type('.body-param__text', article);
   await page.click('.opblock-control__btn');
 
   // Get the response
@@ -208,15 +214,14 @@ test('create an article', async (done) => {
   const response = await page.evaluate(el => el.textContent, element);
   const jsonResponse = JSON.parse(response);
   // TODO: Change asseriotns to match the resposnse
-  expect(jsonResponse.person.rowid).not.toBe('');
-  expect(jsonResponse.person.for_rowid).not.toBe('');
+  expect(jsonResponse.article.rowid).not.toBe('');
   expect(jsonResponse.status).toBe('updated');
-  expect(jsonResponse.msg).toBe('Person already exists!');
+  expect(jsonResponse.msg).toBe('Article already exists!');
 
   // Close the toggle
   // TODO: change selector and click event
-  await page.waitForSelector('#operations-person-post_api_v1_persons > .opblock-summary-post');
-  await page.click('#operations-person-post_api_v1_persons > .opblock-summary-post');
+  await page.waitForSelector('#operations-article-post_api_v1_articles > .opblock-summary-post');
+  await page.click('#operations-article-post_api_v1_persons > .opblock-summary-post');
   done();
 }, 8000);
 
@@ -225,7 +230,7 @@ test('update a single article', async (done) => {
   // TODO: create article object which must be updated
   const article = '{"name": "Monica"}';
   // TODO: Change the route to article
-  const route = '#operations-person-put_api_v1_persons__rowid_';
+  const route = '#operations-article-put_api_v1_articles__rowid_';
   const handle = 'tr[data-param-name="rowid"] input';
   await page.waitForSelector(route);
   await page.click(route);
@@ -246,21 +251,22 @@ test('update a single article', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Object);
 
-  //  Check property values for the specific article
+  // Check property values for the specific article
+  // TODO: change the rowid from the reposnse
   expect(jsonResponse.rowid).toBe('414426');
   expect(jsonResponse.status).toBe('updated');
 
   // Close the toggle
   // TODO: change the selector and the click event
-  await page.waitForSelector('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
-  await page.click('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
+  await page.waitForSelector('#operations-article-put_api_v1_articles__rowid_ > .opblock-summary-put');
+  await page.click('#operations-article-put_api_v1_articles__rowid_ > .opblock-summary-put');
   done();
 }, 8000);
 
 test('delete a single article', async (done) => {
   // Find the route for deleting an article
   // TODO: change the route
-  const route = '#operations-person-delete_api_v1_persons__rowid_';
+  const route = '#operations-article-delete_api_v1_articles__rowid_';
   const handle = 'tr[data-param-name="rowid"] input';
   await page.waitForSelector(route);
   await page.click(route);
@@ -286,7 +292,7 @@ test('delete a single article', async (done) => {
 
   // Close the toggle
   // TODO: change selector and click event attribute
-  await page.waitForSelector('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
-  await page.click('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
+  await page.waitForSelector('#operations-article-delete_api_v1_articles__rowid_ > .opblock-summary-delete');
+  await page.click('#operations-article-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
   done();
 }, 8000);
