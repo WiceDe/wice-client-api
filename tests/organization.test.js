@@ -115,38 +115,34 @@ test('user login functionality', async (done) => {
   done();
 }, 8000);
 
-// test('get all organizations', async (done) => {
-//   // Find the route for getting persons
-//   const handle = '#operations-organization-get_api_v1_organizations';
-//   await page.waitForSelector(handle);
-//   await page.click(handle);
-//   await page.waitForSelector('.try-out__btn');
-//   await page.click('.try-out__btn');
-//   await page.click('.execute');
-//   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
-//   const response = await page.evaluate(el => el.textContent, element);
-//   const jsonResponse = JSON.parse(response);
-//   expect(jsonResponse).toBeInstanceOf(Array);
-//
-//   // Check for a specific organization
-//   // expect(jsonResponse[3].rowid).toBe('414426');
-//   // expect(jsonResponse[3].name).toBe('Monica');
-//   // expect(jsonResponse[3].firstname).toBe('Federle');
-//   // expect(jsonResponse[3].email).toBe('');
-//
-//   // Check the last organization
-//   const last = jsonResponse.length - 1;
-//   console.log(last);
-//   // expect(jsonResponse[last].rowid).toBe(414360);
-//   // expect(jsonResponse[last].name).toBe('Soltero');
-//   // expect(jsonResponse[last].firstname).toBe('Carlos ');
-//   // expect(jsonResponse[last].email).toBe('');
-//
-//   // Close the toggle
-//   await page.waitForSelector('a[href="#/organization/get_api_v1_organizations"]');
-//   await page.click('a[href="#/organization/get_api_v1_organizations"]');
-//   done();
-// }, 8000);
+test('get all organizations', async (done) => {
+  // Find the route for getting persons
+  const handle = '#operations-organization-get_api_v1_organizations';
+  await page.waitForSelector(handle);
+  await page.click(handle);
+  await page.waitForSelector('.try-out__btn');
+  await page.click('.try-out__btn');
+  await page.click('.execute');
+  const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
+  const response = await page.evaluate(el => el.textContent, element);
+  const jsonResponse = JSON.parse(response);
+  expect(jsonResponse).toBeInstanceOf(Array);
+
+  // Check for a specific organization
+  // expect(jsonResponse[3].rowid).toBe('414426');
+  // expect(jsonResponse[3].name).toBe('Monica');
+  // expect(jsonResponse[3].firstname).toBe('Federle');
+  // expect(jsonResponse[3].email).toBe('');
+
+  // Check the last organization
+  const last = jsonResponse.length - 1;
+  console.log(jsonResponse[last]);
+
+  // Close the toggle
+  await page.waitForSelector('a[href="#/organization/get_api_v1_organizations"]');
+  await page.click('a[href="#/organization/get_api_v1_organizations"]');
+  done();
+}, 8000);
 
 // test('get a single person by a rowid', async (done) => {
 //   // Find the route for getting a single person
