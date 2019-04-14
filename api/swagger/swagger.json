@@ -295,7 +295,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": ""
+                  "$ref": "#/components/schemas/getOrganizationResponse"
                 }
               }
             }
@@ -1036,81 +1036,60 @@
         "items": {
           "type": "object",
           "properties": {
-            "_id": {
+            "rowid": {
               "type": "string",
-              "example": "5b9a5113d76e887b8d59120a"
+              "example": "821528"
+            },
+            "mandant": {
+              "type": "string",
+              "example": "821528"
+            },
+            "for_rowid": {
+              "type": "string",
+              "example": "821528"
             },
             "name": {
               "type": "string",
-              "example": "Wice GmbH"
+              "example": "Company Ltd."
             },
-            "logo": {
+            "email": {
               "type": "string",
-              "example": "Logo"
+              "example": "info@company.com"
             },
-            "uid": {
+            "street": {
               "type": "string",
-              "example": "3gbbj1jmg24hmh"
+              "example": "Main Str."
             },
-            "addresses": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "uid": {
-                    "type": "string",
-                    "example": "3gbbu1jmkewc87"
-                  },
-                  "street": {
-                    "type": "string",
-                    "example": "Wendenstr"
-                  },
-                  "streetNumber": {
-                    "type": "string",
-                    "example": "120"
-                  },
-                  "unit": {
-                    "type": "string",
-                    "example": "Hammerbrook"
-                  },
-                  "zipcode": {
-                    "type": "string",
-                    "example": "20537"
-                  },
-                  "city": {
-                    "type": "string",
-                    "example": "Hamburg"
-                  },
-                  "district": {
-                    "type": "string",
-                    "example": "HH-Hamburg"
-                  },
-                  "region": {
-                    "type": "string",
-                    "example": "Hamburg"
-                  },
-                  "country": {
-                    "type": "string",
-                    "example": "Germany"
-                  },
-                  "countryCode": {
-                    "type": "string",
-                    "example": "0049"
-                  },
-                  "primaryContact": {
-                    "type": "string",
-                    "example": "true"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "Public Address"
-                  }
-                }
-              }
-            },
-            "_v": {
+            "street_number": {
               "type": "string",
-              "example": "1"
+              "example": "441"            },
+            "zip_code": {
+              "type": "string",
+              "example": "821528"
+            },
+            "p_o_box": {
+              "type": "string",
+              "example": "B41C"
+            },
+            "town": {
+              "type": "string",
+              "example": "New York City"
+            },
+            "state": {
+              "type": "string",
+              "example": "New York"
+            },
+            "country": {
+              "type": "string",
+              "example": "USA"
+            },
+            "phone": {
+              "type": "string",
+              "example": "82152587588"
+            },
+            "fax": {
+              "type": "string",
+              "example": "82759871528"
             }
           }
         }
