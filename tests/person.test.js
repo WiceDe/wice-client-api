@@ -210,7 +210,7 @@ test('create a person', async (done) => {
   done();
 }, 8000);
 
-test('update single person by', async (done) => {
+test('update a single person', async (done) => {
   // Find the route for updating a person
   const person = '{"name": "Monica"}';
   const route = '#operations-person-put_api_v1_persons__rowid_';
@@ -244,7 +244,7 @@ test('update single person by', async (done) => {
   done();
 }, 8000);
 
-test('delete single person by', async (done) => {
+test('delete a single person', async (done) => {
   // Find the route for deleting a person
   const route = '#operations-person-delete_api_v1_persons__rowid_';
   const handle = 'tr[data-param-name="rowid"] input';
