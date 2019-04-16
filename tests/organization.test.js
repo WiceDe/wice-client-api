@@ -22,9 +22,9 @@ beforeAll(async () => {
   await page.select('.servers > label:nth-child(1) > select:nth-child(1)', 'http://localhost:5000/');
 });
 
-// afterAll(async () => {
-//   await browser.close();
-// });
+afterAll(async () => {
+  await browser.close();
+});
 
 // Setup for each test
 // beforeEach(async () => {
@@ -46,7 +46,7 @@ beforeAll(async () => {
 //   expect(desc).toEqual('This is a client API for Wice CRM');
 // });
 //
-test('user login functionality', async (done) => {
+test('Organization - user login functionality', async (done) => {
   const credentials = {
     mandant_name: keys.mandant_name,
     username: keys.username,
@@ -113,7 +113,7 @@ test('user login functionality', async (done) => {
   await page.click('.modal-ux-content .btn-done');
   await page.click('.opblock-summary-path');
   done();
-}, 8000);
+}, 10000);
 
 test('get all organizations', async (done) => {
   // Find the route for getting persons
@@ -128,25 +128,23 @@ test('get all organizations', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Array);
 
-  // Check for a specific organization
-  // expect(jsonResponse[3].rowid).toBe('414426');
-  // expect(jsonResponse[3].name).toBe('Monica');
-  // expect(jsonResponse[3].firstname).toBe('Federle');
-  // expect(jsonResponse[3].email).toBe('');
-
   // Check the last organization
   const last = jsonResponse.length - 1;
-  console.log(jsonResponse[last]);
+
+  // Check for a specific organization
+  expect(jsonResponse[last].rowid).toBe(368085);
+  expect(jsonResponse[last].name).toBe('Test 3');
+  expect(jsonResponse[last].email).toBe('test3@email.com');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/organization/get_api_v1_organizations"]');
   await page.click('a[href="#/organization/get_api_v1_organizations"]');
   done();
-}, 8000);
+}, 10000);
 
-test('get a single person by a rowid', async (done) => {
+test('get a single organization by a rowid', async (done) => {
   // Find the route for getting a single person
-  const route = '#operations-person-get_api_v1_persons__rowid_';
+  const route = '#operations-organization-get_api_v1_organizations__rowid_';
   const handle = 'tr[data-param-name="rowid"] input';
   await page.waitForSelector(route);
   await page.click(route);
@@ -155,7 +153,7 @@ test('get a single person by a rowid', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '414426');
+  await page.type(handle, '368085');
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
 
@@ -164,51 +162,48 @@ test('get a single person by a rowid', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Object);
 
-  // // Check property values for the specific person
-  expect(jsonResponse.rowid).toBe(414426);
-  expect(jsonResponse.name).toBe('Monica');
-  expect(jsonResponse.firstname).toBe('Federle');
-  expect(jsonResponse.email).toBe('');
-  expect(jsonResponse.same_contactperson).toBe(0);
-  // expect(jsonResponse.deactivated).toBe('0');
+  // // Check property values for the specific organization
+  expect(jsonResponse.rowid).toBe(368085);
+  expect(jsonResponse.name).toBe('Test 3');
+  expect(jsonResponse.email).toBe('test3@email.com');
 
   // Close the toggle
-  await page.waitForSelector('a[href="#/person/get_api_v1_persons__rowid_"]');
-  await page.click('a[href="#/person/get_api_v1_persons__rowid_"]');
+  await page.waitForSelector('a[href="#/organization/get_api_v1_organizations__rowid_"]');
+  await page.click('a[href="#/organization/get_api_v1_organizations__rowid_"]');
   done();
-}, 8000);
-// //
-// test('create a person', async (done) => {
-// // Find the route for getting a single person
-//   // const handle = 'tr[data-param-name="rowid"] input';
-//   const person = '{"firstname": "John", "name": "Doe", "email": "jdoe@mail.com"}';
-//   const route = '#operations-person-post_api_v1_persons';
-//   await page.waitForSelector(route);
-//   await page.click(route);
-//   await page.waitForSelector('.try-out__btn');
-//   await page.click('.try-out__btn');
-//   await page.waitForSelector('.body-param__text');
-//   await page.focus('.body-param__text');
-//   await page.$eval('.body-param__text', el => el.value = '');
-//   await page.type('.body-param__text', person);
-//   await page.click('.opblock-control__btn');
+}, 10000);
+
+test('create an organization', async (done) => {
+// Find the route for getting a single organization
+  // const handle = 'tr[data-param-name="rowid"] input';
+  const organization = '{"name": "Your Company Ltd.", "email": "info@yourcompany.com"}';
+  const route = '#operations-organization-post_api_v1_organizations';
+  await page.waitForSelector(route);
+  await page.click(route);
+  await page.waitForSelector('.try-out__btn');
+  await page.click('.try-out__btn');
+  await page.waitForSelector('.body-param__text');
+  await page.focus('.body-param__text');
+  await page.$eval('.body-param__text', el => el.value = '');
+  await page.type('.body-param__text', organization);
+  await page.click('.opblock-control__btn');
+
+  // Get the response
+  const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
+  const response = await page.evaluate(el => el.textContent, element);
+  const jsonResponse = JSON.parse(response);
+  expect(jsonResponse.organization.rowid).not.toBe('');
+  expect(jsonResponse.organization.for_rowid).not.toBe('');
+  expect(jsonResponse.status).toBe('updated');
+  expect(jsonResponse.msg).toBe('Organization already exists!');
+
+  // Close the toggle
+  await page.waitForSelector('#operations-organization-post_api_v1_organizations > .opblock-summary-post');
+  await page.click('#operations-organization-post_api_v1_organizations > .opblock-summary-post');
+  done();
+}, 10000);
 //
-//   // Get the response
-//   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
-//   const response = await page.evaluate(el => el.textContent, element);
-//   const jsonResponse = JSON.parse(response);
-//   expect(jsonResponse.person.rowid).not.toBe('');
-//   expect(jsonResponse.person.for_rowid).not.toBe('');
-//   expect(jsonResponse.status).toBe('updated');
-//   expect(jsonResponse.msg).toBe('Person already exists!');
-//
-//   // Close the toggle
-//   await page.waitForSelector('#operations-person-post_api_v1_persons > .opblock-summary-post');
-//   await page.click('#operations-person-post_api_v1_persons > .opblock-summary-post');
-//   done();
-// }, 8000);
-//
-// test('update single person by', async (done) => {
+// test('update single organization', async (done) => {
 //   // Find the route for updating a person
 //   const person = '{"name": "Monica"}';
 //   const route = '#operations-person-put_api_v1_persons__rowid_';
@@ -240,7 +235,7 @@ test('get a single person by a rowid', async (done) => {
 //   await page.waitForSelector('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
 //   await page.click('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
 //   done();
-// }, 8000);
+// }, 10000);
 //
 // test('delete single person by', async (done) => {
 //   // Find the route for deleting a person
@@ -271,4 +266,4 @@ test('get a single person by a rowid', async (done) => {
 //   await page.waitForSelector('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
 //   await page.click('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
 //   done();
-// }, 8000);
+// }, 10000);
