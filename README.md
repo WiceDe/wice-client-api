@@ -1,5 +1,7 @@
 # Wice CRM API
 
+[![Build Status](https://travis-ci.com/shterion/wice-client-api.svg?token=H7APE9Z98wMSqKwH4sYc&branch=master)](https://travis-ci.com/shterion/wice-client-api) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 [Wice CRM](https://wice.de/) is a CRM Software which offers different modules for address management, tasks management, project management, calendars and a knowledge base for knowledge management. The software could be used to manage sales opportunities and offers too. In addition, [Wice CRM](https://wice.de/) offers the possibility to manage and create invoices, open items and incoming payments.
 
 ## Before you begin
