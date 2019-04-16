@@ -132,9 +132,8 @@ test('get all organizations', async (done) => {
   const last = jsonResponse.length - 1;
 
   // Check for a specific organization
-  expect(jsonResponse[last].rowid).toBe(368085);
-  expect(jsonResponse[last].name).toBe('Test 3');
-  expect(jsonResponse[last].email).toBe('test3@email.com');
+  expect(jsonResponse[last].rowid).toBe(368088);
+  expect(jsonResponse[last].name).toBe('Testing Ltd.');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/organization/get_api_v1_organizations"]');
@@ -164,7 +163,7 @@ test('get a single organization by a rowid', async (done) => {
 
   // // Check property values for the specific organization
   expect(jsonResponse.rowid).toBe(368085);
-  expect(jsonResponse.name).toBe('Test 3');
+  expect(jsonResponse.name).toBe('CompanyTest6');
   expect(jsonResponse.email).toBe('test3@email.com');
 
   // Close the toggle
@@ -202,68 +201,68 @@ test('create an organization', async (done) => {
   await page.click('#operations-organization-post_api_v1_organizations > .opblock-summary-post');
   done();
 }, 10000);
-//
-// test('update single organization', async (done) => {
-//   // Find the route for updating a person
-//   const person = '{"name": "Monica"}';
-//   const route = '#operations-person-put_api_v1_persons__rowid_';
-//   const handle = 'tr[data-param-name="rowid"] input';
-//   await page.waitForSelector(route);
-//   await page.click(route);
-//   await page.waitForSelector('.try-out__btn');
-//   await page.click('.try-out__btn');
-//   await page.waitForSelector('tr[data-param-name="rowid"] input');
-//   await page.focus(handle);
-//   await page.$eval(handle, el => el.value = '');
-//   await page.type(handle, '414426');
-//   await page.focus('.body-param__text');
-//   await page.$eval('.body-param__text', el => el.value = '');
-//   await page.type('.body-param__text', person);
-//   await page.click('.execute');
-//   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
-//
-//   // Check if the reposne is an object
-//   const response = await page.evaluate(el => el.textContent, element);
-//   const jsonResponse = JSON.parse(response);
-//   expect(jsonResponse).toBeInstanceOf(Object);
-//
-//   //  Check property values for the specific person
-//   expect(jsonResponse.rowid).toBe('414426');
-//   expect(jsonResponse.status).toBe('updated');
-//
-//   // Close the toggle
-//   await page.waitForSelector('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
-//   await page.click('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
-//   done();
-// }, 10000);
-//
-// test('delete single person by', async (done) => {
-//   // Find the route for deleting a person
-//   const route = '#operations-person-delete_api_v1_persons__rowid_';
-//   const handle = 'tr[data-param-name="rowid"] input';
-//   await page.waitForSelector(route);
-//   await page.click(route);
-//   await page.waitForSelector('.try-out__btn');
-//   await page.click('.try-out__btn');
-//   await page.waitForSelector('tr[data-param-name="rowid"] input');
-//   await page.focus(handle);
-//   await page.$eval(handle, el => el.value = '');
-//   await page.type(handle, '414426');
-//
-//   await page.click('.execute');
-//   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
-//
-//   // Check if the reposne is an object
-//   const response = await page.evaluate(el => el.textContent, element);
-//   const jsonResponse = JSON.parse(response);
-//   expect(jsonResponse).toBeInstanceOf(Object);
-//
-//   //  Check property values for the specific person
-//   expect(jsonResponse.rowid).toBe('414426');
-//   expect(jsonResponse.status).toBe('deactivated');
-//
-//   // Close the toggle
-//   await page.waitForSelector('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
-//   await page.click('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
-//   done();
-// }, 10000);
+
+test('update single organization', async (done) => {
+  // Find the route for updating a organization
+  const organization = '{"name": "Company Test 6"}';
+  const route = '#operations-organization-put_api_v1_organizations__rowid_';
+  const handle = 'tr[data-param-name="rowid"] input';
+  await page.waitForSelector(route);
+  await page.click(route);
+  await page.waitForSelector('.try-out__btn');
+  await page.click('.try-out__btn');
+  await page.waitForSelector('tr[data-param-name="rowid"] input');
+  await page.focus(handle);
+  await page.$eval(handle, el => el.value = '');
+  await page.type(handle, '368085');
+  await page.focus('.body-param__text');
+  await page.$eval('.body-param__text', el => el.value = '');
+  await page.type('.body-param__text', organization);
+  await page.click('.execute');
+  const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
+
+  // Check if the reposne is an object
+  const response = await page.evaluate(el => el.textContent, element);
+  const jsonResponse = JSON.parse(response);
+  expect(jsonResponse).toBeInstanceOf(Object);
+
+  //  Check property values for the specific organization
+  expect(jsonResponse.rowid).toBe('368085');
+  expect(jsonResponse.status).toBe('updated');
+
+  // Close the toggle
+  await page.waitForSelector('#operations-organization-put_api_v1_organizations__rowid_ > .opblock-summary-put');
+  await page.click('#operations-organization-put_api_v1_organizations__rowid_ > .opblock-summary-put');
+  done();
+}, 10000);
+
+test('delete a single organization', async (done) => {
+  // Find the route for deleting a organization
+  const route = '#operations-organization-delete_api_v1_organizations__rowid_';
+  const handle = 'tr[data-param-name="rowid"] input';
+  await page.waitForSelector(route);
+  await page.click(route);
+  await page.waitForSelector('.try-out__btn');
+  await page.click('.try-out__btn');
+  await page.waitForSelector('tr[data-param-name="rowid"] input');
+  await page.focus(handle);
+  await page.$eval(handle, el => el.value = '');
+  await page.type(handle, '368085');
+
+  await page.click('.execute');
+  const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
+
+  // Check if the reposne is an object
+  const response = await page.evaluate(el => el.textContent, element);
+  const jsonResponse = JSON.parse(response);
+  expect(jsonResponse).toBeInstanceOf(Object);
+
+  //  Check property values for the specific organization
+  expect(jsonResponse.rowid).toBe('368085');
+  expect(jsonResponse.status).toBe('deactivated');
+
+  // Close the toggle
+  await page.waitForSelector('#operations-organization-delete_api_v1_organizations__rowid_ > .opblock-summary-delete');
+  await page.click('#operations-organization-delete_api_v1_organizations__rowid_ > .opblock-summary-delete');
+  done();
+}, 10000);
