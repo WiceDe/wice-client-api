@@ -21,9 +21,9 @@ beforeAll(async () => {
   await page.select('.servers > label:nth-child(1) > select:nth-child(1)', 'http://localhost:5000/');
 });
 
-// afterAll(async () => {
-//   await browser.close();
-// });
+afterAll(async () => {
+  await browser.close();
+});
 
 // Setup for each test
 // beforeEach(async () => {
@@ -45,7 +45,7 @@ test('if the header has the correct subtitle', async () => {
   expect(desc).toEqual('This is a client API for Wice CRM');
 });
 
-test('user login functionality', async (done) => {
+test('Person - user login functionality', async (done) => {
   const credentials = {
     mandant_name: keys.mandant_name,
     username: keys.username,
@@ -112,7 +112,7 @@ test('user login functionality', async (done) => {
   await page.click('.modal-ux-content .btn-done');
   await page.click('.opblock-summary-path');
   done();
-}, 8000);
+}, 10000);
 
 test('get all persons', async (done) => {
   // Find the route for getting persons
@@ -144,7 +144,7 @@ test('get all persons', async (done) => {
   await page.waitForSelector('a[href="#/person/get_api_v1_persons"]');
   await page.click('a[href="#/person/get_api_v1_persons"]');
   done();
-}, 8000);
+}, 10000);
 
 test('get a single person by a rowid', async (done) => {
   // Find the route for getting a single person
@@ -178,7 +178,7 @@ test('get a single person by a rowid', async (done) => {
   await page.waitForSelector('a[href="#/person/get_api_v1_persons__rowid_"]');
   await page.click('a[href="#/person/get_api_v1_persons__rowid_"]');
   done();
-}, 8000);
+}, 10000);
 //
 test('create a person', async (done) => {
 // Find the route for getting a single person
@@ -208,7 +208,7 @@ test('create a person', async (done) => {
   await page.waitForSelector('#operations-person-post_api_v1_persons > .opblock-summary-post');
   await page.click('#operations-person-post_api_v1_persons > .opblock-summary-post');
   done();
-}, 8000);
+}, 10000);
 
 test('update a single person', async (done) => {
   // Find the route for updating a person
@@ -242,7 +242,7 @@ test('update a single person', async (done) => {
   await page.waitForSelector('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
   await page.click('#operations-person-put_api_v1_persons__rowid_ > .opblock-summary-put');
   done();
-}, 8000);
+}, 10000);
 
 test('delete a single person', async (done) => {
   // Find the route for deleting a person
@@ -273,4 +273,4 @@ test('delete a single person', async (done) => {
   await page.waitForSelector('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
   await page.click('#operations-person-delete_api_v1_persons__rowid_ > .opblock-summary-delete');
   done();
-}, 8000);
+}, 10000);
