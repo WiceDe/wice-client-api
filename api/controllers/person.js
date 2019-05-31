@@ -2,12 +2,12 @@
 const request = require('request-promise');
 const router = require('express').Router();
 const { customPerson } = require('../utils/customPerson');
-
+const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/persons/
 // @desc    Get all persons
 // @access  Private
-router.get('/', async (req, res) => {
+router.get('/', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
 // @route   POST /api/v1/persons/
 // @desc    Create a person
 // @access  Private
-router.post('/', async (req, res) => {
+router.post('/', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const input = req.body;
   const uri = req.server;
@@ -76,6 +76,7 @@ router.post('/', async (req, res) => {
       };
 
       const rowid = await request.post(options);
+      console.log('RWOID: ', rowid);
       const rowidObj = JSON.parse(rowid);
       if (rowidObj.loop_addresses) {
         existingRowid = rowidObj.loop_addresses[0].rowid;
@@ -140,7 +141,7 @@ router.post('/', async (req, res) => {
 // @route   GET /api/v1/persons/:rowid
 // @desc    Get a person by rowid
 // @access  Private
-router.get('/:rowid', async (req, res) => {
+router.get('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const { rowid } = req.params;
@@ -179,7 +180,7 @@ router.get('/:rowid', async (req, res) => {
 // @route   PUT /api/v1/persons/:rowid
 // @desc    Update a person by rowid
 // @access  Private
-router.put('/:rowid', async (req, res) => {
+router.put('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
@@ -222,7 +223,7 @@ router.put('/:rowid', async (req, res) => {
 // @route   DELETE /api/v1/persons/:rowid
 // @desc    Delete a person by rowid
 // @access  Private
-router.delete('/:rowid', async (req, res) => {
+router.delete('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
