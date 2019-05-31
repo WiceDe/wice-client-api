@@ -3,7 +3,6 @@ process.env.NODE_CONFIG_DIR = './config';
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
-const { verifyServer } = require('./middlewares/verifyServer');
 const swaggerDocument = require('./api/swagger/swagger.json');
 const log = require('./api/utils/logger');
 
@@ -16,7 +15,6 @@ class Server {
   constructor() {
     this.app = express();
     this.app.use(bodyParser.json());
-    this.app.use(verifyServer);
     this.app.disable('x-powered-by');
 
     // This middleware insures we always have security headers
