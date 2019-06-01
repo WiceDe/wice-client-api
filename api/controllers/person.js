@@ -3,7 +3,6 @@ const request = require('request-promise');
 const router = require('express').Router();
 const { customPerson } = require('../utils/customPerson');
 
-
 // @route   GET /api/v1/persons/
 // @desc    Get all persons
 // @access  Private
@@ -26,7 +25,6 @@ router.get('/', async (req, res) => {
     json: true,
     resolveWithFullResponse: true,
   };
-
   try {
     const persons = [];
     const response = await request(options);

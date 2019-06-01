@@ -1,6 +1,8 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
 /* eslint max-len: "off" */
+/* eslint max-len: ["error", { "code": 200 }] */
+
 const puppeteer = require('puppeteer');
 const keys = require('../config/keys.js');
 
