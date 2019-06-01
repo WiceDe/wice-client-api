@@ -26,6 +26,7 @@ router.get('/', verifyServer, async (req, res) => {
     json: true,
     resolveWithFullResponse: true,
   };
+
   try {
     const persons = [];
     const response = await request(options);
@@ -75,7 +76,6 @@ router.post('/', verifyServer, async (req, res) => {
       };
 
       const rowid = await request.post(options);
-      console.log('RWOID: ', rowid);
       const rowidObj = JSON.parse(rowid);
       if (rowidObj.loop_addresses) {
         existingRowid = rowidObj.loop_addresses[0].rowid;

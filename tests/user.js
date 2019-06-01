@@ -16,8 +16,8 @@ const log = require('../api/utils/logger');
 chai.use(chaiHttp);
 
 describe('/ - Wice CRM API Documentation', () => {
-  test('should display the swagger-generated HTML page', (done) => {
-    request(server)
+  test('should display the swagger-generated HTML page', async (done) => {
+    await request(server)
       .get('/')
       .then((res) => {
         expect(res.text).to.not.be.empty;
