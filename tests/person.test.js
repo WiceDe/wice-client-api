@@ -135,9 +135,9 @@ test('get all persons', async (done) => {
 
   // Check the last person
   const last = jsonResponse.length - 1;
-  expect(jsonResponse[last].rowid).toBe(414360);
-  expect(jsonResponse[last].name).toBe('Soltero');
-  expect(jsonResponse[last].firstname).toBe('Carlos ');
+  expect(jsonResponse[last].rowid).toBe(433448);
+  expect(jsonResponse[last].name).toBe('Achmerzaev');
+  expect(jsonResponse[last].firstname).toBe('Selim');
   expect(jsonResponse[last].email).toBe('');
 
   // Close the toggle
@@ -157,7 +157,7 @@ test('get a single person by a rowid', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '414426');
+  await page.type(handle, '433448');
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
 
@@ -166,20 +166,20 @@ test('get a single person by a rowid', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Object);
 
-  // // Check property values for the specific person
-  expect(jsonResponse.rowid).toBe(414426);
-  expect(jsonResponse.name).toBe('Monica');
-  expect(jsonResponse.firstname).toBe('Federle');
+  // Check property values for the specific person
+  expect(jsonResponse.rowid).toBe(433448);
+  expect(jsonResponse.name).toBe('Achmerzaev');
+  expect(jsonResponse.firstname).toBe('Selim');
   expect(jsonResponse.email).toBe('');
-  expect(jsonResponse.same_contactperson).toBe(0);
-  // expect(jsonResponse.deactivated).toBe('0');
+  expect(jsonResponse.same_contactperson).toBe('0');
+  expect(jsonResponse.deactivated).toBe('0');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/person/get_api_v1_persons__rowid_"]');
   await page.click('a[href="#/person/get_api_v1_persons__rowid_"]');
   done();
 }, 10000);
-//
+
 test('create a person', async (done) => {
 // Find the route for getting a single person
   // const handle = 'tr[data-param-name="rowid"] input';
@@ -222,7 +222,7 @@ test('update a single person', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '414426');
+  await page.type(handle, '433447');
   await page.focus('.body-param__text');
   await page.$eval('.body-param__text', el => el.value = '');
   await page.type('.body-param__text', person);
@@ -235,7 +235,7 @@ test('update a single person', async (done) => {
   expect(jsonResponse).toBeInstanceOf(Object);
 
   //  Check property values for the specific person
-  expect(jsonResponse.rowid).toBe('414426');
+  expect(jsonResponse.rowid).toBe('433447');
   expect(jsonResponse.status).toBe('updated');
 
   // Close the toggle
@@ -255,7 +255,7 @@ test('delete a single person', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '414426');
+  await page.type(handle, '433447');
 
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
@@ -266,7 +266,7 @@ test('delete a single person', async (done) => {
   expect(jsonResponse).toBeInstanceOf(Object);
 
   //  Check property values for the specific person
-  expect(jsonResponse.rowid).toBe('414426');
+  expect(jsonResponse.rowid).toBe('433447');
   expect(jsonResponse.status).toBe('deactivated');
 
   // Close the toggle
