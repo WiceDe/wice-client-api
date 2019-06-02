@@ -1,7 +1,6 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
 /* eslint max-len: "off" */
-/* eslint max-len: ["error", { "code": 200 }] */
 
 const puppeteer = require('puppeteer');
 const keys = require('../config/keys.js');
@@ -134,8 +133,8 @@ test('get all organizations', async (done) => {
   const last = jsonResponse.length - 1;
 
   // Check for a specific organization
-  expect(jsonResponse[last].rowid).toBe(368088);
-  expect(jsonResponse[last].name).toBe('Testing Ltd.');
+  expect(jsonResponse[last].rowid).toBe(368076);
+  expect(jsonResponse[last].name).toBe('Travel Mates');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/organization/get_api_v1_organizations"]');
@@ -154,7 +153,7 @@ test('get a single organization by a rowid', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '368085');
+  await page.type(handle, '368121');
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
 
@@ -163,10 +162,10 @@ test('get a single organization by a rowid', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Object);
 
-  // // Check property values for the specific organization
-  expect(jsonResponse.rowid).toBe(368085);
+  // Check property values for the specific organization
+  expect(jsonResponse.rowid).toBe(368121);
   expect(jsonResponse.name).toBe('CompanyTest6');
-  expect(jsonResponse.email).toBe('test3@email.com');
+  expect(jsonResponse.email).toBe('');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/organization/get_api_v1_organizations__rowid_"]');
@@ -175,7 +174,7 @@ test('get a single organization by a rowid', async (done) => {
 }, 10000);
 
 test('create an organization', async (done) => {
-// Find the route for getting a single organization
+  // Find the route for getting a single organization
   // const handle = 'tr[data-param-name="rowid"] input';
   const organization = '{"name": "Your Company Ltd.", "email": "info@yourcompany.com"}';
   const route = '#operations-organization-post_api_v1_organizations';
@@ -216,7 +215,7 @@ test('update single organization', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '368085');
+  await page.type(handle, '368121');
   await page.focus('.body-param__text');
   await page.$eval('.body-param__text', el => el.value = '');
   await page.type('.body-param__text', organization);
@@ -229,7 +228,7 @@ test('update single organization', async (done) => {
   expect(jsonResponse).toBeInstanceOf(Object);
 
   //  Check property values for the specific organization
-  expect(jsonResponse.rowid).toBe('368085');
+  expect(jsonResponse.rowid).toBe('368121');
   expect(jsonResponse.status).toBe('updated');
 
   // Close the toggle
@@ -249,7 +248,7 @@ test('delete a single organization', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '368085');
+  await page.type(handle, '368121');
 
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
@@ -260,7 +259,7 @@ test('delete a single organization', async (done) => {
   expect(jsonResponse).toBeInstanceOf(Object);
 
   //  Check property values for the specific organization
-  expect(jsonResponse.rowid).toBe('368085');
+  expect(jsonResponse.rowid).toBe('368121');
   expect(jsonResponse.status).toBe('deactivated');
 
   // Close the toggle
