@@ -1,11 +1,12 @@
 const request = require('request-promise');
 const router = require('express').Router();
 const { customArticle } = require('../utils/customArticle');
+const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/articles/
 // @desc    Get all articles
 // @access  Private
-router.get('/', async (req, res) => {
+router.get('/', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
@@ -46,7 +47,7 @@ router.get('/', async (req, res) => {
 // @route   POST /api/v1/articles/
 // @desc    Create an article
 // @access  Private
-router.post('/', async (req, res) => {
+router.post('/', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const input = req.body;
   const uri = req.server;
@@ -134,7 +135,7 @@ router.post('/', async (req, res) => {
 // @route   GET /api/v1/articles/:rowid
 // @desc    Get an article by rowid
 // @access  Private
-router.get('/:rowid', async (req, res) => {
+router.get('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
@@ -174,7 +175,7 @@ router.get('/:rowid', async (req, res) => {
 // @route   PUT /api/v1/articles/:rowid
 // @desc    Update an article by rowid
 // @access  Private
-router.put('/:rowid', async (req, res) => {
+router.put('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
@@ -218,7 +219,7 @@ router.put('/:rowid', async (req, res) => {
 // @route   DELETE /api/v1/articles/:rowid
 // @desc    Delete an article by rowid
 // @access  Private
-router.delete('/:rowid', async (req, res) => {
+router.delete('/:rowid', verifyServer, async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   const cookie = req.headers['x-wice-cookie'];
   const uri = req.server;
