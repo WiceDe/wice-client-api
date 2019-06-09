@@ -127,15 +127,14 @@ test('get all articles', async (done) => {
   const response = await page.evaluate(el => el.textContent, element);
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Array);
-
   // Check the last article
   const last = jsonResponse.length - 1;
 
   // Check for a specific article
-  expect(jsonResponse[last].rowid).toBe(5763);
-  expect(jsonResponse[last].number).toBe(5763);
-  expect(jsonResponse[last].description).toBe('HDD');
-  expect(jsonResponse[last].in_stock).toBe(0);
+  expect(jsonResponse[last].rowid).toBe(5759);
+  expect(jsonResponse[last].number).toBe(5759);
+  expect(jsonResponse[last].description).toBe('LAN Cabel');
+  expect(jsonResponse[last].in_stock).toBe('0');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/article/get_api_v1_articles"]');
@@ -154,7 +153,7 @@ test('get a single article by a rowid', async (done) => {
   await page.waitForSelector('tr[data-param-name="rowid"] input');
   await page.focus(handle);
   await page.$eval(handle, el => el.value = '');
-  await page.type(handle, '5763');
+  await page.type(handle, '5745');
   await page.click('.execute');
   const element = await page.waitForSelector('.responses-inner div div .response .response-col_description pre');
 
@@ -163,11 +162,11 @@ test('get a single article by a rowid', async (done) => {
   const jsonResponse = JSON.parse(response);
   expect(jsonResponse).toBeInstanceOf(Object);
 
-  // // Check property values for the specific article
-  expect(jsonResponse.rowid).toBe(5763);
-  expect(jsonResponse.number).toBe(5763);
-  expect(jsonResponse.description).toBe('HDD');
-  expect(jsonResponse.in_stock).toBe(0);
+  // Check property values for the specific article
+  expect(jsonResponse.rowid).toBe(5745);
+  expect(jsonResponse.number).toBe(5745);
+  expect(jsonResponse.description).toBe('Laptop');
+  expect(jsonResponse.in_stock).toBe('0');
 
   // Close the toggle
   await page.waitForSelector('a[href="#/article/get_api_v1_articles__rowid_"]');
@@ -204,7 +203,7 @@ test('create an article', async (done) => {
   await page.click('#operations-article-post_api_v1_articles > .opblock-summary-post');
   done();
 }, 10000);
-//
+
 test('update single article', async (done) => {
   // Find the route for updating a article
   const article = '{"desription": "HDD 1TB"}';
