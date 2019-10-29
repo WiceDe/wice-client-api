@@ -13,9 +13,11 @@ Before you can use Wice Client API you **must be a registered Wice CRM user**. P
 After you are already registered in [Wice CRM](https://wice.de/) you have to generate your **API Key**.
 > For activation you **have to be logged in**, then click on ``Admin`` and under ```Plugins``` click on ``Wice Client API backend``. Once you are in, click on ``Create new`` to generate your API key.
 
-![Administration](assets/Plugins.png)
+![home](assets/home.png)
 ***
-![APIKey](assets/APIKey.png)
+![more](assets/more.png)
+***
+![api_key](assets/api_key.png)
 
 Once the activation is done you have an access to **API Key** which is required for an authentication when you make a request to [Wice CRM](https://wice.de/).
 
