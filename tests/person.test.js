@@ -1,5 +1,7 @@
 /* eslint no-return-assign: "off" */
 /* eslint no-param-reassign: "off" */
+/* eslint max-len: "off" */
+
 const puppeteer = require('puppeteer');
 const keys = require('../config/keys.js');
 
@@ -135,9 +137,9 @@ test('get all persons', async (done) => {
 
   // Check the last person
   const last = jsonResponse.length - 1;
-  expect(jsonResponse[last].rowid).toBe(433448);
-  expect(jsonResponse[last].name).toBe('Achmerzaev');
-  expect(jsonResponse[last].firstname).toBe('Selim');
+  expect(jsonResponse[last].rowid).toBe(433458);
+  expect(jsonResponse[last].name).toBe('Support');
+  expect(jsonResponse[last].firstname).toBe('Snazzy');
   expect(jsonResponse[last].email).toBe('');
 
   // Close the toggle
