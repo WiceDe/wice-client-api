@@ -10,7 +10,7 @@
     "pretest": "eslint api tests --ext .js --ext .json",
     "lint-fix": "eslint api tests --ext .js --ext .json --fix",
     "test-mocha": "mocha tests/*",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit",
     "test-watch": "nodemon --exec \"npm test\"",
     "test_jenkins": "jenkins-mocha tests/* --exit"
   },
