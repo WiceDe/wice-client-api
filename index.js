@@ -45,16 +45,15 @@ app.use('/api/v1/users', user);
 app.use('/api/v1/persons', person);
 app.use('/api/v1/organizations', organization);
 app.use('/api/v1/articles', article);
-
 log.info('Routes set.');
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+log.info('Swagger set.');
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    log.info(`Server is running on port ${port}`);
   });
 }
-
 
 module.exports = app;
