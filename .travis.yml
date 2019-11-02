@@ -4,18 +4,16 @@ node_js:
 dist: trusty
 sudo: required
 before_script:
-    # - "sudo chown root /opt/google/chrome/chrome-sandbox"
-    # - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3 # give xvfb some time to start
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 addons:
   chrome: stable
 cache:
   directories:
   - node_modules
 env:
-    - NODE_ENV=ci
+- NODE_ENV=ci
 install:
 - npm install
 script:
@@ -25,6 +23,6 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: PdPSmi0ajus9+y3f89bBNbB4Cdm1qV+c4HIz/6DA7NbXyhnqsSWvqpzcPO5bu/HN8sdhD0WWeCGssTZOkho7NlXgeKxLd12zEWOWyTm7gwRq8m5GvqUDcclLetsw9OL7AA+EzK8HWCVRMx8y2hQPDu8ICITfozcCaY6dyW8wAN+8GTjKuccwsj4gGifnaiZ/pHoQ5bUSZ1SGSsOlSdBh1iEBFhUKLKQJFTsy9lFRYLGhc1TEDSUO0tD4dd+i6lDAICxs/jDVAvC1ZzxgoxmAkVhIEyZNeGdzqKVH7bqOssyL/s/JrSqHXaqE8NICq4Fen9avlq7a0UQUmQm2td6YlxGDvN/xN6FYmp+oDq6BM6a7hcf7UV6CDDh1vcgsM0rRSG/CQUTQunTMaeS89Ab8/+3xKxKDKYrktVcqLgUJC7VlYDDoBCQWf6/GFxg1NsrRt4e6ePPkkKuV0QEuJwjYCh/EU7m91T/w+6pA7/etLrFOeAhX17R2CzNLzvFraP1MNiiHADVbUFCPftgqPlDT+WrdrVRUNGB4WzwxCAzmy5kR9aC8gerx82YaeDB9rx1f67SI+KVQTdqqFkhllYKg58vEctLoRa/Z0t/JFUd/mQU0qP8IHEslw/QFMqSdJO6rnsUsIPAA5bA52kNVxyBLhFD13fdEijpr2QNEOvCfndw=
+    secure: gLAeG0AB1BUkxPoRbZNzFHhETHvEhpYjrvVL+xKGhODlGeOvGUddDPvLouKrImHtIkaJ5ud0L1mvMwL1ts64bFd8jkfs/gR/m+hcI/YgZowUo2AwblB+2Ocl17ZTcsEaaZ5vXTooWKo0bE84nUhz5VQYGhCcLS5oXDWzB4c65CqrM/4T3cpfMjp5B5ImYEnJoBh//lAidrYvvnNWCaeDiUz7NzPgMdGrItXXQJ+H74tIJE/bXd/OruQN5dXReZRt8LdkI1ZQuS6P/UlPjXe2sf/kbAyi5CZtpCOM7Mr+99/UUyeA2dwePuVJuZwKg8rfE02GF5Tdk/HdxpgkHtEc4BV8XK9NORy9fEJSEJXAxL9Wg0fiOqYqFR4cd4Tpi9oHl2oXd2fty8yT6koBM1mP7jpMfygT9/7gTBKVQyKkFJnAxo10oI+a7mCF7WsfhBzchUg465AoPalpOdlV414g65+jetzkNzckQv9B1zJ1m5V1dsU3BUicyrqeWEeFo+1ljj2Haj26iTgsaLcsIE8I98CtG6gFOlJokBbS4QqzM7n2NvBLyCz9jQGvw5Tsf2pqU8fXPUXSTFAsRXutDuw2pyTaIeXgXRuBJ4EJl74TqonrmrhM6+m/88oqOz7wQFAQsAKLC0MqfnGvG3Qf0oAd8UY21g7oQ2EMnAgFbX2S10k=
   app: wicecrm-api
   skip_cleanup: true
