@@ -1,7 +1,6 @@
 const nock = require('nock');
 
 const getPersons = nock('https://demo.wice-net.de/plugin/wp_wice_client_api_backend/json?method=get_all_persons&full_list=1&cookie=asdfghjkl')
-  // .persist()
   .post('')
   .reply(200, {
     loop_addresses: [{

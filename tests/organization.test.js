@@ -52,17 +52,16 @@ describe('Organizations - organization\'s management', () => {
       });
   });
 
-  xit('should return 200 and get a single person', async () => {
+  it('should return 200 and get a single organization', async () => {
     await request(server)
-      .get('/api/v1/persons/13579')
+      .get('/api/v1/organizations/13579')
       .set('x-wice-server', 'demo.wice-net.de')
       .set('x-wice-cookie', 'asdfghjkl')
       .set('x-api-key', '1234567890')
       .then((res) => {
         expect(res).to.have.status(200);
-        expect(res.body.name).to.equal('Hobbs');
-        expect(res.body.firstname).to.equal('Anthony');
-        expect(res.body.email).to.equal('hobbs@mail.com');
+        expect(res.body.name).to.equal('Company Ltd.');
+        expect(res.body.email).to.equal('info@company.com');
       })
       .catch((err) => {
         log.debug(err);

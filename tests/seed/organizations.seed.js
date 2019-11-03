@@ -1,7 +1,6 @@
 const nock = require('nock');
 
 const getOrganizations = nock('https://demo.wice-net.de/plugin/wp_wice_client_api_backend/json?method=get_all_companies&full_list=1&cookie=asdfghjkl')
-  // .persist()
   .post('')
   .reply(200, {
     loop_addresses: [{
