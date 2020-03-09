@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-const { customOrganization } = require('../utils/customOrganization');
+// const { customOrganization } = require('../utils/customOrganization');
 const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/organizations/
@@ -37,10 +37,13 @@ router.get('/', verifyServer, async (req, res) => {
       if (response.body.loop_addresses.length === 0) {
         return res.status(response.statusCode).send('No organizations found!');
       }
-      response.body.loop_addresses.filter((organization) => {
-        const currentOrganization = customOrganization(organization);
-        return organizations.push(currentOrganization);
-      });
+
+      response.body.loop_addresses.filter(organization => organizations.push(organization));
+
+      // response.body.loop_addresses.filter((organization) => {
+      //   const currentOrganization = customOrganization(organization);
+      //   return organizations.push(currentOrganization);
+      // });
 
       res.status(response.statusCode).send(organizations);
     }
@@ -124,7 +127,10 @@ router.post('/', verifyServer, async (req, res) => {
       const cookie = req.headers['x-wice-cookie'];
       const existingRowid = await checkForExistingOrganization(input, cookie);
       const result = await createOrUpdateOrganization(existingRowid, cookie);
-      result.organization = customOrganization(JSON.parse(result.organization));
+      const parsedOrganization = JSON.parse(result.organization);
+
+      // result.organization = customOrganization(JSON.parse(result.organization));
+      result.organization = parsedOrganization;
       if (result.status === 'updated') {
         return res.status(400).send(result);
       }
@@ -169,8 +175,8 @@ router.get('/:rowid', verifyServer, async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      const orgnaization = customOrganization(response.body);
-      res.status(response.statusCode).send(orgnaization);
+      // const orgnaization = customOrganization(response.body);
+      res.status(response.statusCode).send(response.body);
     }
   } catch (e) {
     res.send(e);

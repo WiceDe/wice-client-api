@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-const { customPerson } = require('../utils/customPerson');
+// const { customPerson } = require('../utils/customPerson');
 const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/persons/
@@ -37,10 +37,12 @@ router.get('/', verifyServer, async (req, res) => {
         return res.status(response.statusCode).send('No persons found!');
       }
 
-      response.body.loop_addresses.filter((person) => {
-        const currentPerson = customPerson(person);
-        return persons.push(currentPerson);
-      });
+      response.body.loop_addresses.filter(person => persons.push(person));
+
+      // response.body.loop_addresses.filter((person) => {
+      //   // const currentPerson = customPerson(person);
+      //   return persons.push(person);
+      // });
 
       res.status(response.statusCode).send(persons);
     }
@@ -125,7 +127,10 @@ router.post('/', verifyServer, async (req, res) => {
       const cookie = req.headers['x-wice-cookie'];
       const existingRowid = await checkForExistingPerson(input, cookie);
       const result = await createOrUpdatePerson(existingRowid, cookie);
-      result.person = customPerson(JSON.parse(result.person));
+      const parsedPerson = JSON.parse(result.person);
+
+      // result.person = customPerson(JSON.parse(result.person));
+      result.person = parsedPerson;
       if (result.status === 'updated') {
         return res.status(400).send(result);
       }
@@ -168,8 +173,8 @@ router.get('/:rowid', verifyServer, async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      const person = customPerson(response.body);
-      res.status(response.statusCode).send(person);
+      // const person = customPerson(response.body);
+      res.status(response.statusCode).send(response.body);
     }
   } catch (e) {
     res.send(e);
