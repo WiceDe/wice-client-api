@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-// const { customPerson } = require('../utils/customPerson');
+const { customPerson } = require('../utils/customPerson');
 const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/persons/
@@ -173,7 +173,8 @@ router.get('/:rowid', verifyServer, async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // const person = customPerson(response.body);
+      const person = customPerson(response.body);
+      console.log(person);
       res.status(response.statusCode).send(response.body);
     }
   } catch (e) {
