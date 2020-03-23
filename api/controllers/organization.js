@@ -1,7 +1,8 @@
 /* eslint consistent-return: "off" */
+/* eslint max-len: "off" */
 const request = require('request-promise');
 const router = require('express').Router();
-// const { customOrganization } = require('../utils/customOrganization');
+const { customOrganization } = require('../utils/customOrganization');
 const { verifyServer } = require('../../middlewares/verifyServer');
 
 // @route   GET /api/v1/organizations/
@@ -38,7 +39,7 @@ router.get('/', verifyServer, async (req, res) => {
         return res.status(response.statusCode).send('No organizations found!');
       }
 
-      response.body.loop_addresses.filter(organization => organizations.push(organization));
+      response.body.loop_addresses.filter(organization => organizations.push(customOrganization(organization)));
 
       // response.body.loop_addresses.filter((organization) => {
       //   const currentOrganization = customOrganization(organization);
@@ -175,8 +176,8 @@ router.get('/:rowid', verifyServer, async (req, res) => {
       res.status(response.statusCode).send(response.body);
     } else {
       // TODO: Check if array is empty
-      // const orgnaization = customOrganization(response.body);
-      res.status(response.statusCode).send(response.body);
+      const orgnaization = customOrganization(response.body);
+      res.status(response.statusCode).send(orgnaization);
     }
   } catch (e) {
     res.send(e);

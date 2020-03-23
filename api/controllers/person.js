@@ -37,7 +37,7 @@ router.get('/', verifyServer, async (req, res) => {
         return res.status(response.statusCode).send('No persons found!');
       }
 
-      response.body.loop_addresses.filter(person => persons.push(person));
+      response.body.loop_addresses.filter(person => persons.push(customPerson(person)));
 
       // response.body.loop_addresses.filter((person) => {
       //   // const currentPerson = customPerson(person);
@@ -174,8 +174,7 @@ router.get('/:rowid', verifyServer, async (req, res) => {
     } else {
       // TODO: Check if array is empty
       const person = customPerson(response.body);
-      console.log(person);
-      res.status(response.statusCode).send(response.body);
+      res.status(response.statusCode).send(person);
     }
   } catch (e) {
     res.send(e);
