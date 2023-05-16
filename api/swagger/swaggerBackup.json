@@ -47,10 +47,12 @@
     }
   ],
   "security": [{
-    "CookieAuth": []
+    "ApiKeyAuth": [],
+    "CookieAuth": [],
+    "ServerAuth": []
   }],
   "paths": {
-    "/pserv/base/webvis": {
+    "/api/v1/users/login": {
       "post": {
         "tags": [
           "user"
@@ -686,12 +688,7 @@
     "url": "https://wice.de"
   },
   "servers": [{
-      "url": "{server}",
-      "variables": {
-        "server": {
-          "default": "mandant.wice-net.de"
-        }
-      }
+      "url": "https://wicecrm-api.herokuapp.com/"
     },
     {
       "url": "http://localhost:5000/"
@@ -699,10 +696,20 @@
   ],
   "components": {
     "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      },
       "CookieAuth": {
         "type": "apiKey",
         "in": "header",
-        "name": "wice_cookie"
+        "name": "X-WICE-COOKIE"
+      },
+      "ServerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-WICE-SERVER"
       }
     },
     "schemas": {
