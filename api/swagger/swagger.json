@@ -86,10 +86,30 @@
         }
       }
     },
-    "/api/v1/persons": {
+    "/plugin/wp_wice_client_api_backend/json": {
       "get": {
         "tags": [
           "person"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "schema": {
+              "type": "string",
+              "enum": ["get_all_persons"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "full_list",
+            "schema": {
+              "type": "number",
+              "enum": [1]
+            },
+            "required": true
+          }
         ],
         "x-swagger-router-controller": "person",
         "summary": "Get all persons",
@@ -689,7 +709,7 @@
       "url": "{server}",
       "variables": {
         "server": {
-          "default": "mandant.wice-net.de"
+          "default": "https://mandant.wice-net.de"
         }
       }
     },
@@ -701,8 +721,8 @@
     "securitySchemes": {
       "CookieAuth": {
         "type": "apiKey",
-        "in": "header",
-        "name": "wice_cookie"
+        "in": "query",
+        "name": "cookie"
       }
     },
     "schemas": {
