@@ -6,7 +6,7 @@
     "title": "Wice CRM API",
     "termsOfService": "https://wice.de",
     "contact": {
-      "email": "syanev@wice.de"
+      "email": "support@wice.de"
     },
     "license": {
       "name": "Apache-2.0",
@@ -22,24 +22,8 @@
       }
     },
     {
-      "name": "person",
-      "description": "Person actions",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
-      }
-    },
-    {
-      "name": "organization",
-      "description": "Organization actions",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
-      }
-    },
-    {
-      "name": "article",
-      "description": "Article actions",
+      "name": "resources",
+      "description": "Manipulate stored resources",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
@@ -90,42 +74,36 @@
     "/plugin/wp_wice_client_api_backend/json": {
       "get": {
         "tags": [
-          "person"
+          "resources"
         ],
         "parameters": [
           {
             "in": "query",
             "name": "method",
+            "description": "Determines the type of resource to be fetched.",
             "schema": {
               "type": "string",
-              "enum": ["get_all_persons", "get_all_organizations"]
+              "enum": ["get_all_persons", "get_all_organizations", "get_all_articles"]
             },
             "required": true
           },
           {
             "in": "query",
             "name": "full_list",
+            "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
             "schema": {
               "type": "number",
-              "enum": [1]
+              "enum": [1,0]
             },
-            "required": true
+            "required": false
           },
-          {
-            "in": "header",
-            "name": "Access-Control-Allow-Origin",
-            "schema": {
-              "type": "string",
-              "enum": ["*"]
-            }
-          }
         ],
-        "x-swagger-router-controller": "person",
-        "summary": "Get all persons",
-        "description": "Returns all available persons",
+        "x-swagger-router-controller": "resources",
+        "summary": "Get a list of a chosen resource",
+        "description": "Returns all available persons, organizations, or articles, depending on the chosen method",
         "responses": {
           "200": {
-            "description": "An array of all persons objects",
+            "description": "An array of all requested objects",
             "content": {
               "application/json": {
                 "schema": {
@@ -141,11 +119,23 @@
       },
       "post": {
         "tags": [
-          "person"
+          "resources"
         ],
-        "x-swagger-router-controller": "person",
-        "summary": "Create a person",
-        "description": "Returns the new created person.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation to be executed.",
+            "schema": {
+              "type": "string",
+              "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "resources",
+        "summary": "Manipulate a resource",
+        "description": "Create, update, or delete persons, companies, or articles, depending on chosen method.",
         "responses": {
           "200": {
             "description": "Supplies the new created person",
@@ -173,541 +163,6 @@
           "required": true
         }
       }
-    },
-    "/api/v1/persons/{rowid}": {
-      "get": {
-        "tags": [
-          "person"
-        ],
-        "x-swagger-router-controller": "person",
-        "summary": "Get a person by a given rowid",
-        "description": "Returns the single person ",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "Person's rowid",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "Person object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getPersonResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "person"
-        ],
-        "x-swagger-router-controller": "person",
-        "summary": "Update a person",
-        "description": "Returns updated person",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The rowid of the person to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": ""
-              }
-            }
-          },
-          "description": "Some description.",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "An array of all persons objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "person"
-        ],
-        "x-swagger-router-controller": "person",
-        "summary": "Delete a person",
-        "description": "Returns deleted person's rowid",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The id of the user to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "An array of all persons objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/api/v1/organizations": {
-      "get": {
-        "tags": [
-          "organization"
-        ],
-        "x-swagger-router-controller": "organization",
-        "summary": "Get all organizations",
-        "description": "Returns all available organizations",
-        "responses": {
-          "200": {
-            "description": "An array of all organizations objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getOrganizationResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "organization"
-        ],
-        "x-swagger-router-controller": "organization",
-        "summary": "Create an organization",
-        "description": "Returns the new created organization.",
-        "responses": {
-          "200": {
-            "description": "Supplies the new created organization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/createOrganizationRequest"
-              }
-            }
-          },
-          "description": "Organization's name which will be passed on to the server",
-          "required": true
-        }
-      }
-    },
-    "/api/v1/organizations/{rowid}": {
-      "get": {
-        "tags": [
-          "organization"
-        ],
-        "x-swagger-router-controller": "organization",
-        "summary": "Get an organization by a given rowid",
-        "description": "Returns the single organization ",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "Organization's rowid",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "Organization object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "organization"
-        ],
-        "x-swagger-router-controller": "organization",
-        "summary": "Update an organization",
-        "description": "Returns updated organization",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The rowid of the organization to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": ""
-              }
-            }
-          },
-          "description": "Some description.",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "An array of all organization objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "organization"
-        ],
-        "x-swagger-router-controller": "organization",
-        "summary": "Delete an organization",
-        "description": "Returns deleted organization's rowid",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The id of the organization to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "An array of all organization objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/api/v1/articles": {
-      "get": {
-        "tags": [
-          "article"
-        ],
-        "x-swagger-router-controller": "article",
-        "summary": "Get all articles",
-        "description": "Returns all available articles",
-        "responses": {
-          "200": {
-            "description": "An array of all article objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "article"
-        ],
-        "x-swagger-router-controller": "article",
-        "summary": "Create an article",
-        "description": "Returns the new created article.",
-        "responses": {
-          "200": {
-            "description": "Supplies the new created article",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": ""
-              }
-            }
-          },
-          "description": "Article's description which will be passed on to the server",
-          "required": true
-        }
-      }
-    },
-    "/api/v1/articles/{rowid}": {
-      "get": {
-        "tags": [
-          "article"
-        ],
-        "x-swagger-router-controller": "article",
-        "summary": "Get an article by a given rowid",
-        "description": "Returns the single article ",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "Article's rowid",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "Article object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "article"
-        ],
-        "x-swagger-router-controller": "article",
-        "summary": "Update an article",
-        "description": "Returns updated article",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The rowid of the article to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": ""
-              }
-            }
-          },
-          "description": "Some description.",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "An array of all article objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "article"
-        ],
-        "x-swagger-router-controller": "article",
-        "summary": "Delete an article",
-        "description": "Returns deleted article's rowid",
-        "parameters": [{
-          "name": "rowid",
-          "in": "path",
-          "description": "The id of the article to be deleted",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "An array of all article objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": ""
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An array with false for each not found uid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": ""
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/healthcheck": {
-      "get": {
-        "tags": [
-          "misc"
-        ],
-        "summary": "Cluster tools",
-        "description": "",
-        "operationId": "performHealthCheck",
-        "responses": {
-          "200": {
-            "description": "Service is healthy"
-          }
-        }
-      }
     }
   },
   "externalDocs": {
@@ -718,7 +173,7 @@
       "url": "https://{server}.wice-net.de",
       "variables": {
         "server": {
-          "default": "node63"
+          "default": "oihwice"
         }
       }
     },
@@ -736,7 +191,7 @@
       "ApiKeyAuth": {
         "type": "apiKey",
         "in": "header",
-        "name": "X-API-KEY"
+        "name": "X-API-Key"
       }
     },
     "schemas": {
