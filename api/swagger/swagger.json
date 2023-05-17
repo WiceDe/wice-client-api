@@ -48,6 +48,7 @@
   ],
   "security": [{
     "CookieAuth": []
+    "ApiKeyAuth": []
   }],
   "paths": {
     "/pserv/base/webvis": {
@@ -97,7 +98,7 @@
             "name": "method",
             "schema": {
               "type": "string",
-              "enum": ["get_all_persons"]
+              "enum": ["get_all_persons", "get_all_organizations"]
             },
             "required": true
           },
@@ -109,6 +110,14 @@
               "enum": [1]
             },
             "required": true
+          },
+          {
+            "in": "header",
+            "name": "Access-Control-Allow-Origin",
+            "schema": {
+              "type": "string",
+              "enum": ["*"]
+            }
           }
         ],
         "x-swagger-router-controller": "person",
@@ -723,6 +732,11 @@
         "type": "apiKey",
         "in": "query",
         "name": "cookie"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
       }
     },
     "schemas": {
