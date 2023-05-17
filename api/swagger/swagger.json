@@ -715,10 +715,10 @@
     "url": "https://wice.de"
   },
   "servers": [{
-      "url": "{server}",
+      "url": "https://{server}.wice-net.de",
       "variables": {
         "server": {
-          "default": "https://mandant.wice-net.de"
+          "default": "node63"
         }
       }
     },
