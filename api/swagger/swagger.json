@@ -92,7 +92,7 @@
             "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
             "schema": {
               "type": "number",
-              "enum": [1,0]
+              "enum": [1]
             },
             "required": false
           },
@@ -106,7 +106,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/getPersonResponse"
+                  "oneOf": [
+                    "$ref": "#/components/schemas/getPersonResponse",
+                    "$ref": "#/components/schemas/getOrganizationResponse",
+                    "$ref": "#/components/schemas/getArticleResponse"
+                  ]
                 }
               }
             }
@@ -137,11 +141,21 @@
         "description": "Create, update, or delete persons, companies, or articles, depending on chosen method.",
         "responses": {
           "200": {
-            "description": "Supplies the new created person",
+            "description": "Supplies the rowid of the created resource",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/createPersonResponse"
+                  "oneOf": [
+                    "$ref": "#/components/schemas/createPersonResponse",
+                    "$ref": "#/components/schemas/createOrganizationResponse",
+                    "$ref": "#/components/schemas/createArticleResponse",
+                    "$ref": "#/components/schemas/updatePersonResponse",
+                    "$ref": "#/components/schemas/updateOrganizationResponse",
+                    "$ref": "#/components/schemas/updateArticleResponse",
+                    "$ref": "#/components/schemas/deletePersonResponse",
+                    "$ref": "#/components/schemas/deleteOrganizationResponse",
+                    "$ref": "#/components/schemas/deleteArticleResponse"
+                  ]
                 }
               }
             }
@@ -154,11 +168,21 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/createPersonRequest"
+                "oneOf": [
+                  "$ref": "#/components/schemas/createPersonRequest",
+                  "$ref": "#/components/schemas/createOrganizationRequest",
+                  "$ref": "#/components/schemas/createArticleRequest",
+                  "$ref": "#/components/schemas/updatePersonRequest",
+                  "$ref": "#/components/schemas/updateOrganizationRequest",
+                  "$ref": "#/components/schemas/updateArticleRequest",
+                  "$ref": "#/components/schemas/deletePersonRequest",
+                  "$ref": "#/components/schemas/deleteOrganizationRequest",
+                  "$ref": "#/components/schemas/deleteArticleRequest"
+                ]
               }
             }
           },
-          "description": "First name and last name which will be passed on to the server",
+          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
           "required": true
         }
       }
@@ -222,93 +246,146 @@
 
       },
       "getPersonResponse": {
-        "type": "array",
-        "items": {
+        "type": "object",
+        "properties": {
+          "loop_addresses": {
+            "type": "array", 
+            "items": {
           "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "821528"
-            },
-            "mandant": {
-              "type": "string",
-              "example": "821528"
-            },
-            "for_rowid": {
-              "type": "string",
-              "example": "821528"
-            },
-            "same_contactperson": {
-              "type": "string",
-              "example": "821528"
-            },
-            "name": {
-              "type": "string",
-              "example": "821528"
-            },
-            "firstName": {
-              "type": "string",
-              "example": "821528"
-            },
-            "email": {
-              "type": "string",
-              "example": "821528"
-            },
-            "title": {
-              "type": "string",
-              "example": "821528"
-            },
-            "salutation": {
-              "type": "string",
-              "example": "821528"
-            },
-            "birthday": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_street": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_street_number": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_zip_code": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_town": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_state": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_country": {
-              "type": "string",
-              "example": "821528"
-            },
-            "phone": {
-              "type": "string",
-              "example": "821528"
-            },
-            "fax": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_phone": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_mobile_phone": {
-              "type": "string",
-              "example": "821528"
-            },
-            "private_email": {
-              "type": "string",
-              "example": "821528"
+              "properties": {
+                "rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "mandant": {
+                  "type": "string",
+                  "example": "sandbox"
+                },
+                "for_rowid": {
+                  "type": "string",
+                  "example": "946512"
+                },
+                "same_contactperson": {
+                  "type": "string",
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Jane"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "jane@doe.com"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Dr."
+                },
+                "salutation": {
+                  "type": "string",
+                  "example": "Greetings"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "01.01.2000"
+                },
+                "private_street": {
+                  "type": "string",
+                  "example": "Europaplatz"
+                },
+                "private_street_number": {
+                  "type": "string",
+                  "example": "12"
+                },
+                "private_zip_code": {
+                  "type": "string",
+                  "example": "10115"
+                },
+                "private_town": {
+                  "type": "string",
+                  "example": "Berlin"
+                },
+                "private_state": {
+                  "type": "string",
+                  "example": "Berlin"
+                },
+                "private_country": {
+                  "type": "string",
+                  "example": "Germany"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_mobile_phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_email": {
+                  "type": "string",
+                  "example": "jandedoe@gmail.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "getArticleResponse": {
+        "type": "object",
+        "properties": {
+          "loop_articles": {
+            "type": "array", 
+            "items": {
+          "type": "object",
+              "properties": {
+          "description": {
+            "type": "string",
+            "example": "Beispielartikel",
+            "description": "Article description in your default language"
+          },
+          "description2": {
+            "type": "string",
+            "example": "Example article",
+            "description": "Article description in your secondary language"
+          },
+          "long_description": {
+            "type": "string",
+            "example": "Dies ist ein Beispielartikel",
+            "description": "Longer article description in your default language"
+          },
+          "long_descriptio2n": {
+            "type": "string",
+            "example": "This is an example article",
+            "description": "Longer article description in your secondary language"
+          },
+          "number": {
+            "type": "string",
+            "example": "auto"
+          },
+          "purchase_price": {
+            "type": "string",
+            "example": "400"
+          },
+          "sales_price": {
+            "type": "string",
+            "example": "500"
+          },
+          "tax": {
+            "type": "string",
+            "example": "19"
+          }
+        }
             }
           }
         }
@@ -351,487 +428,302 @@
           }
         }
       },
-      "createPersonResponse": {
+      "createArticleRequest": {
         "type": "object",
         "required": [
-          "firstName",
-          "lastName"
+          "description",
+          "purchase_price",
+          "sales_price"
         ],
-        "properties": {}
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Beispielartikel",
+            "description": "Article description in your default language"
+          },
+          "description2": {
+            "type": "string",
+            "example": "Example article",
+            "description": "Article description in your secondary language"
+          },
+          "long_description": {
+            "type": "string",
+            "example": "Dies ist ein Beispielartikel",
+            "description": "Longer article description in your default language"
+          },
+          "long_descriptio2n": {
+            "type": "string",
+            "example": "This is an example article",
+            "description": "Longer article description in your secondary language"
+          },
+          "number": {
+            "type": "string",
+            "example": "auto"
+          },
+          "purchase_price": {
+            "type": "string",
+            "example": "400"
+          },
+          "sales_price": {
+            "type": "string",
+            "example": "500"
+          },
+          "tax": {
+            "type": "string",
+            "example": "19"
+          }
+        }
+      },
+      "updateArticleRequest": {
+        "type": "object",
+        "required": [
+          "rowid"
+        ],
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "1582"
+          },
+          "description": {
+            "type": "string",
+            "example": "Beispielartikel",
+            "description": "Article description in your default language"
+          },
+          "description2": {
+            "type": "string",
+            "example": "Example article",
+            "description": "Article description in your secondary language"
+          },
+          "long_description": {
+            "type": "string",
+            "example": "Dies ist ein Beispielartikel",
+            "description": "Longer article description in your default language"
+          },
+          "long_descriptio2n": {
+            "type": "string",
+            "example": "This is an example article",
+            "description": "Longer article description in your secondary language"
+          },
+          "number": {
+            "type": "string",
+            "example": "auto"
+          },
+          "purchase_price": {
+            "type": "string",
+            "example": "400"
+          },
+          "sales_price": {
+            "type": "string",
+            "example": "500"
+          },
+          "tax": {
+            "type": "string",
+            "example": "19"
+          }
+        }
+      },
+      "createPersonResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
       },
       "updatePersonRequest": {
         "type": "object",
+        "required": [
+          "rowid"
+        ],
         "properties": {
-          "dto": {
-            "type": "object",
-            "properties": {}
+          "rowid": {
+            "type": "string",
+            "example": "821652"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "John"
+          },
+          "name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jdoe@mail.com"
           }
         }
       },
       "updatePersonResponse": {
         "type": "object",
-        "required": [
-          "uid"
-        ],
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "3gbbk1jmq1l9m1"
-          },
-          "eventName": {
-            "type": "string",
-            "example": "PersonUpdated"
-          },
-          "timeStamp": {
-            "type": "string",
-            "example": "1537791125834"
-          },
-          "causalId": {
-            "type": "string",
-            "example": "0"
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "uid": {
-                "type": "string",
-                "example": "3gbbt1jmfzrnd5"
-              },
-              "dto": {
-
-                "type": "object",
-                "properties": {
-                  "lastName": {
-                    "type": "string",
-                    "example": "Stevens"
-                  },
-                  "addresses": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "uid": {
-                          "type": "string",
-                          "example": "3gbbk1jmpzr69r"
-                        },
-                        "street": {
-                          "type": "string",
-                          "example": "Wendenstr"
-                        },
-                        "streetNumber": {
-                          "type": "string",
-                          "example": "120"
-                        },
-                        "unit": {
-                          "type": "string",
-                          "example": "Hammerbrook"
-                        },
-                        "zipcode": {
-                          "type": "string",
-                          "example": "20537"
-                        },
-                        "city": {
-                          "type": "string",
-                          "example": "Hamburg"
-                        },
-                        "district": {
-                          "type": "string",
-                          "example": "HH-Hamburg"
-                        },
-                        "region": {
-                          "type": "string",
-                          "example": "Hamburg"
-                        },
-                        "country": {
-                          "type": "string",
-                          "example": "Germany"
-                        },
-                        "countryCode": {
-                          "type": "string",
-                          "example": "0049"
-                        },
-                        "primaryContact": {
-                          "type": "string",
-                          "example": "true"
-                        },
-                        "description": {
-                          "type": "string",
-                          "example": "Private Address"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "rowid": {
+            "type": "number",
+            "example": 16239
           }
         }
       },
-      "deletePersonsRequest": {
-        "type": "array",
-        "items": {
-          "type": "string"
+      "deletePersonRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "81436"
+          }
         },
-        "example": "[\"3gbbp1jm6ez2o4\", \"3gbbp1jm6f2q7y\"]"
+      },
+      "deleteOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "81436"
+          }
+        },
+      },
+      "deleteArticleRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "81436"
+          }
+        },
       },
       "deletePersonResponse": {
-        "type": "object",
-        "required": [
-          "uid"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "3gbbk1jmq3nv5q"
-          },
-          "eventName": {
-            "type": "string",
-            "example": "PersonDeleted"
-          },
-          "timeStamp": {
-            "type": "string",
-            "example": "1537791877918"
-          },
-          "causalId": {
-            "type": "string",
-            "example": "0"
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "uid": {
-                "type": "string",
-                "example": "3gbbt1jmfzrnd5"
-              }
-            }
-          }
-        }
+        "type": "string",
+        "example": "Deletion successful!"
+      },
+      "deleteOrganizationResponse": {
+        "type": "string",
+        "example": "Deletion successful!"
+      },
+      "deleteArticleResponse": {
+        "type": "string",
+        "example": "Deletion successful!"
       },
       "getOrganizationResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "821528"
-            },
-            "mandant": {
-              "type": "string",
-              "example": "821528"
-            },
-            "for_rowid": {
-              "type": "string",
-              "example": "821528"
-            },
-            "name": {
-              "type": "string",
-              "example": "Company Ltd."
-            },
-            "email": {
-              "type": "string",
-              "example": "info@company.com"
-            },
-            "street": {
-              "type": "string",
-              "example": "Main Str."
-            },
-            "street_number": {
-              "type": "string",
-              "example": "441"            },
-            "zip_code": {
-              "type": "string",
-              "example": "821528"
-            },
-            "p_o_box": {
-              "type": "string",
-              "example": "B41C"
-            },
-            "town": {
-              "type": "string",
-              "example": "New York City"
-            },
-            "state": {
-              "type": "string",
-              "example": "New York"
-            },
-            "country": {
-              "type": "string",
-              "example": "USA"
-            },
-            "phone": {
-              "type": "string",
-              "example": "82152587588"
-            },
-            "fax": {
-              "type": "string",
-              "example": "82759871528"
+        "type": "object",
+        "properties": {
+          "loop_addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "mandant": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "for_rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Company Ltd."
+                },
+                "email": {
+                  "type": "string",
+                  "example": "info@company.com"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "Main Str."
+                },
+                "street_number": {
+                  "type": "string",
+                  "example": "441"            },
+                "zip_code": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "p_o_box": {
+                  "type": "string",
+                  "example": "B41C"
+                },
+                "town": {
+                  "type": "string",
+                  "example": "New York City"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "New York"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "USA"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "82152587588"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "82759871528"
+                }
+              }
             }
           }
         }
       },
       "createOrganizationResponse": {
         "type": "object",
-        "required": [
-          "name"
-        ],
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "3gbbk1jmq3nv5q"
-          },
-          "eventName": {
-            "type": "string",
-            "example": "OrganizationCreated"
-          },
-          "timeStamp": {
-            "type": "string",
-            "example": "1538386602109"
-          },
-          "causalId": {
-            "type": "string",
-            "example": "0"
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "Wice GmbH"
-              },
-              "logo": {
-                "type": "string",
-                "example": "Logo"
-              },
-              "addresses": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "uid": {
-                      "type": "string",
-                      "example": "3gbbk1jmpzr69r"
-                    },
-                    "street": {
-                      "type": "string",
-                      "example": "Wendenstr"
-                    },
-                    "streetNumber": {
-                      "type": "string",
-                      "example": "120"
-                    },
-                    "unit": {
-                      "type": "string",
-                      "example": "Hammerbrook"
-                    },
-                    "zipcode": {
-                      "type": "string",
-                      "example": "20537"
-                    },
-                    "city": {
-                      "type": "string",
-                      "example": "Hamburg"
-                    },
-                    "district": {
-                      "type": "string",
-                      "example": "HH-Hamburg"
-                    },
-                    "region": {
-                      "type": "string",
-                      "example": "Hamburg"
-                    },
-                    "country": {
-                      "type": "string",
-                      "example": "Germany"
-                    },
-                    "countryCode": {
-                      "type": "string",
-                      "example": "0049"
-                    },
-                    "primaryContact": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "description": {
-                      "type": "string",
-                      "example": "Public Address"
-                    }
-                  }
-                }
-              },
-              "uid": {
-                "type": "string",
-                "example": "3gbbk1jmq0i53k"
-              }
-            }
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "createArticleResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
           }
         }
       },
       "updateOrganizationRequest": {
         "type": "object",
+        "required": [
+          "rowid"
+        ],
         "properties": {
-          "dto": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "Changed GmbH"
-              },
-              "addresses": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "uid": {
-                      "type": "string",
-                      "example": "3gbbu1jmkewc87"
-                    },
-                    "street": {
-                      "type": "string",
-                      "example": "Wendenstr"
-                    },
-                    "streetNumber": {
-                      "type": "string",
-                      "example": "120"
-                    },
-                    "unit": {
-                      "type": "string",
-                      "example": "Hammerbrook"
-                    },
-                    "zipcode": {
-                      "type": "string",
-                      "example": "20537"
-                    },
-                    "city": {
-                      "type": "string",
-                      "example": "Hamburg"
-                    },
-                    "district": {
-                      "type": "string",
-                      "example": "HH-Hamburg"
-                    },
-                    "region": {
-                      "type": "string",
-                      "example": "Hamburg"
-                    },
-                    "country": {
-                      "type": "string",
-                      "example": "Germany"
-                    },
-                    "countryCode": {
-                      "type": "string",
-                      "example": "0049"
-                    },
-                    "primaryContact": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "description": {
-                      "type": "string",
-                      "example": "Private Address"
-                    }
-                  }
-                }
-              }
-            }
+          "rowid": {
+            "type": "string",
+            "example": "80672"
+          },
+          "name": {
+            "type": "string",
+            "example": "Company Ltd."
+          },
+          "email": {
+            "type": "string",
+            "example": "info@company.com"
           }
         }
       },
       "updateOrganizationResponse": {
         "type": "object",
-        "required": [
-          "uid"
-        ],
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "3gbbj1jmg9ko6j"
-          },
-          "eventName": {
-            "type": "string",
-            "example": "OrganizationUpdated"
-          },
-          "timeStamp": {
-            "type": "string",
-            "example": "1537791125834"
-          },
-          "causalId": {
-            "type": "string",
-            "example": "0"
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "uid": {
-                "type": "string",
-                "example": "3gbbt1jmfzrnd5"
-              },
-              "dto": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Changed GmbH"
-                  },
-                  "addresses": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "uid": {
-                          "type": "string",
-                          "example": "3gbbu1jmkewc87"
-                        },
-                        "street": {
-                          "type": "string",
-                          "example": "Wendenstr"
-                        },
-                        "streetNumber": {
-                          "type": "string",
-                          "example": "120"
-                        },
-                        "unit": {
-                          "type": "string",
-                          "example": "Hammerbrook"
-                        },
-                        "zipcode": {
-                          "type": "string",
-                          "example": "20537"
-                        },
-                        "city": {
-                          "type": "string",
-                          "example": "Hamburg"
-                        },
-                        "district": {
-                          "type": "string",
-                          "example": "HH-Hamburg"
-                        },
-                        "region": {
-                          "type": "string",
-                          "example": "Hamburg"
-                        },
-                        "country": {
-                          "type": "string",
-                          "example": "Germany"
-                        },
-                        "countryCode": {
-                          "type": "string",
-                          "example": "0049"
-                        },
-                        "primaryContact": {
-                          "type": "string",
-                          "example": "true"
-                        },
-                        "description": {
-                          "type": "string",
-                          "example": "Private Address"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "updateArticleResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
           }
         }
       }
