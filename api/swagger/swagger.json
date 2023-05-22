@@ -31,8 +31,7 @@
     }
   ],
   "security": [{
-    "CookieAuth": [],
-    "ApiKeyAuth": []
+    "CookieAuth": []
   }],
   "paths": {
     "/pserv/base/webvis": {
@@ -187,11 +186,6 @@
         "type": "apiKey",
         "in": "query",
         "name": "cookie"
-      },
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-Key"
       }
     },
     "schemas": {
