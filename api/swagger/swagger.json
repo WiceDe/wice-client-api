@@ -70,7 +70,45 @@
         }
       }
     },
-    "/plugin/wp_wice_client_api_backend/json": {
+    "/plugin/wp_wice_client_api_backend/json#create": {
+      "post": {
+        "tags": [
+          "resources"
+        ],
+        "x-swagger-router-controller": "resources",
+        "summary": "Manipulate a resource",
+        "description": "Create persons",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    "$ref": "#/components/schemas/createPersonResponse",
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/createPersonRequestForm",
+              }
+            }
+          },
+          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#old": {
       "get": {
         "tags": [
           "resources"
