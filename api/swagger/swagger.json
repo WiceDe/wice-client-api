@@ -186,8 +186,8 @@
     "securitySchemes": {
       "CookieAuth": {
         "type": "apiKey",
-        "in": "cookie",
-        "name": "wice_cookie"
+        "in": "query",
+        "name": "cookie"
       }
     },
     "schemas": {
@@ -393,9 +393,13 @@
         "type": "object",
         "required": [
           "data",
-          "method"
+          "method",
+          "cookie"
         ],
         "properties": {
+          "cookie": {
+            "type": "string"
+          },
           "method": {
             "type": "string",
             "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
