@@ -82,7 +82,7 @@
             "description": "Determines the type of resource to be fetched.",
             "schema": {
               "type": "string",
-              "enum": ["get_all_persons", "get_all_organizations", "get_all_articles"]
+              "enum": ["get_all_persons", "get_all_companies", "get_all_articles"]
             },
             "required": true
           },
@@ -249,7 +249,7 @@
         "type": "object",
         "properties": {
           "loop_addresses": {
-            "type": "array", 
+            "type": "array",
             "items": {
           "type": "object",
               "properties": {
@@ -345,7 +345,7 @@
         "type": "object",
         "properties": {
           "loop_articles": {
-            "type": "array", 
+            "type": "array",
             "items": {
           "type": "object",
               "properties": {
