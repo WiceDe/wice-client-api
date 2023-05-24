@@ -131,7 +131,7 @@
           "200": {
             "description": "Supplies the rowid of the created resource",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
                   "oneOf": [
                     "$ref": "#/components/schemas/createPersonResponse",
@@ -186,8 +186,8 @@
     "securitySchemes": {
       "CookieAuth": {
         "type": "apiKey",
-        "in": "query",
-        "name": "cookie"
+        "in": "cookie",
+        "name": "wice_cookie"
       }
     },
     "schemas": {
