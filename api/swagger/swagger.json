@@ -124,18 +124,6 @@
         "tags": [
           "resources"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation to be executed.",
-            "schema": {
-              "type": "string",
-              "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
-            },
-            "required": true
-          }
-        ],
         "x-swagger-router-controller": "resources",
         "summary": "Manipulate a resource",
         "description": "Create, update, or delete persons, companies, or articles, depending on chosen method.",
@@ -166,19 +154,9 @@
         },
         "requestBody": {
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
-                "oneOf": [
-                  "$ref": "#/components/schemas/createPersonRequest",
-                  "$ref": "#/components/schemas/createOrganizationRequest",
-                  "$ref": "#/components/schemas/createArticleRequest",
-                  "$ref": "#/components/schemas/updatePersonRequest",
-                  "$ref": "#/components/schemas/updateOrganizationRequest",
-                  "$ref": "#/components/schemas/updateArticleRequest",
-                  "$ref": "#/components/schemas/deletePersonRequest",
-                  "$ref": "#/components/schemas/deleteOrganizationRequest",
-                  "$ref": "#/components/schemas/deleteArticleRequest"
-                ]
+                "$ref": "#/components/schemas/createPersonRequestForm",
               }
             }
           },
@@ -408,6 +386,23 @@
           "email": {
             "type": "string",
             "example": "jdoe@mail.com"
+          }
+        }
+      },
+      "createPersonRequestForm": {
+        "type": "object",
+        "required": [
+          "data",
+          "method"
+        ],
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
+          },
+          "data": {
+            "type": "string",
+            "example": "{\"firstname\": \"Jane\", \"lastname\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
           }
         }
       },
