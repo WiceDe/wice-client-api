@@ -1,93 +1,411 @@
-{
-  "openapi": "3.0.0",
-  "info": {
-    "description": "This is a client API for Wice CRM",
-    "version": "0.0.1",
-    "title": "Wice CRM API",
-    "termsOfService": "https://wice.de",
-    "contact": {
-      "email": "support@wice.de"
-    },
-    "license": {
-      "name": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
-  },
-  "tags": [{
-      "name": "user",
-      "description": "User management",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "description": "This is a client API for Wice CRM",
+      "version": "0.0.1",
+      "title": "Wice CRM API",
+      "termsOfService": "https://wice.de",
+      "contact": {
+        "email": "support@wice.de"
+      },
+      "license": {
+        "name": "Apache-2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
       }
     },
-    {
-      "name": "persons",
-      "description": "Manipulate stored persons",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
+    "tags": [{
+        "name": "user",
+        "description": "User management",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
+      },
+      {
+        "name": "persons",
+        "description": "Manipulate stored persons",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
+      },
+      {
+        "name": "organizations",
+        "description": "Manipulate stored organizations",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
-    },
-    {
-      "name": "organizations",
-      "description": "Manipulate stored organizations",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
-      }
-    }
-  ],
-  "paths": {
-    "/pserv/base/webvis": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "x-swagger-router-controller": "user",
-        "summary": "Login user",
-        "description": "Login in Wice CRM.",
-        "responses": {
-          "200": {
-            "description": "Supplies the cookie after successful login",
+    ],
+    "paths": {
+      "/pserv/base/webvis": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "x-swagger-router-controller": "user",
+          "summary": "Login user",
+          "description": "Login in Wice CRM.",
+          "responses": {
+            "200": {
+              "description": "Supplies the cookie after successful login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/loginUserResponse"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid input"
+            }
+          },
+          "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/loginUserResponse"
+                  "$ref": "#/components/schemas/loginUser"
                 }
               }
+            },
+            "description": "Mandant name and username which will be passed on to the server",
+            "required": true
+          }
+        }
+      },
+      "/plugin/wp_wice_client_api_backend/json#getPersons": {
+        "get": {
+          "tags": [
+            "persons"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "method",
+              "description": "Determines the type of resource to be fetched.",
+              "schema": {
+                "type": "string",
+                "enum": ["get_all_persons"]
+              },
+              "required": true
+            },
+            {
+              "in": "query",
+              "name": "full_list",
+              "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+              "schema": {
+                "type": "number",
+                "enum": [1]
+              },
+              "required": false
+            },
+          ],
+          "x-swagger-router-controller": "persons",
+          "summary": "Get a list of persons",
+          "description": "Returns all available persons",
+          "responses": {
+            "200": {
+              "description": "An array of all requested persons",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      "$ref": "#/components/schemas/getPersonResponse",
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid input"
             }
-          },
-          "401": {
-            "description": "Invalid input"
           }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/loginUser"
+      },
+      "/plugin/wp_wice_client_api_backend/json#createPerson": {
+        "post": {
+          "tags": [
+            "persons"
+          ],
+          "x-swagger-router-controller": "persons",
+          "summary": "Create a new person",
+          "description": "Creates a new person within Wice CRM",
+          "responses": {
+            "200": {
+              "description": "Supplies the rowid of the created person",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      "$ref": "#/components/schemas/createPersonResponse",
+                    ]
+                  }
+                }
               }
+            },
+            "401": {
+              "description": "Invalid input"
             }
           },
-          "description": "Mandant name and username which will be passed on to the server",
-          "required": true
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/createPersonRequestForm",
+                }
+              }
+            },
+            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+            "required": true
+          }
         }
-      }
-    },
-    "/plugin/wp_wice_client_api_backend/json#getPersons": {
+      },
+      "/plugin/wp_wice_client_api_backend/json#updatePerson": {
+        "post": {
+          "tags": [
+            "persons"
+          ],
+          "x-swagger-router-controller": "persons",
+          "summary": "Update an existing person",
+          "description": "Updates an existing person within Wice CRM, identified by its rowid",
+          "responses": {
+            "200": {
+              "description": "Supplies the rowid of the created person",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      "$ref": "#/components/schemas/updatePersonResponse",
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid input"
+            }
+          },
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/updatePersonRequestForm",
+                }
+              }
+            },
+            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+            "required": true
+          }
+        }
+      },
+      "/plugin/wp_wice_client_api_backend/json#deletePerson": {
+        "post": {
+          "tags": [
+            "persons"
+          ],
+          "x-swagger-router-controller": "persons",
+          "summary": "Deactivate an existing organization",
+          "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
+          "responses": {
+            "200": {
+              "description": "Confirms deletion with Deletion successful message",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      "$ref": "#/components/schemas/deletePersonResponse",
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid input"
+            }
+          },
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/deletePersonRequestForm",
+                }
+              }
+            },
+            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+            "required": true
+          }
+        }
+      },
+      "/plugin/wp_wice_client_api_backend/json#getCompanies": {
+       "get": {
+         "tags": [
+           "organizations"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["get_all_companies"]
+             },
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "full_list",
+             "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+             "schema": {
+               "type": "number",
+               "enum": [1]
+             },
+             "required": false
+           },
+         ],
+         "x-swagger-router-controller": "organization",
+         "summary": "Get a list of all companies",
+         "description": "Returns all available companies",
+         "responses": {
+           "200": {
+             "description": "An array of all requested companies",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/getOrganizationResponse"
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#createOrganization": {
+       "post": {
+         "tags": [
+           "organizations"
+         ],
+         "x-swagger-router-controller": "organization",
+         "summary": "Create a new organization",
+         "description": "Creates a new organization within Wice CRM",
+         "responses": {
+           "200": {
+             "description": "Supplies the rowid of the created organization",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/createOrganizationResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/createOrganizationRequestForm",
+               }
+             }
+           },
+           "description": "The data of the organization should be in JSON format.",
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#updateOrganization": {
+       "post": {
+         "tags": [
+           "organizations"
+         ],
+         "x-swagger-router-controller": "organization",
+         "summary": "Update an existing organization",
+         "description": "Updates an existing organization within Wice CRM, identified by its rowid",
+         "responses": {
+           "200": {
+             "description": "Supplies the rowid of the created organization",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/updateOrganizationResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/updateOrganizationRequestForm",
+               }
+             }
+           },
+           "description": "The data of the organization should be in JSON format.",
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#deleteOrganization": {
+       "post": {
+         "tags": [
+           "organizations"
+         ],
+         "x-swagger-router-controller": "organization",
+         "summary": "Deactivate an existing organization",
+         "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
+         "responses": {
+           "200": {
+             "description": "Supplies the rowid of the created organization",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/deleteOrganizationResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/deleteOrganizationRequestForm",
+               }
+             }
+           },
+           "description": "Requires only the rowid of the organization.",
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#getArticles": {
       "get": {
         "tags": [
-          "persons"
+          "articles"
         ],
         "parameters": [
           {
             "in": "query",
             "name": "method",
-            "description": "Determines the type of resource to be fetched.",
+            "description": "Determines the operation.",
             "schema": {
               "type": "string",
-              "enum": ["get_all_persons"]
+              "enum": ["get_all_articles"]
             },
             "required": true
           },
@@ -102,18 +420,16 @@
             "required": false
           },
         ],
-        "x-swagger-router-controller": "persons",
-        "summary": "Get a list of persons",
-        "description": "Returns all available persons",
+        "x-swagger-router-controller": "articles",
+        "summary": "Get a list of all articles",
+        "description": "Returns all available articles",
         "responses": {
           "200": {
-            "description": "An array of all requested persons",
+            "description": "An array of all requested articles",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/getPersonResponse",
-                  ]
+                  "$ref": "#/components/schemas/getArticleResponse"
                 }
               }
             }
@@ -122,25 +438,23 @@
             "description": "Invalid input"
           }
         }
-      },
+      }
     },
-    "/plugin/wp_wice_client_api_backend/json#createPerson": {
+    "/plugin/wp_wice_client_api_backend/json#createArticle": {
       "post": {
         "tags": [
-          "persons"
+          "articles"
         ],
-        "x-swagger-router-controller": "persons",
-        "summary": "Create a new person",
-        "description": "Creates a new person within Wice CRM",
+        "x-swagger-router-controller": "articles",
+        "summary": "Create a new article",
+        "description": "Creates a new article within Wice CRM",
         "responses": {
           "200": {
-            "description": "Supplies the rowid of the created person",
+            "description": "Supplies the rowid of the created article",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/createPersonResponse",
-                  ]
+                  "$ref": "#/components/schemas/createArticleResponse",
                 }
               }
             }
@@ -153,32 +467,30 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/createPersonRequestForm",
+                "$ref": "#/components/schemas/createArticleRequestForm",
               }
             }
           },
-          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "description": "The data of the article should be in JSON format.",
           "required": true
         }
       }
     },
-    "/plugin/wp_wice_client_api_backend/json#updatePerson": {
+    "/plugin/wp_wice_client_api_backend/json#updateArticle": {
       "post": {
         "tags": [
-          "persons"
+          "articles"
         ],
-        "x-swagger-router-controller": "persons",
-        "summary": "Update an existing person",
-        "description": "Updates an existing person within Wice CRM, identified by its rowid",
+        "x-swagger-router-controller": "articles",
+        "summary": "Update an article",
+        "description": "Update an existing article",
         "responses": {
           "200": {
-            "description": "Supplies the rowid of the created person",
+            "description": "Supplies the rowid of the updated article",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/updatePersonResponse",
-                  ]
+                  "$ref": "#/components/schemas/updateArticleResponse",
                 }
               }
             }
@@ -191,32 +503,30 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/updatePersonRequest",
+                "$ref": "#/components/schemas/updateArticleRequestForm",
               }
             }
           },
-          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "description": "The data of the article should be in JSON format and unclude the article's rowid.",
           "required": true
         }
       }
     },
-    "/plugin/wp_wice_client_api_backend/json#deletePerson": {
+    "/plugin/wp_wice_client_api_backend/json#deleteArticle": {
       "post": {
         "tags": [
-          "persons"
+          "articles"
         ],
-        "x-swagger-router-controller": "persons",
-        "summary": "Deactivate an existing organization",
-        "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
+        "x-swagger-router-controller": "articles",
+        "summary": "Delete an article",
+        "description": "Deletes an existing article",
         "responses": {
           "200": {
-            "description": "Confirms deletion with Deletion successful message",
+            "description": "Confirms a successful deletion",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/deletePersonResponse",
-                  ]
+                  "$ref": "#/components/schemas/deleteArticleResponse",
                 }
               }
             }
@@ -229,835 +539,534 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/deletePersonRequest",
+                "$ref": "#/components/schemas/deleteArticleRequestForm",
               }
             }
           },
-          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "description": "Requires only the article's rowid",
           "required": true
         }
       }
+    }
     },
-    "/plugin/wp_wice_client_api_backend/json#getCompanies": {
-     "get": {
-       "tags": [
-         "organizations"
-       ],
-       "parameters": [
-         {
-           "in": "query",
-           "name": "method",
-           "description": "Determines the operation.",
-           "schema": {
-             "type": "string",
-             "enum": ["get_all_companies"]
-           },
-           "required": true
-         },
-         {
-           "in": "query",
-           "name": "full_list",
-           "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
-           "schema": {
-             "type": "number",
-             "enum": [1]
-           },
-           "required": false
-         },
-       ],
-       "x-swagger-router-controller": "organization",
-       "summary": "Get a list of all companies",
-       "description": "Returns all available companies",
-       "responses": {
-         "200": {
-           "description": "An array of all requested companies",
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/getOrganizationResponse"
-               }
-             }
-           }
-         },
-         "401": {
-           "description": "Invalid input"
-         }
-       }
-     }
-   },
-   "/plugin/wp_wice_client_api_backend/json#createOrganization": {
-     "post": {
-       "tags": [
-         "organizations"
-       ],
-       "x-swagger-router-controller": "organization",
-       "summary": "Create a new organization",
-       "description": "Creates a new organization within Wice CRM",
-       "responses": {
-         "200": {
-           "description": "Supplies the rowid of the created organization",
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/createOrganizationResponse",
-               }
-             }
-           }
-         },
-         "401": {
-           "description": "Invalid input"
-         }
-       },
-       "requestBody": {
-         "content": {
-           "multipart/form-data": {
-             "schema": {
-               "$ref": "#/components/schemas/createOrganizationRequestForm",
-             }
-           }
-         },
-         "description": "The data of the organization should be in JSON format.",
-         "required": true
-       }
-     }
-   },
-   "/plugin/wp_wice_client_api_backend/json#updateOrganization": {
-     "post": {
-       "tags": [
-         "organizations"
-       ],
-       "x-swagger-router-controller": "organization",
-       "summary": "Update an existing organization",
-       "description": "Updates an existing organization within Wice CRM, identified by its rowid",
-       "responses": {
-         "200": {
-           "description": "Supplies the rowid of the created organization",
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/updateOrganizationResponse",
-               }
-             }
-           }
-         },
-         "401": {
-           "description": "Invalid input"
-         }
-       },
-       "requestBody": {
-         "content": {
-           "multipart/form-data": {
-             "schema": {
-               "$ref": "#/components/schemas/updateOrganizationRequestForm",
-             }
-           }
-         },
-         "description": "The data of the organization should be in JSON format.",
-         "required": true
-       }
-     }
-   },
-   "/plugin/wp_wice_client_api_backend/json#deleteOrganization": {
-     "post": {
-       "tags": [
-         "organizations"
-       ],
-       "x-swagger-router-controller": "organization",
-       "summary": "Deactivate an existing organization",
-       "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
-       "responses": {
-         "200": {
-           "description": "Supplies the rowid of the created organization",
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/deleteOrganizationResponse",
-               }
-             }
-           }
-         },
-         "401": {
-           "description": "Invalid input"
-         }
-       },
-       "requestBody": {
-         "content": {
-           "multipart/form-data": {
-             "schema": {
-               "$ref": "#/components/schemas/deleteOrganizationRequestForm",
-             }
-           }
-         },
-         "description": "Requires only the rowid of the organization.",
-         "required": true
-       }
-     }
-   },
-   "/plugin/wp_wice_client_api_backend/json#getArticles": {
-    "get": {
-      "tags": [
-        "articles"
-      ],
-      "parameters": [
-        {
-          "in": "query",
-          "name": "method",
-          "description": "Determines the operation.",
-          "schema": {
-            "type": "string",
-            "enum": ["get_all_articles"]
-          },
-          "required": true
-        },
-        {
-          "in": "query",
-          "name": "full_list",
-          "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
-          "schema": {
-            "type": "number",
-            "enum": [1]
-          },
-          "required": false
-        },
-      ],
-      "x-swagger-router-controller": "articles",
-      "summary": "Get a list of all articles",
-      "description": "Returns all available articles",
-      "responses": {
-        "200": {
-          "description": "An array of all requested articles",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/getArticleResponse"
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Invalid input"
-        }
-      }
-    }
-  },
-  "/plugin/wp_wice_client_api_backend/json#createArticle": {
-    "post": {
-      "tags": [
-        "articles"
-      ],
-      "x-swagger-router-controller": "articles",
-      "summary": "Create a new article",
-      "description": "Creates a new article within Wice CRM",
-      "responses": {
-        "200": {
-          "description": "Supplies the rowid of the created article",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/createArticleResponse",
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Invalid input"
-        }
-      },
-      "requestBody": {
-        "content": {
-          "multipart/form-data": {
-            "schema": {
-              "$ref": "#/components/schemas/createArticleRequestForm",
-            }
-          }
-        },
-        "description": "The data of the article should be in JSON format.",
-        "required": true
-      }
-    }
-  },
-  "/plugin/wp_wice_client_api_backend/json#updateArticle": {
-    "post": {
-      "tags": [
-        "articles"
-      ],
-      "x-swagger-router-controller": "articles",
-      "summary": "Update an article",
-      "description": "Update an existing article",
-      "responses": {
-        "200": {
-          "description": "Supplies the rowid of the updated article",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/updateArticleResponse",
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Invalid input"
-        }
-      },
-      "requestBody": {
-        "content": {
-          "multipart/form-data": {
-            "schema": {
-              "$ref": "#/components/schemas/updateArticleRequestForm",
-            }
-          }
-        },
-        "description": "The data of the article should be in JSON format and unclude the article's rowid.",
-        "required": true
-      }
-    }
-  },
-  "/plugin/wp_wice_client_api_backend/json#deleteArticle": {
-    "post": {
-      "tags": [
-        "articles"
-      ],
-      "x-swagger-router-controller": "articles",
-      "summary": "Delete an article",
-      "description": "Deletes an existing article",
-      "responses": {
-        "200": {
-          "description": "Confirms a successful deletion",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deleteArticleResponse",
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Invalid input"
-        }
-      },
-      "requestBody": {
-        "content": {
-          "multipart/form-data": {
-            "schema": {
-              "$ref": "#/components/schemas/deleteArticleRequestForm",
-            }
-          }
-        },
-        "description": "Requires only the article's rowid",
-        "required": true
-      }
-    }
-  }
-  },
-  "externalDocs": {
-    "description": "Find out more about Wice CRM",
-    "url": "https://wice.de"
-  },
-  "servers": [{
-      "url": "https://{server}.wice-net.de",
-      "variables": {
-        "server": {
-          "default": "oihwice"
-        }
-      }
+    "externalDocs": {
+      "description": "Find out more about Wice CRM",
+      "url": "https://wice.de"
     },
-    {
-      "url": "http://localhost:5000/"
-    }
-  ],
-  "components": {
-    "schemas": {
-      "loginUser": {
-        "type": "object",
-        "required": [
-          "mandant_name",
-          "username",
-          "password"
-        ],
-        "properties": {
-          "mandant_name": {
-            "type": "string",
-            "example": "companygmbh"
-          },
-          "username": {
-            "type": "string",
-            "example": "maxmustermann"
-          },
-          "password": {
-            "type": "string",
-            "example": "yourpassword"
+    "servers": [{
+        "url": "https://{server}.wice-net.de",
+        "variables": {
+          "server": {
+            "default": "oihwice"
           }
         }
       },
-      "loginUserResponse": {
-        "type": "object",
-        "properties": {
-          "cookie": {
-            "type": "string",
-            "example": "5pd8m4jxaab8sp3mi4yluhkjrhmhqpug"
+      {
+        "url": "http://localhost:5000/"
+      }
+    ],
+    "components": {
+      "schemas": {
+        "loginUser": {
+          "type": "object",
+          "required": [
+            "mandant_name",
+            "username",
+            "password"
+          ],
+          "properties": {
+            "mandant_name": {
+              "type": "string",
+              "example": "companygmbh"
+            },
+            "username": {
+              "type": "string",
+              "example": "maxmustermann"
+            },
+            "password": {
+              "type": "string",
+              "example": "yourpassword"
+            }
           }
-        }
+        },
+        "loginUserResponse": {
+          "type": "object",
+          "properties": {
+            "cookie": {
+              "type": "string",
+              "example": "5pd8m4jxaab8sp3mi4yluhkjrhmhqpug"
+            }
+          }
 
-      },
-      "getPersonResponse": {
-        "type": "object",
-        "properties": {
-          "loop_addresses": {
-            "type": "array",
-            "items": {
+        },
+        "getPersonResponse": {
           "type": "object",
-              "properties": {
-                "rowid": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "mandant": {
-                  "type": "string",
-                  "example": "sandbox"
-                },
-                "for_rowid": {
-                  "type": "string",
-                  "example": "946512"
-                },
-                "same_contactperson": {
-                  "type": "string",
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Doe"
-                },
-                "firstName": {
-                  "type": "string",
-                  "example": "Jane"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "jane@doe.com"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "Dr."
-                },
-                "salutation": {
-                  "type": "string",
-                  "example": "Greetings"
-                },
-                "birthday": {
-                  "type": "string",
-                  "example": "01.01.2000"
-                },
-                "private_street": {
-                  "type": "string",
-                  "example": "Europaplatz"
-                },
-                "private_street_number": {
-                  "type": "string",
-                  "example": "12"
-                },
-                "private_zip_code": {
-                  "type": "string",
-                  "example": "10115"
-                },
-                "private_town": {
-                  "type": "string",
-                  "example": "Berlin"
-                },
-                "private_state": {
-                  "type": "string",
-                  "example": "Berlin"
-                },
-                "private_country": {
-                  "type": "string",
-                  "example": "Germany"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "0124/5478"
-                },
-                "fax": {
-                  "type": "string",
-                  "example": "0124/5478"
-                },
-                "private_phone": {
-                  "type": "string",
-                  "example": "0124/5478"
-                },
-                "private_mobile_phone": {
-                  "type": "string",
-                  "example": "0124/5478"
-                },
-                "private_email": {
-                  "type": "string",
-                  "example": "jandedoe@gmail.com"
+          "properties": {
+            "loop_addresses": {
+              "type": "array",
+              "items": {
+            "type": "object",
+                "properties": {
+                  "rowid": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "mandant": {
+                    "type": "string",
+                    "example": "sandbox"
+                  },
+                  "for_rowid": {
+                    "type": "string",
+                    "example": "946512"
+                  },
+                  "same_contactperson": {
+                    "type": "string",
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Doe"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Jane"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "jane@doe.com"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Dr."
+                  },
+                  "salutation": {
+                    "type": "string",
+                    "example": "Greetings"
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "example": "01.01.2000"
+                  },
+                  "private_street": {
+                    "type": "string",
+                    "example": "Europaplatz"
+                  },
+                  "private_street_number": {
+                    "type": "string",
+                    "example": "12"
+                  },
+                  "private_zip_code": {
+                    "type": "string",
+                    "example": "10115"
+                  },
+                  "private_town": {
+                    "type": "string",
+                    "example": "Berlin"
+                  },
+                  "private_state": {
+                    "type": "string",
+                    "example": "Berlin"
+                  },
+                  "private_country": {
+                    "type": "string",
+                    "example": "Germany"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "0124/5478"
+                  },
+                  "fax": {
+                    "type": "string",
+                    "example": "0124/5478"
+                  },
+                  "private_phone": {
+                    "type": "string",
+                    "example": "0124/5478"
+                  },
+                  "private_mobile_phone": {
+                    "type": "string",
+                    "example": "0124/5478"
+                  },
+                  "private_email": {
+                    "type": "string",
+                    "example": "jandedoe@gmail.com"
+                  }
                 }
               }
             }
-          }
-        }
-      },
-      "getArticleResponse": {
-        "type": "object",
-        "properties": {
-          "loop_articles": {
-            "type": "array",
-            "items": {
-          "type": "object",
-              "properties": {
-          "description": {
-            "type": "string",
-            "example": "Beispielartikel",
-            "description": "Article description in your default language"
-          },
-          "description2": {
-            "type": "string",
-            "example": "Example article",
-            "description": "Article description in your secondary language"
-          },
-          "long_description": {
-            "type": "string",
-            "example": "Dies ist ein Beispielartikel",
-            "description": "Longer article description in your default language"
-          },
-          "long_description2": {
-            "type": "string",
-            "example": "This is an example article",
-            "description": "Longer article description in your secondary language"
-          },
-          "number": {
-            "type": "string",
-            "example": "auto"
-          },
-          "purchase_price": {
-            "type": "string",
-            "example": "400"
-          },
-          "sales_price": {
-            "type": "string",
-            "example": "500"
-          },
-          "tax": {
-            "type": "string",
-            "example": "19"
-          }
-        }
-            }
-          }
-        }
-      },
-      "createPersonRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"firstname\": \"Jane\", \"lastname\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
-          }
-        }
-      },
-      "createOrganizationRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["insert_organization"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"name\": \"Organization Inc.\", \"email\": \"info@org.com\"}"
-          }
-        }
-      },
-      "updateOrganizationRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["update_organization"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"rowid\": \"12345\", \"name\": \"Changed Organization Inc.\", \"email\": \"info@neworg.com\"}"
-          }
-        }
-      },
-      "deleteOrganizationRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["delete_organization"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"rowid\": \"12345\"}"
-          }
-        }
-      },
-      "createArticleRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["insert_article"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"description\": \"Example Article\", \"long_description\": \"This is an example article\", \"number\": \"auto\", \"purchase_price\": \"250\", \"sales_price\": \"500\", \"tax\": \"19\"}"
-          }
-        }
-      },
-      "updateArticleRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["update_article"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"rowid\": \"12345\", \"description\": \"Example Article\", \"long_description\": \"This is an updated article\", \"number\": \"auto\", \"purchase_price\": \"4000\", \"sales_price\": \"800\", \"tax\": \"19\"}"
-          }
-        }
-      },
-      "deleteArticleRequestForm": {
-        "type": "object",
-        "required": [
-          "data",
-          "method",
-          "cookie"
-        ],
-        "properties": {
-          "cookie": {
-            "type": "string"
-          },
-          "method": {
-            "type": "string",
-            "enum": ["delete_article"]
-          },
-          "data": {
-            "type": "string",
-            "example": "{\"rowid\": \"12345\"}"
-          }
-        }
-      },
-      "createPersonResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
-          }
-        }
-      },
-      "updatePersonRequest": {
-        "type": "object",
-        "required": [
-          "rowid"
-        ],
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "821652"
-          },
-          "firstname": {
-            "type": "string",
-            "example": "John"
-          },
-          "name": {
-            "type": "string",
-            "example": "Doe"
-          },
-          "email": {
-            "type": "string",
-            "example": "jdoe@mail.com"
-          }
-        }
-      },
-      "updatePersonResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
-          }
-        }
-      },
-      "deletePersonRequest": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "81436"
           }
         },
-      },
-      "deletePersonResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
-      },
-      "deleteOrganizationResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
-      },
-      "deleteArticleResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
-      },
-      "getOrganizationResponse": {
-        "type": "object",
-        "properties": {
-          "loop_addresses": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "rowid": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "mandant": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "for_rowid": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Company Ltd."
-                },
-                "email": {
-                  "type": "string",
-                  "example": "info@company.com"
-                },
-                "street": {
-                  "type": "string",
-                  "example": "Main Str."
-                },
-                "street_number": {
-                  "type": "string",
-                  "example": "441"            },
-                "zip_code": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "p_o_box": {
-                  "type": "string",
-                  "example": "B41C"
-                },
-                "town": {
-                  "type": "string",
-                  "example": "New York City"
-                },
-                "state": {
-                  "type": "string",
-                  "example": "New York"
-                },
-                "country": {
-                  "type": "string",
-                  "example": "USA"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "82152587588"
-                },
-                "fax": {
-                  "type": "string",
-                  "example": "82759871528"
+        "getArticleResponse": {
+          "type": "object",
+          "properties": {
+            "loop_articles": {
+              "type": "array",
+              "items": {
+            "type": "object",
+                "properties": {
+            "description": {
+              "type": "string",
+              "example": "Beispielartikel",
+              "description": "Article description in your default language"
+            },
+            "description2": {
+              "type": "string",
+              "example": "Example article",
+              "description": "Article description in your secondary language"
+            },
+            "long_description": {
+              "type": "string",
+              "example": "Dies ist ein Beispielartikel",
+              "description": "Longer article description in your default language"
+            },
+            "long_description2": {
+              "type": "string",
+              "example": "This is an example article",
+              "description": "Longer article description in your secondary language"
+            },
+            "number": {
+              "type": "string",
+              "example": "auto"
+            },
+            "purchase_price": {
+              "type": "string",
+              "example": "400"
+            },
+            "sales_price": {
+              "type": "string",
+              "example": "500"
+            },
+            "tax": {
+              "type": "string",
+              "example": "19"
+            }
+          }
+              }
+            }
+          }
+        },
+        "createPersonRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["insert_contact"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"firstname\": \"Jane\", \"lastname\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
+            }
+          }
+        },
+        "updatePersonRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["update_contact"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\", \"firstname\": \"Jane\", \"lastname\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
+            }
+          }
+        },
+        "deletePersonRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["delete_contact"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\"}"
+            }
+          }
+        },
+        "createOrganizationRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["insert_organization"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"name\": \"Organization Inc.\", \"email\": \"info@org.com\"}"
+            }
+          }
+        },
+        "updateOrganizationRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["update_organization"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\", \"name\": \"Changed Organization Inc.\", \"email\": \"info@neworg.com\"}"
+            }
+          }
+        },
+        "deleteOrganizationRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["delete_organization"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\"}"
+            }
+          }
+        },
+        "createArticleRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["insert_article"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"description\": \"Example Article\", \"long_description\": \"This is an example article\", \"number\": \"auto\", \"purchase_price\": \"250\", \"sales_price\": \"500\", \"tax\": \"19\"}"
+            }
+          }
+        },
+        "updateArticleRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["update_article"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\", \"description\": \"Example Article\", \"long_description\": \"This is an updated article\", \"number\": \"auto\", \"purchase_price\": \"4000\", \"sales_price\": \"800\", \"tax\": \"19\"}"
+            }
+          }
+        },
+        "deleteArticleRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["delete_article"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\"}"
+            }
+          }
+        },
+        "createPersonResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "updatePersonResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "deletePersonResponse": {
+          "type": "string",
+          "example": "Deletion successful!"
+        },
+        "deleteOrganizationResponse": {
+          "type": "string",
+          "example": "Deletion successful!"
+        },
+        "deleteArticleResponse": {
+          "type": "string",
+          "example": "Deletion successful!"
+        },
+        "getOrganizationResponse": {
+          "type": "object",
+          "properties": {
+            "loop_addresses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rowid": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "mandant": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "for_rowid": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Company Ltd."
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "info@company.com"
+                  },
+                  "street": {
+                    "type": "string",
+                    "example": "Main Str."
+                  },
+                  "street_number": {
+                    "type": "string",
+                    "example": "441"            },
+                  "zip_code": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "p_o_box": {
+                    "type": "string",
+                    "example": "B41C"
+                  },
+                  "town": {
+                    "type": "string",
+                    "example": "New York City"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "New York"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "USA"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "82152587588"
+                  },
+                  "fax": {
+                    "type": "string",
+                    "example": "82759871528"
+                  }
                 }
               }
             }
           }
-        }
-      },
-      "createOrganizationResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
+        },
+        "createOrganizationResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
           }
-        }
-      },
-      "createArticleResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
+        },
+        "createArticleResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
           }
-        }
-      },
-      "updateOrganizationResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
+        },
+        "updateOrganizationResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
           }
-        }
-      },
-      "updateArticleResponse": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "number",
-            "example": 16239
+        },
+        "updateArticleResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
           }
         }
       }
     }
   }
-}
