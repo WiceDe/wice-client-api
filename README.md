@@ -10,11 +10,6 @@
 Before you can use Wice Client API you **must be a registered Wice CRM user**. Please visit the home page of [Wice CRM](https://wice.de/register) to sign up.
 > Any attempt to reach [Wice CRM](https://wice.de/) endpoints without registration will not be successful!
 
-![home](assets/home.png)
-***
-![more](assets/more.png)
-***
-
 ## Installation
 To install the service locally run `npm install` to install all dependencies and then `npm start`. The service must be accessible on `http://localhost:5000/`
 
