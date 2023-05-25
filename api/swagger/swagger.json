@@ -13,7 +13,8 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "tags": [{
+  "tags": [
+    {
       "name": "user",
       "description": "User management",
       "externalDocs": {
@@ -27,21 +28,24 @@
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
-      },
+      }
+    },
       {
         "name": "person",
         "description": "Manipulate stored persons",
         "externalDocs": {
           "description": "Find out more",
           "url": "https://wice.de"
-      },
+      }
+    },
       {
-        "name": "company",
+        "name": "organization",
         "description": "Manipulate stored companies",
         "externalDocs": {
           "description": "Find out more",
           "url": "https://wice.de"
-      },
+      }
+    },
       {
         "name": "article",
         "description": "Manipulate stored articles",
@@ -51,9 +55,6 @@
       }
     }
   ],
-  "security": [{
-    "CookieAuth": []
-  }],
   "paths": {
     "/pserv/base/webvis": {
       "post": {
@@ -223,6 +224,161 @@
           "required": true
         }
       }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getCompanies": {
+      "get": {
+        "tags": [
+          "organization"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_all_companies"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "full_list",
+            "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+            "schema": {
+              "type": "number",
+              "enum": [1]
+            },
+            "required": false
+          },
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Get a list of all companies",
+        "description": "Returns all available companies",
+        "responses": {
+          "200": {
+            "description": "An array of all requested companies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createOrganization": {
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Create a new organization",
+        "description": "Creates a new organization within Wice CRM",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createOrganizationResponse",
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/createOrganizationRequestForm",
+              }
+            }
+          },
+          "description": "The data of the organization should be in JSON format.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#updateOrganization": {
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Update an existing organization",
+        "description": "Updates an existing organization within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createOrganizationResponse",
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/updateOrganizationRequestForm",
+              }
+            }
+          },
+          "description": "The data of the organization should be in JSON format.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#deleteOrganization": {
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Deactivate an existing organization",
+        "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteOrganizationResponse",
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteOrganizationRequestForm",
+              }
+            }
+          },
+          "description": "Requires only the rowid of the organization.",
+          "required": true
+        }
+      }
     }
   },
   "externalDocs": {
@@ -260,7 +416,7 @@
         "properties": {
           "mandant_name": {
             "type": "string",
-            "example": "companygmbh"
+            "example": "organizationgmbh"
           },
           "username": {
             "type": "string",
@@ -461,7 +617,7 @@
           },
           "method": {
             "type": "string",
-            "enum": ["insert_contact", "insert_company", "insert_article", "update_contact", "update_company", "update_article", "delete_person", "delete_company", "delete_article"]
+            "enum": ["insert_contact", "insert_organization", "insert_article", "update_contact", "update_organization", "update_article", "delete_person", "delete_organization", "delete_article"]
           },
           "data": {
             "type": "string",
@@ -469,20 +625,66 @@
           }
         }
       },
-      "createOrganizationRequest": {
+      "createOrganizationRequestForm": {
         "type": "object",
         "required": [
-          "name",
-          "email"
+          "data",
+          "method",
+          "cookie"
         ],
         "properties": {
-          "name": {
-            "type": "string",
-            "example": "Company Ltd."
+          "cookie": {
+            "type": "string"
           },
-          "email": {
+          "method": {
             "type": "string",
-            "example": "info@company.com"
+            "enum": ["insert_organization"]
+          },
+          "data": {
+            "type": "string",
+            "example": "{\"name\": \"Organization Inc.\", \"email\": \"info@org.com\"}"
+          }
+        }
+      },
+      "updateOrganizationRequestForm": {
+        "type": "object",
+        "required": [
+          "data",
+          "method",
+          "cookie"
+        ],
+        "properties": {
+          "cookie": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string",
+            "enum": ["update_organization"]
+          },
+          "data": {
+            "type": "string",
+            "example": "{\"rowid\": \"12345\", \"name\": \"Changed Organization Inc.\", \"email\": \"info@neworg.com\"}"
+          }
+        }
+      },
+      "deleteOrganizationRequestForm": {
+        "type": "object",
+        "required": [
+          "data",
+          "method",
+          "cookie"
+        ],
+        "properties": {
+          "cookie": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string",
+            "enum": ["delete_organization"]
+          },
+          "data": {
+            "type": "string",
+            "example": "{\"rowid\": \"12345\"}"
           }
         }
       },
@@ -631,15 +833,6 @@
           }
         },
       },
-      "deleteOrganizationRequest": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "81436"
-          }
-        },
-      },
       "deleteArticleRequest": {
         "type": "object",
         "properties": {
@@ -683,11 +876,11 @@
                 },
                 "name": {
                   "type": "string",
-                  "example": "Company Ltd."
+                  "example": "Organization Ltd."
                 },
                 "email": {
                   "type": "string",
-                  "example": "info@company.com"
+                  "example": "info@organization.com"
                 },
                 "street": {
                   "type": "string",
@@ -744,26 +937,6 @@
           "rowid": {
             "type": "number",
             "example": 16239
-          }
-        }
-      },
-      "updateOrganizationRequest": {
-        "type": "object",
-        "required": [
-          "rowid"
-        ],
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "80672"
-          },
-          "name": {
-            "type": "string",
-            "example": "Company Ltd."
-          },
-          "email": {
-            "type": "string",
-            "example": "info@company.com"
           }
         }
       },
