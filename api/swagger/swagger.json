@@ -205,7 +205,7 @@
         "description": "Deletes (deactivates) a person",
         "responses": {
           "200": {
-            "description": "Supplies the rowid of the deleted person",
+            "description": "Confirms deletion with Deletion successful message",
             "content": {
               "application/json": {
                 "schema": {
@@ -224,7 +224,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/updatePersonRequest",
+                "$ref": "#/components/schemas/deletePersonRequest",
               }
             }
           },
