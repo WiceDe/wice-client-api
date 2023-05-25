@@ -13,7 +13,6 @@ Before you can use Wice Client API you **must be a registered Wice CRM user**. P
 ## Installation
 To install the service locally run `npm install` to install all dependencies and then `npm start`. The service must be accessible on `http://localhost:5000/`
 
-
 ## Authentication
 
 First you have to specify the server, which you are sending your requests to. Then you have to login to receive the cookie. The cookie value has to be set in every request you make.
