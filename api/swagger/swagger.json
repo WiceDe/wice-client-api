@@ -401,6 +401,161 @@
        }
      }
    },
+   "/plugin/wp_wice_client_api_backend/json#getArticles": {
+    "get": {
+      "tags": [
+        "articles"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_all_articles"]
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "full_list",
+          "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+          "schema": {
+            "type": "number",
+            "enum": [1]
+          },
+          "required": false
+        },
+      ],
+      "x-swagger-router-controller": "articles",
+      "summary": "Get a list of all articles",
+      "description": "Returns all available articles",
+      "responses": {
+        "200": {
+          "description": "An array of all requested articles",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/getArticleResponse"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Invalid input"
+        }
+      }
+    }
+  },
+  "/plugin/wp_wice_client_api_backend/json#createArticle": {
+    "post": {
+      "tags": [
+        "articles"
+      ],
+      "x-swagger-router-controller": "articles",
+      "summary": "Create a new article",
+      "description": "Creates a new article within Wice CRM",
+      "responses": {
+        "200": {
+          "description": "Supplies the rowid of the created article",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createArticleResponse",
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Invalid input"
+        }
+      },
+      "requestBody": {
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/createArticleRequestForm",
+            }
+          }
+        },
+        "description": "The data of the article should be in JSON format.",
+        "required": true
+      }
+    }
+  },
+  "/plugin/wp_wice_client_api_backend/json#updateArticle": {
+    "post": {
+      "tags": [
+        "articles"
+      ],
+      "x-swagger-router-controller": "articles",
+      "summary": "Update an article",
+      "description": "Update an existing article",
+      "responses": {
+        "200": {
+          "description": "Supplies the rowid of the updated article",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateArticleResponse",
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Invalid input"
+        }
+      },
+      "requestBody": {
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/updateArticleRequestForm",
+            }
+          }
+        },
+        "description": "The data of the article should be in JSON format and unclude the article's rowid.",
+        "required": true
+      }
+    }
+  },
+  "/plugin/wp_wice_client_api_backend/json#deleteArticle": {
+    "post": {
+      "tags": [
+        "articles"
+      ],
+      "x-swagger-router-controller": "articles",
+      "summary": "Delete an article",
+      "description": "Deletes an existing article",
+      "responses": {
+        "200": {
+          "description": "Confirms a successful deletion",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteArticleResponse",
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Invalid input"
+        }
+      },
+      "requestBody": {
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/deleteArticleRequestForm",
+            }
+          }
+        },
+        "description": "Requires only the article's rowid",
+        "required": true
+      }
+    }
+  },
     "/plugin/wp_wice_client_api_backend/json#old": {
       "get": {
         "tags": [
@@ -673,7 +828,7 @@
             "example": "Dies ist ein Beispielartikel",
             "description": "Longer article description in your default language"
           },
-          "long_descriptio2n": {
+          "long_description2": {
             "type": "string",
             "example": "This is an example article",
             "description": "Longer article description in your secondary language"
@@ -696,27 +851,6 @@
           }
         }
             }
-          }
-        }
-      },
-      "createPersonRequest": {
-        "type": "object",
-        "required": [
-          "name",
-          "firstname"
-        ],
-        "properties": {
-          "firstname": {
-            "type": "string",
-            "example": "John"
-          },
-          "name": {
-            "type": "string",
-            "example": "Doe"
-          },
-          "email": {
-            "type": "string",
-            "example": "jdoe@mail.com"
           }
         }
       },
@@ -804,97 +938,66 @@
           }
         }
       },
-      "createArticleRequest": {
+      "createArticleRequestForm": {
         "type": "object",
         "required": [
-          "description",
-          "purchase_price",
-          "sales_price"
+          "data",
+          "method",
+          "cookie"
         ],
         "properties": {
-          "description": {
-            "type": "string",
-            "example": "Beispielartikel",
-            "description": "Article description in your default language"
+          "cookie": {
+            "type": "string"
           },
-          "description2": {
+          "method": {
             "type": "string",
-            "example": "Example article",
-            "description": "Article description in your secondary language"
+            "enum": ["insert_article"]
           },
-          "long_description": {
+          "data": {
             "type": "string",
-            "example": "Dies ist ein Beispielartikel",
-            "description": "Longer article description in your default language"
-          },
-          "long_descriptio2n": {
-            "type": "string",
-            "example": "This is an example article",
-            "description": "Longer article description in your secondary language"
-          },
-          "number": {
-            "type": "string",
-            "example": "auto"
-          },
-          "purchase_price": {
-            "type": "string",
-            "example": "400"
-          },
-          "sales_price": {
-            "type": "string",
-            "example": "500"
-          },
-          "tax": {
-            "type": "string",
-            "example": "19"
+            "example": "{\"description\": \"Example Article\", \"long_description\": \"This is an example article\", \"number\": \"auto\", \"purchase_price\": \"250\", \"sales_price\": \"500\", \"tax\": \"19\"}"
           }
         }
       },
-      "updateArticleRequest": {
+      "updateArticleRequestForm": {
         "type": "object",
         "required": [
-          "rowid"
+          "data",
+          "method",
+          "cookie"
         ],
         "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "1582"
+          "cookie": {
+            "type": "string"
           },
-          "description": {
+          "method": {
             "type": "string",
-            "example": "Beispielartikel",
-            "description": "Article description in your default language"
+            "enum": ["update_article"]
           },
-          "description2": {
+          "data": {
             "type": "string",
-            "example": "Example article",
-            "description": "Article description in your secondary language"
+            "example": "{\"rowid\": \"12345\", \"description\": \"Example Article\", \"long_description\": \"This is an updated article\", \"number\": \"auto\", \"purchase_price\": \"4000\", \"sales_price\": \"800\", \"tax\": \"19\"}"
+          }
+        }
+      },
+      "deleteArticleRequestForm": {
+        "type": "object",
+        "required": [
+          "data",
+          "method",
+          "cookie"
+        ],
+        "properties": {
+          "cookie": {
+            "type": "string"
           },
-          "long_description": {
+          "method": {
             "type": "string",
-            "example": "Dies ist ein Beispielartikel",
-            "description": "Longer article description in your default language"
+            "enum": ["delete_article"]
           },
-          "long_descriptio2n": {
+          "data": {
             "type": "string",
-            "example": "This is an example article",
-            "description": "Longer article description in your secondary language"
-          },
-          "number": {
-            "type": "string",
-            "example": "auto"
-          },
-          "purchase_price": {
-            "type": "string",
-            "example": "400"
-          },
-          "sales_price": {
-            "type": "string",
-            "example": "500"
-          },
-          "tax": {
-            "type": "string",
-            "example": "19"
+            "example": "{\"rowid\": \"12345\"}"
           }
         }
       },
