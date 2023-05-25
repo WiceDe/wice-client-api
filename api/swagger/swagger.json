@@ -27,6 +27,27 @@
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
+      },
+      {
+        "name": "person",
+        "description": "Manipulate stored persons",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+      },
+      {
+        "name": "company",
+        "description": "Manipulate stored companies",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+      },
+      {
+        "name": "article",
+        "description": "Manipulate stored articles",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
       }
     }
   ],
