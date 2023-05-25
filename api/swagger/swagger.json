@@ -22,14 +22,6 @@
       }
     },
     {
-      "name": "resources",
-      "description": "Manipulate stored resources",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://wice.de"
-      }
-    },
-    {
       "name": "persons",
       "description": "Manipulate stored persons",
       "externalDocs": {
@@ -343,7 +335,7 @@
            "content": {
              "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/createOrganizationResponse",
+                 "$ref": "#/components/schemas/updateOrganizationResponse",
                }
              }
            }
@@ -555,102 +547,7 @@
         "required": true
       }
     }
-  },
-    "/plugin/wp_wice_client_api_backend/json#old": {
-      "get": {
-        "tags": [
-          "resources"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the type of resource to be fetched.",
-            "schema": {
-              "type": "string",
-              "enum": ["get_all_persons", "get_all_companies", "get_all_articles"]
-            },
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "full_list",
-            "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
-            "schema": {
-              "type": "number",
-              "enum": [1]
-            },
-            "required": false
-          },
-        ],
-        "x-swagger-router-controller": "resources",
-        "summary": "Get a list of a chosen resource",
-        "description": "Returns all available persons, organizations, or articles, depending on the chosen method",
-        "responses": {
-          "200": {
-            "description": "An array of all requested objects",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/getPersonResponse",
-                    "$ref": "#/components/schemas/getOrganizationResponse",
-                    "$ref": "#/components/schemas/getArticleResponse"
-                  ]
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "resources"
-        ],
-        "x-swagger-router-controller": "resources",
-        "summary": "Manipulate a resource",
-        "description": "Create, update, or delete persons, companies, or articles, depending on chosen method.",
-        "responses": {
-          "200": {
-            "description": "Supplies the rowid of the created resource",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    "$ref": "#/components/schemas/createPersonResponse",
-                    "$ref": "#/components/schemas/createOrganizationResponse",
-                    "$ref": "#/components/schemas/createArticleResponse",
-                    "$ref": "#/components/schemas/updatePersonResponse",
-                    "$ref": "#/components/schemas/updateOrganizationResponse",
-                    "$ref": "#/components/schemas/updateArticleResponse",
-                    "$ref": "#/components/schemas/deletePersonResponse",
-                    "$ref": "#/components/schemas/deleteOrganizationResponse",
-                    "$ref": "#/components/schemas/deleteArticleResponse"
-                  ]
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid input"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/createPersonRequestForm",
-              }
-            }
-          },
-          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
-          "required": true
-        }
-      }
-    }
+  }
   },
   "externalDocs": {
     "description": "Find out more about Wice CRM",
@@ -669,13 +566,6 @@
     }
   ],
   "components": {
-    "securitySchemes": {
-      "CookieAuth": {
-        "type": "apiKey",
-        "in": "query",
-        "name": "cookie"
-      }
-    },
     "schemas": {
       "loginUser": {
         "type": "object",
@@ -1052,15 +942,6 @@
           }
         },
       },
-      "deleteArticleRequest": {
-        "type": "object",
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "81436"
-          }
-        },
-      },
       "deletePersonResponse": {
         "type": "string",
         "example": "Deletion successful!"
@@ -1156,26 +1037,6 @@
           "rowid": {
             "type": "number",
             "example": 16239
-          }
-        }
-      },
-      "updateOrganizationRequest": {
-        "type": "object",
-        "required": [
-          "rowid"
-        ],
-        "properties": {
-          "rowid": {
-            "type": "string",
-            "example": "80672"
-          },
-          "name": {
-            "type": "string",
-            "example": "Company Ltd."
-          },
-          "email": {
-            "type": "string",
-            "example": "info@company.com"
           }
         }
       },
