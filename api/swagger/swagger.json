@@ -138,8 +138,8 @@
           "persons"
         ],
         "x-swagger-router-controller": "persons",
-        "summary": "Create a person",
-        "description": "Create person",
+        "summary": "Create a new person",
+        "description": "Creates a new person within Wice CRM",
         "responses": {
           "200": {
             "description": "Supplies the rowid of the created person",
@@ -176,8 +176,8 @@
           "persons"
         ],
         "x-swagger-router-controller": "persons",
-        "summary": "Update a person",
-        "description": "Update person",
+        "summary": "Update an existing person",
+        "description": "Updates an existing person within Wice CRM, identified by its rowid",
         "responses": {
           "200": {
             "description": "Supplies the rowid of the created person",
@@ -214,8 +214,8 @@
           "persons"
         ],
         "x-swagger-router-controller": "persons",
-        "summary": "Delete a person",
-        "description": "Deletes (deactivates) a person",
+        "summary": "Deactivate an existing organization",
+        "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
         "responses": {
           "200": {
             "description": "Confirms deletion with Deletion successful message",
