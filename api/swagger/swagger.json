@@ -83,6 +83,13 @@
           "parameters": [
             {
               "in": "query",
+              "name": "cookie",
+              "description": "Your login cookie.",
+              "schema": {"type": "string"},
+              "required": true
+            },
+            {
+              "in": "query",
               "name": "method",
               "description": "Determines the type of resource to be fetched.",
               "schema": {
@@ -238,12 +245,19 @@
           }
         }
       },
-      "/plugin/wp_wice_client_api_backend/json#getCompanies": {
+      "/plugin/wp_wice_client_api_backend/json#getOrganizations": {
        "get": {
          "tags": [
            "organizations"
          ],
          "parameters": [
+           {
+             "in": "query",
+             "name": "cookie",
+             "description": "Your login cookie.",
+             "schema": {"type": "string"},
+             "required": true
+           },
            {
              "in": "query",
              "name": "method",
@@ -399,6 +413,13 @@
           "articles"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "cookie",
+            "description": "Your login cookie.",
+            "schema": {"type": "string"},
+            "required": true
+          },
           {
             "in": "query",
             "name": "method",
