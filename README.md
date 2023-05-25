@@ -35,7 +35,7 @@ After you are successfully logged in, you receive a `cookie` which you have to a
 
 ## Swagger
 
-You could test **Wice Client API** with [Swagger](https://swagger.io/) on [wicecrm-api.herokuapp.com](https://wicecrm-api.herokuapp.com/).
+You could test **Wice Client API** with [Swagger](https://swagger.io/) on [api-docs.wice-net.de](https://api-docs.wice-net.de/).
 First you have to specify the server, which you are sending your requests to. You could save your headers in the section **'Authorize'** - `X-WICE-SERVER`, `X-WICE-COOKIE` and `X-WICE-KEY`.
 
 ## Endpoints
