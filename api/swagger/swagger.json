@@ -1,7 +1,7 @@
   {
     "openapi": "3.0.0",
     "info": {
-      "description": "This is a client API for Wice CRM",
+      "description": "This is a client API for Wice CRM \n ## Before you begin \nYou will need an active Wice CRM account, and your tenant needs to have the \"Wice CRM Client API\" module installed and enabled.\n ## Authentication \n Log with your credentials using the webvis endpoint. This will return a cookie that you can pass as either a query parameter or form value on following requests to authenticate yourself. \n ## Using the API \n All requests are made to a single URL, they are only listed individually here for clearer documentation. The function of the endpoint is determined through the *method* parameter, which can be passed as a query parameter for GET requests, and as part of form data for POST requests. \n\n When passing in data through POST requests, all data must be formatted as stringified JSON, and passed as the *data* property of the form data. \n ## Troubleshooting \n Login cookies have a limited lifetime depending on Wice Server configuration, usually not longer than a few hours. If requests are failing, first try requesting and using a new login cookie.",
       "version": "0.0.1",
       "title": "Wice CRM API",
       "termsOfService": "https://wice.de",
@@ -118,9 +118,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "oneOf": [
-                      "$ref": "#/components/schemas/getPersonResponse",
-                    ]
+                    "$ref": "#/components/schemas/getPersonResponse"
                   }
                 }
               }
@@ -145,9 +143,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "oneOf": [
-                      "$ref": "#/components/schemas/createPersonResponse",
-                    ]
+                    "$ref": "#/components/schemas/createPersonResponse"
                   }
                 }
               }
@@ -198,7 +194,7 @@
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/updatePersonRequestForm",
+                  "$ref": "#/components/schemas/updatePersonRequestForm"
                 }
               }
             },
@@ -222,7 +218,7 @@
                 "application/json": {
                   "schema": {
                     "oneOf": [
-                      "$ref": "#/components/schemas/deletePersonResponse",
+                      "$ref": "#/components/schemas/deletePersonResponse"
                     ]
                   }
                 }
@@ -236,7 +232,7 @@
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/deletePersonRequestForm",
+                  "$ref": "#/components/schemas/deletePersonRequestForm"
                 }
               }
             },
@@ -313,7 +309,7 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/createOrganizationResponse",
+                   "$ref": "#/components/schemas/createOrganizationResponse"
                  }
                }
              }
@@ -362,7 +358,7 @@
            "content": {
              "multipart/form-data": {
                "schema": {
-                 "$ref": "#/components/schemas/updateOrganizationRequestForm",
+                 "$ref": "#/components/schemas/updateOrganizationRequestForm"
                }
              }
            },
@@ -385,7 +381,7 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/deleteOrganizationResponse",
+                   "$ref": "#/components/schemas/deleteOrganizationResponse"
                  }
                }
              }
@@ -398,7 +394,7 @@
            "content": {
              "multipart/form-data": {
                "schema": {
-                 "$ref": "#/components/schemas/deleteOrganizationRequestForm",
+                 "$ref": "#/components/schemas/deleteOrganizationRequestForm"
                }
              }
            },
@@ -475,7 +471,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/createArticleResponse",
+                  "$ref": "#/components/schemas/createArticleResponse"
                 }
               }
             }
@@ -511,7 +507,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/updateArticleResponse",
+                  "$ref": "#/components/schemas/updateArticleResponse"
                 }
               }
             }
@@ -524,7 +520,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/updateArticleRequestForm",
+                "$ref": "#/components/schemas/updateArticleRequestForm"
               }
             }
           },
@@ -547,7 +543,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/deleteArticleResponse",
+                  "$ref": "#/components/schemas/deleteArticleResponse"
                 }
               }
             }
@@ -560,7 +556,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/deleteArticleRequestForm",
+                "$ref": "#/components/schemas/deleteArticleRequestForm"
               }
             }
           },
