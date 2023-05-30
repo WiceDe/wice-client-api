@@ -703,8 +703,8 @@
            "events"
          ],
          "x-swagger-router-controller": "event",
-         "summary": "Delete an event",
-         "description": "Deletes an existing event",
+         "summary": "Delete event or yourself from an event",
+         "description": "Deletes yourself as participant from existing event. Deletes event if it has no more participants.",
          "responses": {
            "200": {
              "description": "Confirms a successful deletion",
