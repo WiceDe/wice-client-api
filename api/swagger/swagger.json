@@ -540,7 +540,7 @@
               }
             }
           },
-          "description": "The data of the article should be in JSON format and unclude the article's rowid.",
+          "description": "The data of the article should be in JSON format and include the article's rowid.",
           "required": true
         }
       }
@@ -656,7 +656,7 @@
                }
              }
            },
-           "description": "The data of the article should be in JSON format.",
+           "description": "The data of the event should be in JSON format.",
            "required": true
          }
        }
@@ -667,7 +667,7 @@
            "events"
          ],
          "x-swagger-router-controller": "events",
-         "summary": "Update an article",
+         "summary": "Update an event",
          "description": "Update an existing calendar event",
          "responses": {
            "200": {
@@ -692,7 +692,7 @@
                }
              }
            },
-           "description": "The data of the article should be in JSON format and unclude the article's rowid.",
+           "description": "The data of the event should be in JSON format and include the event's rowid.",
            "required": true
          }
        }
@@ -703,7 +703,7 @@
            "events"
          ],
          "x-swagger-router-controller": "event",
-         "summary": "Delete an article",
+         "summary": "Delete an event",
          "description": "Deletes an existing event",
          "responses": {
            "200": {
@@ -728,7 +728,7 @@
                }
              }
            },
-           "description": "Requires only the article's rowid",
+           "description": "Requires only the event's rowid",
            "required": true
          }
        }
