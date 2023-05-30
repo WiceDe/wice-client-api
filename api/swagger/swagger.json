@@ -36,6 +36,22 @@
           "description": "Find out more",
           "url": "https://wice.de"
         }
+      },
+      {
+        "name": "articles",
+        "description": "Manipulate stored articles",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
+      },
+      {
+        "name": "events",
+        "description": "Manipulate stored calendar events",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
     ],
     "paths": {
@@ -568,7 +584,159 @@
           "required": true
         }
       }
-    }
+    },
+      "/plugin/wp_wice_client_api_backend/json#getEvents": {
+       "get": {
+         "tags": [
+           "events"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "cookie",
+             "description": "Your login cookie.",
+             "schema": {"type": "string"},
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["get_events"]
+             },
+             "required": true
+           }
+         ],
+         "x-swagger-router-controller": "events",
+         "summary": "Get a list of all events",
+         "description": "Returns all future calendar events",
+         "responses": {
+           "200": {
+             "description": "An array of event objects",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/getEventsResponse"
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#createEvent": {
+       "post": {
+         "tags": [
+           "events"
+         ],
+         "x-swagger-router-controller": "events",
+         "summary": "Create a new event",
+         "description": "Creates a new calendar event within Wice CRM",
+         "responses": {
+           "200": {
+             "description": "Supplies the rowid of the created event",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/createEventResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/createEventRequestForm",
+               }
+             }
+           },
+           "description": "The data of the article should be in JSON format.",
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#updateEvent": {
+       "post": {
+         "tags": [
+           "events"
+         ],
+         "x-swagger-router-controller": "events",
+         "summary": "Update an article",
+         "description": "Update an existing calendar event",
+         "responses": {
+           "200": {
+             "description": "Supplies the rowid of the updated event",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/updateEventResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/updateEventRequestForm",
+               }
+             }
+           },
+           "description": "The data of the article should be in JSON format and unclude the article's rowid.",
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#deleteEvent": {
+       "post": {
+         "tags": [
+           "events"
+         ],
+         "x-swagger-router-controller": "event",
+         "summary": "Delete an article",
+         "description": "Deletes an existing event",
+         "responses": {
+           "200": {
+             "description": "Confirms a successful deletion",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/deleteEventResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/deleteEventRequestForm",
+               }
+             }
+           },
+           "description": "Requires only the article's rowid",
+           "required": true
+         }
+       }
+     }
     },
     "externalDocs": {
       "description": "Find out more about Wice CRM",
@@ -954,6 +1122,69 @@
             }
           }
         },
+        "createEventRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["insert_event"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{}"
+            }
+          }
+        },
+        "updateEventRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["update_event"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\"}"
+            }
+          }
+        },
+        "deleteEventRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["delete_event"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\"}"
+            }
+          }
+        },
         "createPersonResponse": {
           "type": "object",
           "properties": {
@@ -981,6 +1212,51 @@
           "example": "Deletion successful!"
         },
         "deleteArticleResponse": {
+          "type": "string",
+          "example": "Deletion successful!"
+        },
+        "getEventsResponse": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rowid": {"type": "string", "example": "54321"},
+              "for_rowid": {"type": "string", "example": "12345"},
+              "title": {"type": "string", "example": "Project presentation"},
+              "description": {"type": "string", "example": "Presentation of our new project to shareholders"},
+              "date": {"type": "string", "example": "2023-06-30"},
+              "time_start": {"type": "string", "example": "09:00:00"},
+              "time_end": {"type": "string", "example": "09:30:00"},
+              "dt_start": {"type": "string", "example": "2023-06-30 09:00:00"},
+              "dt_end": {"type": "string", "example": "2023-06-30 09:30:00"},
+              "company_name": {"type": "string", "example": "Example Inc."},
+              "contact_name": {"type": "string", "example": "Jane Doe"},
+              "all_day": {"type": "string", "example": "0"},
+              "private": {"type": "string", "example": "0"},
+              "last_update": {"type": "string", "example": "2023-05-30 09:00:59"},
+              "category_display": {"type": "string", "example": "video call"}
+            }
+          }
+        },
+        "createEventResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "updateEventResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "deleteEventResponse": {
           "type": "string",
           "example": "Deletion successful!"
         },
