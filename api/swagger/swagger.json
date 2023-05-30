@@ -1135,7 +1135,7 @@
             },
             "data": {
               "type": "string",
-              "example": "{}"
+              "example": "{\"title\": \"Important meeting!\", \"description\": \"Presentation of our new project to shareholders\", \"employees\": \"useremail@somewhere.com\",\"date\": \"2023-06-30\", \"time_start\": \"09:00:00\",  \"time_end\": \"09:30:00\", \"dt_start\": \"2023-06-30 09:00:00\", \"dt_end\": \"2023-06-30 09:30:00\"}"
             }
           }
         },
@@ -1253,8 +1253,13 @@
           }
         },
         "deleteEventResponse": {
-          "type": "string",
-          "example": "Deletion successful!"
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
         },
         "getOrganizationResponse": {
           "type": "object",
