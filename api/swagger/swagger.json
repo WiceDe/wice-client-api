@@ -52,6 +52,14 @@
           "description": "Find out more",
           "url": "https://wice.de"
         }
+      },
+      {
+        "name": "opportunities",
+        "description": "Manipulate stored opportunities. Currently under development and subject to change.",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
     ],
     "paths": {
@@ -732,6 +740,90 @@
            "required": true
          }
        }
+     },
+     "/plugin/wp_wice_client_api_backend/json#getOpportunities": {
+       "get": {
+         "tags": [
+           "opportunities"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "cookie",
+             "description": "Your login cookie.",
+             "schema": {"type": "string"},
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the type of resource to be fetched.",
+             "schema": {
+               "type": "string",
+               "enum": ["get_opportunities"]
+             },
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "chance_date_start_month",
+             "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month",
+             "schema": {
+               "type": "integer",
+               "minimum": 1,
+               "maximum": 12
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_end_month",
+             "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month",
+             "schema": {
+               "type": "integer",
+               "minimum": 1,
+               "maximum": 12
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_start_year",
+             "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",
+             "schema": {
+               "type": "number"
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_end_year",
+             "description": "Year (format YYYY) of latest opportunities to be fetched. Defaults to current year",
+             "schema": {
+               "type": "number"
+             },
+             "required": false
+           },
+         ],
+         "x-swagger-router-controller": "opportunities",
+         "summary": "Get a list of opportunities",
+         "description": "Returns all available opportunities within the specified time range. Defaults to current month",
+         "responses": {
+           "200": {
+             "description": "An array of all requested opportunities",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/getOpportunitiesResponse"
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         }
+       }
      }
     },
     "externalDocs": {
@@ -925,6 +1017,95 @@
               "example": "19"
             }
           }
+              }
+            }
+          }
+        },
+        "getOpportunitiesResponse": {
+          "type": "object",
+          "properties": {
+            "loop_entries": {
+              "type": "array",
+              "items": {
+            "type": "object",
+                "properties": {
+                  "rowid": {
+                    "type": "string",
+                    "example": "821528"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Example Corp",
+                    "description": "Name of associated organization"
+                  },
+                  "article": {
+                    "type": "string",
+                    "example": "Example Article"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "This is an example article",
+                    "description": "Description of associated article"
+                  },
+                  "articles_amount": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "tax": {
+                    "type": "number",
+                    "example": 19,
+                    "description": "Tax rate in percent"
+                  },
+                  "sales_price": {
+                    "type": "number",
+                    "example": 100,
+                    "description": "Sales price per article"
+                  },
+                  "actual_sales_price": {
+                    "type": "number",
+                    "example": 90,
+                    "description": "Sales price per article with discount included"
+                  },
+                  "actual_sales_price_total_net": {
+                    "type": "number",
+                    "example": 450,
+                    "description": "Summed up total sales price before tax"
+                  },
+                  "actual_sales_price_total_raw": {
+                    "type": "number",
+                    "example": 535.5,
+                    "description": "Summed up total sales price including tax"
+                  },
+                  "purchase_price": {
+                    "type": "number",
+                    "example": 50,
+                    "description": "Purchase price per article"
+                  },
+                  "actual_purchase_price": {
+                    "type": "number",
+                    "example": 40,
+                    "description": "Purchase price per article with discount included"
+                  },
+                  "actual_purchase_price_total_net": {
+                    "type": "number",
+                    "example": 200,
+                    "description": "Summed up total purchase price before tax"
+                  },
+                  "actual_purchase_price_total_raw": {
+                    "type": "number",
+                    "example": 238,
+                    "description": "Summed up total purchase price including tax"
+                  },
+                  "planned_for_date": {
+                    "type": "string",
+                    "example": "2023-01-15"
+                  },
+                  "actual_sales_date": {
+                    "type": "string",
+                    "example": "2023-01-15",
+                    "description": "Defaults to empty string if sale has not yet taken place"
+                  },
+                }
               }
             }
           }
