@@ -1328,10 +1328,29 @@
               "type": "string",
               "enum": ["get_opportunities"]
             },
-            "data": {
-              "type": "string",
-              "example": "{\"chance_date_start_month\": 1, \"chance_date_end_month\": 12, \"chance_date_start_year\": 2023, \"chance_date_end_year\": 2023,}"
-            }
+            "chance_date_start_month": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "example": 1,
+              "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month"
+            },
+            "chance_date_end_month": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "example": 12,
+              "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month"
+            },
+            "chance_date_start_year": {
+              "type": "number",
+              "example": 2023,
+              "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",            },
+            "chance_date_end_year": {
+              "type": "number",
+              "example": 2023,
+              "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year"
+            },
           }
         },
         "createPersonResponse": {
