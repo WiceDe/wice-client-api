@@ -742,9 +742,68 @@
        }
      },
      "/plugin/wp_wice_client_api_backend/json#getOpportunities": {
-       "post": {
+       "get": {
          "tags": [
            "opportunities"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "cookie",
+             "description": "Your login cookie.",
+             "schema": {"type": "string"},
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the type of resource to be fetched.",
+             "schema": {
+               "type": "string",
+               "enum": ["get_opportunities"]
+             },
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "chance_date_start_month",
+             "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month",
+             "schema": {
+               "type": "integer",
+               "minimum": 1,
+               "maximum": 12
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_end_month",
+             "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month",
+             "schema": {
+               "type": "integer",
+               "minimum": 1,
+               "maximum": 12
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_start_year",
+             "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",
+             "schema": {
+               "type": "number"
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "chance_date_end_year",
+             "description": "Year (format YYYY) of latest opportunities to be fetched. Defaults to current year",
+             "schema": {
+               "type": "number"
+             },
+             "required": false
+           },
          ],
          "x-swagger-router-controller": "opportunities",
          "summary": "Get a list of opportunities",
@@ -763,17 +822,6 @@
            "401": {
              "description": "Invalid input"
            }
-         },
-         "requestBody": {
-           "content": {
-             "multipart/form-data": {
-               "schema": {
-                 "$ref": "#/components/schemas/getOpportunitiesRequestForm",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
          }
        }
      }
