@@ -15,6 +15,10 @@
                     url: "api/swagger/swagger.json", //Location of Open API spec in the repo
                     dom_id: '#swagger-ui',
                     deepLinking: true,
+                    requestInterceptor: (request) => {
+                      request.url = request.url.replace(/#[^?]*\?/, '?').replace(/#.*?$/, '');
+                      return request;
+                    },
                     presets: [
                         SwaggerUIBundle.presets.apis,
                         SwaggerUIBundle.SwaggerUIStandalonePreset
