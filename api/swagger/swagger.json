@@ -60,6 +60,14 @@
           "description": "Find out more",
           "url": "https://wice.de"
         }
+      },
+      {
+        "name": "tickets",
+        "description": "Manipulate stored tickets and notes. Currently under development and subject to change.",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
     ],
     "paths": {
@@ -824,6 +832,76 @@
            }
          }
        }
+     },
+     "/plugin/wp_wice_client_api_backend/json#createTicket": {
+       "post": {
+         "tags": [
+           "tickets"
+         ],
+         "x-swagger-router-controller": "ticket",
+         "summary": "Create a new ticket",
+         "description": "Creates a new ticket",
+         "responses": {
+           "200": {
+             "description": "Returns the ticket's rowid",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/createTicketResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/createTicketRequestForm",
+               }
+             }
+           },
+           "required": true
+         }
+       }
+     },
+     "/plugin/wp_wice_client_api_backend/json#createNote": {
+       "post": {
+         "tags": [
+           "tickets"
+         ],
+         "x-swagger-router-controller": "ticket",
+         "summary": "Creates a new note for a ticket",
+         "description": "Each note must be attached to an already existing ticket byrowid",
+         "responses": {
+           "200": {
+             "description": "Returns the ticket's rowid",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/createNoteResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/createNoteRequestForm",
+               }
+             }
+           },
+           "required": true
+         }
+       }
      }
     },
     "externalDocs": {
@@ -1362,9 +1440,10 @@
             }
           }
         },
-        "getOpportunitiesRequestForm": {
+        "createTicketRequestForm": {
           "type": "object",
           "required": [
+            "data",
             "method",
             "cookie"
           ],
@@ -1374,31 +1453,33 @@
             },
             "method": {
               "type": "string",
-              "enum": ["get_opportunities"]
+              "enum": ["insert_ticket"]
             },
-            "chance_date_start_month": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 12,
-              "example": 1,
-              "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month"
+            "data": {
+              "type": "string",
+              "example": "{\"for_rowid\": \"12345\", \"subject\": \"Test Ticket\", \"text\": \"This is a new ticket!\"}"
+            }
+          }
+        },
+        "createNoteRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
             },
-            "chance_date_end_month": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 12,
-              "example": 12,
-              "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month"
+            "method": {
+              "type": "string",
+              "enum": ["insert_note"]
             },
-            "chance_date_start_year": {
-              "type": "number",
-              "example": 2023,
-              "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",            },
-            "chance_date_end_year": {
-              "type": "number",
-              "example": 2023,
-              "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year"
-            },
+            "data": {
+              "type": "string",
+              "example": "{\"ticket\": \"12345\", \"text\": \"This is a new note\"}"
+            }
           }
         },
         "createPersonResponse": {
@@ -1473,6 +1554,24 @@
           }
         },
         "deleteEventResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "createTicketResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "createNoteResponse": {
           "type": "object",
           "properties": {
             "rowid": {
