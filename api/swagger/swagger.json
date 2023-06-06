@@ -1457,7 +1457,7 @@
             },
             "data": {
               "type": "string",
-              "example": "{\"for_rowid\": \"12345\", \"subject\": \"Test Ticket\", \"text\": \"This is a new ticket!\"}"
+              "example": "{\"for_rowid\": \"12345\", \"subject\": \"Test Ticket\", \"ticket_type\": 1}"
             }
           }
         },
