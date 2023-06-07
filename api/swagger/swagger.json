@@ -1190,7 +1190,7 @@
         "getOpportunitiesResponse": {
           "type": "object",
           "properties": {
-            "loop_entries": {
+            "loop_opportunities": {
               "type": "array",
               "items": {
             "type": "object",
