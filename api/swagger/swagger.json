@@ -902,6 +902,94 @@
            "required": true
          }
        }
+     },
+     "/plugin/wp_wice_client_api_backend/json#getTicketTypes": {
+      "get": {
+        "tags": [
+          "tickettype"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cookie",
+            "description": "Your login cookie.",
+            "schema": {"type": "string"},
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_ticket_types"]
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "tickettype",
+        "summary": "Get a list of all ticket types",
+        "description": "Returns all available ticket types",
+        "responses": {
+          "200": {
+            "description": "An array of all requested ticket types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getTicketTypesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+      },
+      "/plugin/wp_wice_client_api_backend/json#getCategories": {
+       "get": {
+         "tags": [
+           "categories"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "cookie",
+             "description": "Your login cookie.",
+             "schema": {"type": "string"},
+             "required": true
+           },
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["get_categories"]
+             },
+             "required": true
+           }
+         ],
+         "x-swagger-router-controller": "categories",
+         "summary": "Get a list of all categories",
+         "description": "Returns all available categories aggregated by category type",
+         "responses": {
+           "200": {
+             "description": "An hash category types with an arrays of all categories for each type",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/getCategoriesResponse"
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         }
+       }
      }
     },
     "externalDocs": {
@@ -1683,6 +1771,48 @@
               "example": 16239
             }
           }
+        },
+        "getTicketTypesResponse": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rowid": {
+                    "type": "string",
+                    "example": "821528"
+                  }
+            }
+          }
+        },
+        "getCategoriesResponse": {
+          "type": "object",
+          "properties": {
+                  "address_category1": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "rowid": {
+                          "type": "string",
+                          "example": "821528"
+                        }
+                      }
+                    }
+
+                  },
+                  "ticket_category1": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "rowid": {
+                          "type": "string",
+                          "example": "821528"
+                        }
+                      }
+                    }
+                  }
+                }
         }
       }
     }
