@@ -1777,10 +1777,14 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "rowid": {
+                  "text": {
                     "type": "string",
-                    "example": "821528"
-                  }
+                    "example": "Sales: Lead"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "some id 123"
+                  },
             }
           }
         },
@@ -1788,26 +1792,44 @@
           "type": "object",
           "properties": {
                   "address_category1": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "rowid": {
-                          "type": "string",
-                          "example": "821528"
+                    "type": "object",
+                    "properties": {
+                      "options": {
+                        "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "example": "Sales"
+                              },
+                              "value": {
+                                "type": "string",
+                                "example": "some id 123"
+                              },
+                            }
+                          }
                         }
                       }
-                    }
 
                   },
                   "ticket_category1": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "rowid": {
-                          "type": "string",
-                          "example": "821528"
+                    "type": "object",
+                    "properties": {
+                      "options": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "string",
+                              "example": "Hot leads"
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "some id 123"
+                            },
+                          }
                         }
                       }
                     }
