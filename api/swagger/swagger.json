@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
       "description": "This is a client API for Wice CRM \n ## Before you begin \nYou will need an active Wice CRM account, and your tenant needs to have the \"Wice CRM Client API\" module installed and enabled.\n ## Authentication \n Log with your credentials using the webvis endpoint. This will return a cookie that you can pass as either a query parameter or form value on following requests to authenticate yourself. \n ## Using the API \n All requests are made to a single URL, they are only listed individually here for clearer documentation. The function of the endpoint is determined through the *method* parameter, which can be passed as a query parameter for GET requests, and as part of form data for POST requests. \n\n When sending data through POST requests, all data must be formatted as stringified JSON, and sent as the *data* property of the form data. \n ## Troubleshooting \n Login cookies have a limited lifetime depending on Wice Server configuration, usually not longer than a few hours. If requests are failing, first try using a fresh login cookie.",
-      "version": "1.2.0",
+      "version": "1.2.2",
       "title": "Wice CRM Client API",
       "termsOfService": "https://wice.de",
       "contact": {
