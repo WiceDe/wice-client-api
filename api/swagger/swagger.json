@@ -883,7 +883,7 @@
          ],
          "x-swagger-router-controller": "ticket",
          "summary": "Creates a new note for a ticket",
-         "description": "Each note must be attached to an already existing ticket byrowid",
+         "description": "Each note must be attached to an already existing ticket by rowid",
          "responses": {
            "200": {
              "description": "Returns the ticket's rowid",
@@ -998,7 +998,42 @@
            }
          }
        }
-     }
+     },
+     "/plugin/wp_wice_client_api_backend/json#startWorkflow": {
+       "post": {
+         "tags": [
+           "tickets"
+         ],
+         "x-swagger-router-controller": "ticket",
+         "summary": "Starts a workflow",
+         "description": "Must supply the ticket's rowid and workflow stop, and optionally branching workflow step",
+         "responses": {
+           "200": {
+             "description": "Returns the ticket's rowid",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/startWorkflowResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/startWorkflowRequestForm",
+               }
+             }
+           },
+           "required": true
+         }
+       }
+     },
     },
     "externalDocs": {
       "description": "Find out more about Wice CRM",
@@ -1578,6 +1613,27 @@
             }
           }
         },
+        "startWorkflowRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["start_workflow"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"ticketid\": \"12345\", \"workflow_step\": \"1\", \"branching_step\": \"2\"}"
+            }
+          }
+        },
         "createPersonResponse": {
           "type": "object",
           "properties": {
@@ -1779,6 +1835,10 @@
               "example": 16239
             }
           }
+        },
+        "startWorkflowResponse": {
+          "type": "string",
+          "example": "Workflow started!"
         },
         "getTicketTypesResponse": {
               "type": "array",
