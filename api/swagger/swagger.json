@@ -68,6 +68,14 @@
           "description": "Find out more",
           "url": "https://wice.de"
         }
+      },
+      {
+        "name": "categories",
+        "description": "Getting categories for each category type. Currently under development and subject to change.",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
     ],
     "paths": {
@@ -906,7 +914,7 @@
      "/plugin/wp_wice_client_api_backend/json#getTicketTypes": {
       "get": {
         "tags": [
-          "tickettype"
+          "tickets"
         ],
         "parameters": [
           {
@@ -927,12 +935,12 @@
             "required": true
           }
         ],
-        "x-swagger-router-controller": "tickettype",
+        "x-swagger-router-controller": "tickets",
         "summary": "Get a list of all ticket types",
         "description": "Returns all available ticket types",
         "responses": {
           "200": {
-            "description": "An array of all requested ticket types",
+            "description": "An array of all ticket types",
             "content": {
               "application/json": {
                 "schema": {
@@ -976,7 +984,7 @@
          "description": "Returns all available categories aggregated by category type",
          "responses": {
            "200": {
-             "description": "An hash category types with an arrays of all categories for each type",
+             "description": "An hash of category types with each entry containing hash with the key options containing an arrays of all categories for the type",
              "content": {
                "application/json": {
                  "schema": {
@@ -1190,7 +1198,7 @@
         "getOpportunitiesResponse": {
           "type": "object",
           "properties": {
-            "loop_opportunities": {
+            "loop_entries": {
               "type": "array",
               "items": {
             "type": "object",
