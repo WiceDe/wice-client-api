@@ -76,6 +76,14 @@
           "description": "Find out more",
           "url": "https://wice.de"
         }
+      },
+      {
+        "name": "workflows",
+        "description": "Data about workflows and operations on workflows.",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://wice.de"
+        }
       }
     ],
     "paths": {
@@ -955,10 +963,10 @@
         }
       }
       },
-      "/plugin/wp_wice_client_api_backend/json#getCategories": {
+      "/plugin/wp_wice_client_api_backend/json#getWorkflows": {
        "get": {
          "tags": [
-           "categories"
+           "workflows"
          ],
          "parameters": [
            {
@@ -974,21 +982,21 @@
              "description": "Determines the operation.",
              "schema": {
                "type": "string",
-               "enum": ["get_categories"]
+               "enum": ["get_workflows"]
              },
              "required": true
            }
          ],
-         "x-swagger-router-controller": "categories",
-         "summary": "Get a list of all categories",
-         "description": "Returns all available categories aggregated by category type",
+         "x-swagger-router-controller": "workflows",
+         "summary": "Get a list of all workflows",
+         "description": "Returns a list of all workflows",
          "responses": {
            "200": {
-             "description": "An hash of category types with each entry containing hash with the key options containing an arrays of all categories for the type",
+             "description": "An array containing all workflows",
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/getCategoriesResponse"
+                   "$ref": "#/components/schemas/getWorkflowsResponse"
                  }
                }
              }
@@ -999,12 +1007,56 @@
          }
        }
      },
+     "/plugin/wp_wice_client_api_backend/json#getCategories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cookie",
+            "description": "Your login cookie.",
+            "schema": {"type": "string"},
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_categories"]
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "categories",
+        "summary": "Get a list of all categories",
+        "description": "Returns all available categories aggregated by category type",
+        "responses": {
+          "200": {
+            "description": "An hash of category types with each entry containing hash with the key options containing an arrays of all categories for the type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCategoriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
      "/plugin/wp_wice_client_api_backend/json#startWorkflow": {
        "post": {
          "tags": [
-           "tickets"
+           "workflows"
          ],
-         "x-swagger-router-controller": "ticket",
+         "x-swagger-router-controller": "workflows",
          "summary": "Starts a workflow",
          "description": "Must supply the ticket's rowid and workflow stop, and optionally branching workflow step",
          "responses": {
@@ -1902,6 +1954,27 @@
                       }
                     }
                   }
+                }
+        },
+        "getWorkflowsResponse": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rowid": {
+                "type": "string",
+                "example": "1"
+              },
+              "last_update": {
+                "type": "string",
+                "example": "2023-04-06 11:15:08"
+              },
+              "title": {
+                "type": "string",
+                "example": "Workflow XY"
+              }
+            }
+
                 }
         }
       }
