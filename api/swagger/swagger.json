@@ -1965,13 +1965,17 @@
                 "type": "string",
                 "example": "1"
               },
+              "title": {
+                "type": "string",
+                "example": "Workflow XY"
+              }
               "last_update": {
                 "type": "string",
                 "example": "2023-04-06 11:15:08"
               },
-              "title": {
+              "username": {
                 "type": "string",
-                "example": "Workflow XY"
+                "example": "Frank Meier"
               }
             }
 
