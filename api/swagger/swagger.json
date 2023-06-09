@@ -1095,21 +1095,21 @@
         }
       }
     },
-     "/plugin/wp_wice_client_api_backend/json#startWorkflow": {
+     "/plugin/wp_wice_client_api_backend/json#executeWorkflow": {
        "post": {
          "tags": [
            "workflows"
          ],
          "x-swagger-router-controller": "workflows",
-         "summary": "Starts a workflow",
-         "description": "Must supply the ticket's rowid and workflow stop, and optionally branching workflow step",
+         "summary": "Executes a workflow step",
+         "description": "Must supply the ticket's rowid and the rowid of the next step. If the step is not branching, use workflow_step. If the step is branching, use branching_step. Sending both workflow_step and branching_step in the same request can lead to an error.",
          "responses": {
            "200": {
              "description": "Returns the ticket's rowid",
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/startWorkflowResponse",
+                   "$ref": "#/components/schemas/executeWorkflowResponse",
                  }
                }
              }
@@ -1122,7 +1122,7 @@
            "content": {
              "multipart/form-data": {
                "schema": {
-                 "$ref": "#/components/schemas/startWorkflowRequestForm",
+                 "$ref": "#/components/schemas/executeWorkflowRequestForm",
                }
              }
            },
@@ -1709,7 +1709,7 @@
             }
           }
         },
-        "startWorkflowRequestForm": {
+        "executeWorkflowRequestForm": {
           "type": "object",
           "required": [
             "data",
@@ -1722,7 +1722,7 @@
             },
             "method": {
               "type": "string",
-              "enum": ["start_workflow"]
+              "enum": ["execute_workflow"]
             },
             "data": {
               "type": "string",
@@ -1932,7 +1932,7 @@
             }
           }
         },
-        "startWorkflowResponse": {
+        "executeWorkflowResponse": {
           "type": "string",
           "example": "Workflow started!"
         },
