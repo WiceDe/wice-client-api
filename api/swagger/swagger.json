@@ -1007,6 +1007,50 @@
          }
        }
      },
+     "/plugin/wp_wice_client_api_backend/json#getWorkflowSteps": {
+      "get": {
+        "tags": [
+          "workflows"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cookie",
+            "description": "Your login cookie.",
+            "schema": {"type": "string"},
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_workflow_steps"]
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "workflows",
+        "summary": "Get a list of all workflows steps",
+        "description": "Returns a list of all possible workflow steps for a given workflow, which can be used when executing them.",
+        "responses": {
+          "200": {
+            "description": "An array containing all workflow steps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getWorkflowStepsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
      "/plugin/wp_wice_client_api_backend/json#getCategories": {
       "get": {
         "tags": [
@@ -1978,8 +2022,48 @@
                 "example": "Frank Meier"
               }
             }
-
-                }
+          }
+        },
+        "getWorkflowStepsResponse": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rowid": {
+                "type": "string",
+                "example": "123"
+              },
+              "title": {
+                "type": "string",
+                "example": "A ticket was opened"
+              },
+              "workflow": {
+                "type": "string",
+                "example": "1",
+                "description": "rowid of worklow this is a step in"
+              },
+              "branching_option1": {
+                "type": "string",
+                "example": "Refer to sales",
+                "description": "Label of first branching option. Empty if step has no branches"
+              },
+              "branching_option2": {
+                "type": "string",
+                "example": "Refer to support",
+                "description": "Label of second branching option. Empty if step has no branches"
+              },
+              "next_step1": {
+                "type": "string",
+                "example": "124",
+                "description": "rowid of next step, 0 if this step has following"
+              },
+              "next_step2": {
+                "type": "string",
+                "example": "125",
+                "description": "rowid of alternative next step if this is a branching step, 0 if this step has no following step or is not branching"
+              },
+            }
+          }
         }
       }
     }
