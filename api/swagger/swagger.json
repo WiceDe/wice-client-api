@@ -1130,6 +1130,41 @@
          }
        }
      },
+     "/plugin/wp_wice_client_api_backend/json#addWorkflowToTicket": {
+       "post": {
+         "tags": [
+           "workflows"
+         ],
+         "x-swagger-router-controller": "workflows",
+         "summary": "Add a workflow to a ticket",
+         "description": "Adds a workflow to a ticket",
+         "responses": {
+           "200": {
+             "description": "Returns the ticket's rowid",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/addWorkflowToTicketResponse",
+                 }
+               }
+             }
+           },
+           "401": {
+             "description": "Invalid input"
+           }
+         },
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/addWorkflowToTicketRequestForm",
+               }
+             }
+           },
+           "required": true
+         }
+       }
+     }
     },
     "externalDocs": {
       "description": "Find out more about Wice CRM",
@@ -1709,6 +1744,27 @@
             }
           }
         },
+        "addWorkflowToTicketRequestForm": {
+          "type": "object",
+          "required": [
+            "data",
+            "method",
+            "cookie"
+          ],
+          "properties": {
+            "cookie": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": ["add_workflow_to_ticket"]
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"rowid\": \"12345\", \"workflow\": \"Id of the workflow ex. 123\"}"
+            }
+          }
+        },
         "executeWorkflowRequestForm": {
           "type": "object",
           "required": [
@@ -1811,6 +1867,15 @@
           }
         },
         "createTicketResponse": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "number",
+              "example": 16239
+            }
+          }
+        },
+        "addWorkflowToTicketResponse": {
           "type": "object",
           "properties": {
             "rowid": {
