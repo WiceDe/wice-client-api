@@ -426,6 +426,18 @@
          "x-swagger-router-controller": "organization",
          "summary": "Create a new organization",
          "description": "Creates a new organization within Wice CRM",
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["insert_company"]
+             },
+             "required": true
+           }
+         ],
          "responses": {
            "200": {
              "description": "Supplies the rowid of the created organization",
@@ -443,9 +455,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/createOrganizationRequestForm",
+                 "$ref": "#/components/schemas/createOrganizationRequest",
                }
              }
            },
@@ -458,6 +470,18 @@
        "post": {
          "tags": [
            "organizations"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["update_company"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "organization",
          "summary": "Update an existing organization",
@@ -479,9 +503,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/updateOrganizationRequestForm"
+                 "$ref": "#/components/schemas/updateOrganizationRequest"
                }
              }
            },
@@ -494,6 +518,18 @@
        "post": {
          "tags": [
            "organizations"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["delete_company"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "organization",
          "summary": "Deactivate an existing organization",
@@ -515,9 +551,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/deleteOrganizationRequestForm"
+                 "$ref": "#/components/schemas/deleteOrganizationRequest"
                }
              }
            },
@@ -1579,66 +1615,42 @@
             }
           }
         },
-        "createOrganizationRequestForm": {
+        "createOrganizationRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "name": {
               "type": "string",
-              "enum": ["insert_organization"]
+              "example": "Corp Ltd."
             },
-            "data": {
+            "email": {
               "type": "string",
-              "example": "{\"name\": \"Organization Inc.\", \"email\": \"info@org.com\"}"
+              "example": "info@corp.com"
             }
           }
         },
-        "updateOrganizationRequestForm": {
+        "updateOrganizationRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["update_organization"]
+              "example": "54321"
             },
-            "data": {
+            "name": {
               "type": "string",
-              "example": "{\"rowid\": \"12345\", \"name\": \"Changed Organization Inc.\", \"email\": \"info@neworg.com\"}"
+              "example": "Corp United"
+            },
+            "email": {
+              "type": "string",
+              "example": "info@corp.com"
             }
           }
         },
-        "deleteOrganizationRequestForm": {
+        "deleteOrganizationRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["delete_organization"]
-            },
-            "data": {
-              "type": "string",
-              "example": "{\"rowid\": \"12345\"}"
+              "example": "54321"
             }
           }
         },
