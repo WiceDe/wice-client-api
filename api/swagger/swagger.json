@@ -203,6 +203,18 @@
           "tags": [
             "persons"
           ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "method",
+              "description": "Determines the operation.",
+              "schema": {
+                "type": "string",
+                "enum": ["insert_contact"]
+              },
+              "required": true
+            }
+          ],
           "x-swagger-router-controller": "persons",
           "summary": "Create a new person",
           "description": "Creates a new person within Wice CRM",
@@ -223,9 +235,9 @@
           },
           "requestBody": {
             "content": {
-              "multipart/form-data": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/createPersonRequestForm",
+                  "$ref": "#/components/schemas/createPersonRequest",
                 }
               }
             },
@@ -238,6 +250,18 @@
         "post": {
           "tags": [
             "persons"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "method",
+              "description": "Determines the operation.",
+              "schema": {
+                "type": "string",
+                "enum": ["update_contact"]
+              },
+              "required": true
+            }
           ],
           "x-swagger-router-controller": "persons",
           "summary": "Update an existing person",
@@ -261,9 +285,9 @@
           },
           "requestBody": {
             "content": {
-              "multipart/form-data": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/updatePersonRequestForm"
+                  "$ref": "#/components/schemas/updatePersonRequest"
                 }
               }
             },
@@ -276,6 +300,18 @@
         "post": {
           "tags": [
             "persons"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "method",
+              "description": "Determines the operation.",
+              "schema": {
+                "type": "string",
+                "enum": ["delete_contact"]
+              },
+              "required": true
+            }
           ],
           "x-swagger-router-controller": "persons",
           "summary": "Deactivate an existing organization",
@@ -299,9 +335,9 @@
           },
           "requestBody": {
             "content": {
-              "multipart/form-data": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/deletePersonRequestForm"
+                  "$ref": "#/components/schemas/deletePersonRequest"
                 }
               }
             },
@@ -1496,66 +1532,50 @@
             }
           }
         },
-        "createPersonRequestForm": {
+        "createPersonRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "firstname": {
               "type": "string",
-              "enum": ["insert_contact"]
+              "example": "Jane"
             },
-            "data": {
+            "name": {
               "type": "string",
-              "example": "{\"firstname\": \"Jane\", \"name\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
+              "example": "Doe"
+            },
+            "email": {
+              "type": "string",
+              "example": "jdoe@doecorp.com"
             }
           }
         },
-        "updatePersonRequestForm": {
+        "updatePersonRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["update_contact"]
+              "example": "12345"
             },
-            "data": {
+            "firstname": {
               "type": "string",
-              "example": "{\"rowid\": \"12345\", \"firstname\": \"Jane\", \"name\": \"Doe\", \"email\": \"jdoe@doecorp.com\"}"
+              "example": "Jane"
+            },
+            "name": {
+              "type": "string",
+              "example": "Doe"
+            },
+            "email": {
+              "type": "string",
+              "example": "jdoe@doecorp.com"
             }
           }
         },
-        "deletePersonRequestForm": {
+        "deletePersonRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["delete_contact"]
-            },
-            "data": {
-              "type": "string",
-              "example": "{\"rowid\": \"12345\"}"
+              "example": "12345"
             }
           }
         },
