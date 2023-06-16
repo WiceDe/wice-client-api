@@ -134,13 +134,6 @@
           "parameters": [
             {
               "in": "query",
-              "name": "cookie",
-              "description": "Your login cookie.",
-              "schema": {"type": "string"},
-              "required": true
-            },
-            {
-              "in": "query",
               "name": "method",
               "description": "Determines the type of resource to be fetched.",
               "schema": {
@@ -354,13 +347,6 @@
          "parameters": [
            {
              "in": "query",
-             "name": "cookie",
-             "description": "Your login cookie.",
-             "schema": {"type": "string"},
-             "required": true
-           },
-           {
-             "in": "query",
              "name": "method",
              "description": "Determines the operation.",
              "schema": {
@@ -570,13 +556,6 @@
         "parameters": [
           {
             "in": "query",
-            "name": "cookie",
-            "description": "Your login cookie.",
-            "schema": {"type": "string"},
-            "required": true
-          },
-          {
-            "in": "query",
             "name": "method",
             "description": "Determines the operation.",
             "schema": {
@@ -584,17 +563,7 @@
               "enum": ["get_all_articles"]
             },
             "required": true
-          },
-          {
-            "in": "query",
-            "name": "full_list",
-            "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
-            "schema": {
-              "type": "number",
-              "enum": [1]
-            },
-            "required": false
-          },
+          }
         ],
         "x-swagger-router-controller": "articles",
         "summary": "Get a list of all articles",
@@ -621,6 +590,18 @@
         "tags": [
           "articles"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["insert_article"]
+            },
+            "required": true
+          }
+        ],
         "x-swagger-router-controller": "articles",
         "summary": "Create a new article",
         "description": "Creates a new article within Wice CRM",
@@ -641,9 +622,9 @@
         },
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/createArticleRequestForm",
+                "$ref": "#/components/schemas/createArticleRequest",
               }
             }
           },
@@ -656,6 +637,18 @@
       "post": {
         "tags": [
           "articles"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["update_article"]
+            },
+            "required": true
+          }
         ],
         "x-swagger-router-controller": "articles",
         "summary": "Update an article",
@@ -677,9 +670,9 @@
         },
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/updateArticleRequestForm"
+                "$ref": "#/components/schemas/updateArticleRequest"
               }
             }
           },
@@ -692,6 +685,18 @@
       "post": {
         "tags": [
           "articles"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["delete_article"]
+            },
+            "required": true
+          }
         ],
         "x-swagger-router-controller": "articles",
         "summary": "Delete an article",
@@ -713,9 +718,9 @@
         },
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/deleteArticleRequestForm"
+                "$ref": "#/components/schemas/deleteArticleRequest"
               }
             }
           },
@@ -730,13 +735,6 @@
            "events"
          ],
          "parameters": [
-           {
-             "in": "query",
-             "name": "cookie",
-             "description": "Your login cookie.",
-             "schema": {"type": "string"},
-             "required": true
-           },
            {
              "in": "query",
              "name": "method",
@@ -773,6 +771,18 @@
          "tags": [
            "events"
          ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["insert_event"]
+             },
+             "required": true
+           }
+         ],
          "x-swagger-router-controller": "events",
          "summary": "Create a new event",
          "description": "Creates a new calendar event within Wice CRM",
@@ -793,9 +803,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/createEventRequestForm",
+                 "$ref": "#/components/schemas/createEventRequest",
                }
              }
            },
@@ -808,6 +818,18 @@
        "post": {
          "tags": [
            "events"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["update_event"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "events",
          "summary": "Update an event",
@@ -829,9 +851,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/updateEventRequestForm",
+                 "$ref": "#/components/schemas/updateEventRequest",
                }
              }
            },
@@ -844,6 +866,18 @@
        "post": {
          "tags": [
            "events"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["delete_event"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "event",
          "summary": "Delete event or yourself from an event",
@@ -865,9 +899,9 @@
          },
          "requestBody": {
            "content": {
-             "multipart/form-data": {
+             "application/json": {
                "schema": {
-                 "$ref": "#/components/schemas/deleteEventRequestForm",
+                 "$ref": "#/components/schemas/deleteEventRequest",
                }
              }
            },
@@ -882,13 +916,6 @@
            "opportunities"
          ],
          "parameters": [
-           {
-             "in": "query",
-             "name": "cookie",
-             "description": "Your login cookie.",
-             "schema": {"type": "string"},
-             "required": true
-           },
            {
              "in": "query",
              "name": "method",
@@ -1038,13 +1065,6 @@
         "parameters": [
           {
             "in": "query",
-            "name": "cookie",
-            "description": "Your login cookie.",
-            "schema": {"type": "string"},
-            "required": true
-          },
-          {
-            "in": "query",
             "name": "method",
             "description": "Determines the operation.",
             "schema": {
@@ -1080,13 +1100,6 @@
            "workflows"
          ],
          "parameters": [
-           {
-             "in": "query",
-             "name": "cookie",
-             "description": "Your login cookie.",
-             "schema": {"type": "string"},
-             "required": true
-           },
            {
              "in": "query",
              "name": "method",
@@ -1126,13 +1139,6 @@
         "parameters": [
           {
             "in": "query",
-            "name": "cookie",
-            "description": "Your login cookie.",
-            "schema": {"type": "string"},
-            "required": true
-          },
-          {
-            "in": "query",
             "name": "method",
             "description": "Determines the operation.",
             "schema": {
@@ -1168,13 +1174,6 @@
           "categories"
         ],
         "parameters": [
-          {
-            "in": "query",
-            "name": "cookie",
-            "description": "Your login cookie.",
-            "schema": {"type": "string"},
-            "required": true
-          },
           {
             "in": "query",
             "name": "method",
@@ -1654,129 +1653,161 @@
             }
           }
         },
-        "createArticleRequestForm": {
+        "createArticleRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "description": {
               "type": "string",
-              "enum": ["insert_article"]
+              "example": "Example Article"
             },
-            "data": {
+            "long_description": {
               "type": "string",
-              "example": "{\"description\": \"Example Article\", \"long_description\": \"This is an example article\", \"number\": \"auto\", \"purchase_price\": \"250\", \"sales_price\": \"500\", \"tax\": \"19\"}"
+              "example": "This is an example article"
+            },
+            "number": {
+              "type": "string",
+              "example": "auto"
+            },
+            "purchase_price": {
+              "type": "string",
+              "example": "250"
+            },
+            "sales_price": {
+              "type": "string",
+              "example": "500"
+            },
+            "tax": {
+              "type": "string",
+              "example": "19"
             }
           }
         },
-        "updateArticleRequestForm": {
+        "updateArticleRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["update_article"]
+              "example": "12345"
             },
-            "data": {
+            "description": {
               "type": "string",
-              "example": "{\"rowid\": \"12345\", \"description\": \"Example Article\", \"long_description\": \"This is an updated article\", \"number\": \"auto\", \"purchase_price\": \"4000\", \"sales_price\": \"800\", \"tax\": \"19\"}"
+              "example": "Updated Article"
+            },
+            "long_description": {
+              "type": "string",
+              "example": "This is an example article that has been updated"
+            },
+            "number": {
+              "type": "string",
+              "example": "auto"
+            },
+            "purchase_price": {
+              "type": "string",
+              "example": "350"
+            },
+            "sales_price": {
+              "type": "string",
+              "example": "600"
+            },
+            "tax": {
+              "type": "string",
+              "example": "19"
             }
           }
         },
-        "deleteArticleRequestForm": {
+        "deleteArticleRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["delete_article"]
-            },
-            "data": {
-              "type": "string",
-              "example": "{\"rowid\": \"12345\"}"
+              "example": "12345"
             }
           }
         },
-        "createEventRequestForm": {
+        "createEventRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "title": {
               "type": "string",
-              "enum": ["insert_event"]
+              "example": "Important Meeting!"
             },
-            "data": {
+            "description": {
               "type": "string",
-              "example": "{\"title\": \"Important meeting!\", \"description\": \"Presentation of our new project to shareholders\", \"employees\": \"useremail@somewhere.com\",\"date\": \"2023-06-30\", \"time_start\": \"09:00:00\",  \"time_end\": \"09:30:00\", \"dt_start\": \"2023-06-30 09:00:00\", \"dt_end\": \"2023-06-30 09:30:00\"}"
-            }
+              "example": "Presentation of our new project to shareholders"
+            },
+            "employees": {
+              "type": "string",
+              "example": "useremail@somewhere.com"
+            },
+            "date": {
+              "type": "string",
+              "example": "2023-06-30"
+            },
+            "time_start": {
+              "type": "string",
+              "example": "09:00:00"
+            },
+            "time_end": {
+              "type": "string",
+              "example": "09:30:00"
+            },
+            "dt_start": {
+              "type": "string",
+              "example": "2023-06-30 09:00:00"
+            },
+            "dt_end": {
+              "type": "string",
+              "example": "2023-06-30 09:30:00"
+            },
           }
         },
-        "updateEventRequestForm": {
+        "updateEventRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["update_event"]
+              "example": "12345"
             },
-            "data": {
+            "title": {
               "type": "string",
-              "example": "{\"rowid\": \"12345\"}"
-            }
+              "example": "Important Meeting!"
+            },
+            "description": {
+              "type": "string",
+              "example": "Presentation of our new project to shareholders"
+            },
+            "employees": {
+              "type": "string",
+              "example": "useremail@somewhere.com"
+            },
+            "date": {
+              "type": "string",
+              "example": "2023-06-30"
+            },
+            "time_start": {
+              "type": "string",
+              "example": "09:00:00"
+            },
+            "time_end": {
+              "type": "string",
+              "example": "09:30:00"
+            },
+            "dt_start": {
+              "type": "string",
+              "example": "2023-06-30 09:00:00"
+            },
+            "dt_end": {
+              "type": "string",
+              "example": "2023-06-30 09:30:00"
+            },
           }
         },
-        "deleteEventRequestForm": {
+        "deleteEventRequest": {
           "type": "object",
-          "required": [
-            "data",
-            "method",
-            "cookie"
-          ],
           "properties": {
-            "cookie": {
-              "type": "string"
-            },
-            "method": {
+            "rowid": {
               "type": "string",
-              "enum": ["delete_event"]
-            },
-            "data": {
-              "type": "string",
-              "example": "{\"rowid\": \"12345\"}"
+              "example": "12345"
             }
           }
         },
