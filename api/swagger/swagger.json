@@ -149,13 +149,31 @@
             {
               "in": "query",
               "name": "full_list",
-              "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+              "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
               "schema": {
                 "type": "number",
                 "enum": [1]
               },
               "required": false
             },
+            {
+              "in": "query",
+              "name": "search",
+              "description": "A simplified substring search, will return objects matching the supplied string",
+              "schema": {
+                "type": "string"
+              },
+              "required": false
+            },
+            {
+              "in": "query",
+              "name": "start_index",
+              "description": "If requesting paginated results, determines which entry to skip",
+              "schema": {
+                "type": "number"
+              },
+              "required": false
+            }
           ],
           "x-swagger-router-controller": "persons",
           "summary": "Get a list of persons",
@@ -315,13 +333,31 @@
            {
              "in": "query",
              "name": "full_list",
-             "description": "If set to 1, will return all entries in one object. Otherwise will return paginated results",
+             "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
              "schema": {
                "type": "number",
                "enum": [1]
              },
              "required": false
            },
+           {
+             "in": "query",
+             "name": "search",
+             "description": "A simplified substring search, will return objects matching the supplied string",
+             "schema": {
+               "type": "string"
+             },
+             "required": false
+           },
+           {
+             "in": "query",
+             "name": "start_index",
+             "description": "If requesting paginated results, determines which entry to skip",
+             "schema": {
+               "type": "number"
+             },
+             "required": false
+           }
          ],
          "x-swagger-router-controller": "organization",
          "summary": "Get a list of all companies",
