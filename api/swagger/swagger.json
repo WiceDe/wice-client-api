@@ -1,570 +1,550 @@
-  {
-    "openapi": "3.0.0",
-    "info": {
-      "description": "This is a client API for Wice CRM \n ## Before you begin \nYou will need an active Wice CRM account, and your tenant needs to have the \"Wice CRM Client API\" module installed and enabled.\n ## Authentication \n Log with your credentials using the webvis endpoint. This will return a cookie that you can pass as either a query parameter or form value on following requests to authenticate yourself. \n ## Using the API \n All requests are made to a single URL, they are only listed individually here for clearer documentation. The function of the endpoint is determined through the *method* parameter, which can be passed as a query parameter for GET requests, and as part of form data for POST requests. \n\n When sending data through POST requests, all data must be formatted as stringified JSON, and sent as the *data* property of the form data. \n ## Troubleshooting \n Login cookies have a limited lifetime depending on Wice Server configuration, usually not longer than a few hours. If requests are failing, first try using a fresh login cookie.",
-      "version": "1.2.4",
-      "title": "Wice CRM Client API",
-      "termsOfService": "https://wice.de",
-      "contact": {
-        "email": "support@wice.de"
-      },
-      "license": {
-        "name": "Wice",
-        "url": "https://www.wice.de"
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is a client API for Wice CRM \n ## Before you begin \nYou will need an active Wice CRM account, and your tenant needs to have the \"Wice CRM Client API\" module installed and enabled.\n ## Authentication \n Log with your credentials using the webvis endpoint. This will return a cookie that you can pass as either a query parameter or form value on following requests to authenticate yourself. \n ## Using the API \n All requests are made to a single URL, they are only listed individually here for clearer documentation. The function of the endpoint is determined through the *method* parameter, which can be passed as a query parameter for GET requests, and as part of form data for POST requests. \n\n When sending data through POST requests, all data must be formatted as stringified JSON, and sent as the *data* property of the form data. \n ## Troubleshooting \n Login cookies have a limited lifetime depending on Wice Server configuration, usually not longer than a few hours. If requests are failing, first try using a fresh login cookie.",
+    "version": "1.2.4",
+    "title": "Wice CRM Client API",
+    "termsOfService": "https://wice.de",
+    "contact": {
+      "email": "support@wice.de"
+    },
+    "license": {
+      "name": "Wice",
+      "url": "https://www.wice.de"
+    }
+  },
+  "tags": [{
+      "name": "user",
+      "description": "User management",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
       }
     },
-    "tags": [{
-        "name": "user",
-        "description": "User management",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "persons",
-        "description": "Manipulate stored persons",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "organizations",
-        "description": "Manipulate stored organizations",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "articles",
-        "description": "Manipulate stored articles",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "events",
-        "description": "Manipulate stored calendar events",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "opportunities",
-        "description": "Manipulate stored opportunities. Currently under development and subject to change.",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "tickets",
-        "description": "Manipulate stored tickets and notes. Currently under development and subject to change.",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "categories",
-        "description": "Getting categories for each category type. Currently under development and subject to change.",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
-        }
-      },
-      {
-        "name": "workflows",
-        "description": "Data about workflows and operations on workflows.",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "https://wice.de"
+    {
+      "name": "persons",
+      "description": "Manipulate stored persons",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "organizations",
+      "description": "Manipulate stored organizations",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "articles",
+      "description": "Manipulate stored articles",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "events",
+      "description": "Manipulate stored calendar events",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "opportunities",
+      "description": "Manipulate stored opportunities. Currently under development and subject to change.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "tickets",
+      "description": "Manipulate stored tickets and notes. Currently under development and subject to change.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "categories",
+      "description": "Getting categories for each category type. Currently under development and subject to change.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
+      "name": "workflows",
+      "description": "Data about workflows and operations on workflows.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    }
+  ],
+  "security": [{
+    "CookieAuth": []
+  }],
+  "paths": {
+    "/pserv/base/webvis": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "x-swagger-router-controller": "user",
+        "summary": "Login user",
+        "description": "Login in Wice CRM.",
+        "responses": {
+          "200": {
+            "description": "Supplies the cookie after successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginUser"
+              }
+            }
+          },
+          "description": "Mandant name and username which will be passed on to the server",
+          "required": true
         }
       }
-    ],
-    "security": [{
-    "CookieAuth": []
-    }],
-    "paths": {
-      "/pserv/base/webvis": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "x-swagger-router-controller": "user",
-          "summary": "Login user",
-          "description": "Login in Wice CRM.",
-          "responses": {
-            "200": {
-              "description": "Supplies the cookie after successful login",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/loginUserResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Invalid input"
-            }
-          },
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/loginUser"
-                }
-              }
-            },
-            "description": "Mandant name and username which will be passed on to the server",
-            "required": true
-          }
-        }
-      },
-      "/plugin/wp_wice_client_api_backend/json#getPersons": {
-        "get": {
-          "tags": [
-            "persons"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "method",
-              "description": "Determines the type of resource to be fetched.",
-              "schema": {
-                "type": "string",
-                "enum": ["get_all_persons"]
-              },
-              "required": true
-            },
-            {
-              "in": "query",
-              "name": "full_list",
-              "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
-              "schema": {
-                "type": "number",
-                "enum": [1]
-              },
-              "required": false
-            },
-            {
-              "in": "query",
-              "name": "search",
-              "description": "A simplified substring search, will return objects matching the supplied string",
-              "schema": {
-                "type": "string"
-              },
-              "required": false
-            },
-            {
-              "in": "query",
-              "name": "start_index",
-              "description": "If requesting paginated results, determines which entry to skip",
-              "schema": {
-                "type": "number"
-              },
-              "required": false
-            }
-          ],
-          "x-swagger-router-controller": "persons",
-          "summary": "Get a list of persons",
-          "description": "Returns all available persons",
-          "responses": {
-            "200": {
-              "description": "An array of all requested persons",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/getPersonResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Invalid input"
-            }
-          }
-        }
-      },
-      "/plugin/wp_wice_client_api_backend/json#createPerson": {
-        "post": {
-          "tags": [
-            "persons"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "method",
-              "description": "Determines the operation.",
-              "schema": {
-                "type": "string",
-                "enum": ["insert_contact"]
-              },
-              "required": true
-            }
-          ],
-          "x-swagger-router-controller": "persons",
-          "summary": "Create a new person",
-          "description": "Creates a new person within Wice CRM",
-          "responses": {
-            "200": {
-              "description": "Supplies the rowid of the created person",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/createPersonResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Invalid input"
-            }
-          },
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/createPersonRequest",
-                }
-              }
-            },
-            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
-            "required": true
-          }
-        }
-      },
-      "/plugin/wp_wice_client_api_backend/json#updatePerson": {
-        "post": {
-          "tags": [
-            "persons"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "method",
-              "description": "Determines the operation.",
-              "schema": {
-                "type": "string",
-                "enum": ["update_contact"]
-              },
-              "required": true
-            }
-          ],
-          "x-swagger-router-controller": "persons",
-          "summary": "Update an existing person",
-          "description": "Updates an existing person within Wice CRM, identified by its rowid",
-          "responses": {
-            "200": {
-              "description": "Supplies the rowid of the created person",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "oneOf": [
-                      "$ref": "#/components/schemas/updatePersonResponse",
-                    ]
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Invalid input"
-            }
-          },
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/updatePersonRequest"
-                }
-              }
-            },
-            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
-            "required": true
-          }
-        }
-      },
-      "/plugin/wp_wice_client_api_backend/json#deletePerson": {
-        "post": {
-          "tags": [
-            "persons"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "method",
-              "description": "Determines the operation.",
-              "schema": {
-                "type": "string",
-                "enum": ["delete_contact"]
-              },
-              "required": true
-            }
-          ],
-          "x-swagger-router-controller": "persons",
-          "summary": "Deactivate an existing organization",
-          "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
-          "responses": {
-            "200": {
-              "description": "Confirms deletion with Deletion successful message",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "oneOf": [
-                      "$ref": "#/components/schemas/deletePersonResponse"
-                    ]
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Invalid input"
-            }
-          },
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deletePersonRequest"
-                }
-              }
-            },
-            "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
-            "required": true
-          }
-        }
-      },
-      "/plugin/wp_wice_client_api_backend/json#getOrganizations": {
-       "get": {
-         "tags": [
-           "organizations"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["get_all_companies"]
-             },
-             "required": true
-           },
-           {
-             "in": "query",
-             "name": "full_list",
-             "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
-             "schema": {
-               "type": "number",
-               "enum": [1]
-             },
-             "required": false
-           },
-           {
-             "in": "query",
-             "name": "search",
-             "description": "A simplified substring search, will return objects matching the supplied string",
-             "schema": {
-               "type": "string"
-             },
-             "required": false
-           },
-           {
-             "in": "query",
-             "name": "start_index",
-             "description": "If requesting paginated results, determines which entry to skip",
-             "schema": {
-               "type": "number"
-             },
-             "required": false
-           }
-         ],
-         "x-swagger-router-controller": "organization",
-         "summary": "Get a list of all companies",
-         "description": "Returns all available companies",
-         "responses": {
-           "200": {
-             "description": "An array of all requested companies",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/getOrganizationResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#createOrganization": {
-       "post": {
-         "tags": [
-           "organizations"
-         ],
-         "x-swagger-router-controller": "organization",
-         "summary": "Create a new organization",
-         "description": "Creates a new organization within Wice CRM",
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["insert_company"]
-             },
-             "required": true
-           }
-         ],
-         "responses": {
-           "200": {
-             "description": "Supplies the rowid of the created organization",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/createOrganizationResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/createOrganizationRequest",
-               }
-             }
-           },
-           "description": "The data of the organization should be in JSON format.",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#updateOrganization": {
-       "post": {
-         "tags": [
-           "organizations"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["update_company"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "organization",
-         "summary": "Update an existing organization",
-         "description": "Updates an existing organization within Wice CRM, identified by its rowid",
-         "responses": {
-           "200": {
-             "description": "Supplies the rowid of the created organization",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/updateOrganizationResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/updateOrganizationRequest"
-               }
-             }
-           },
-           "description": "The data of the organization should be in JSON format.",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#deleteOrganization": {
-       "post": {
-         "tags": [
-           "organizations"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["delete_company"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "organization",
-         "summary": "Deactivate an existing organization",
-         "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
-         "responses": {
-           "200": {
-             "description": "Supplies the rowid of the created organization",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/deleteOrganizationResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/deleteOrganizationRequest"
-               }
-             }
-           },
-           "description": "Requires only the rowid of the organization.",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#getArticles": {
+    },
+    "/plugin/wp_wice_client_api_backend/json#getPersons": {
       "get": {
         "tags": [
-          "articles"
+          "persons"
         ],
-        "parameters": [
+        "parameters": [{
+            "in": "query",
+            "name": "method",
+            "description": "Determines the type of resource to be fetched.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_all_persons"]
+            },
+            "required": true
+          },
           {
+            "in": "query",
+            "name": "full_list",
+            "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
+            "schema": {
+              "type": "number",
+              "enum": [1]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "description": "A simplified substring search, will return objects matching the supplied string",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_index",
+            "description": "If requesting paginated results, determines which entry to skip",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          }
+        ],
+        "x-swagger-router-controller": "persons",
+        "summary": "Get a list of persons",
+        "description": "Returns all available persons",
+        "responses": {
+          "200": {
+            "description": "An array of all requested persons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createPerson": {
+      "post": {
+        "tags": [
+          "persons"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_contact"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "persons",
+        "summary": "Create a new person",
+        "description": "Creates a new person within Wice CRM",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created person",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createPersonRequest"
+              }
+            }
+          },
+          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#updatePerson": {
+      "post": {
+        "tags": [
+          "persons"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["update_contact"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "persons",
+        "summary": "Update an existing person",
+        "description": "Updates an existing person within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created person",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updatePersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updatePersonRequest"
+              }
+            }
+          },
+          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#deletePerson": {
+      "post": {
+        "tags": [
+          "persons"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["delete_contact"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "persons",
+        "summary": "Deactivate an existing organization",
+        "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Confirms deletion with Deletion successful message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deletePersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deletePersonRequest"
+              }
+            }
+          },
+          "description": "The data of the resource to be created, please refer to the appropriate schema depending on resource type.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getOrganizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "parameters": [{
             "in": "query",
             "name": "method",
             "description": "Determines the operation.",
             "schema": {
               "type": "string",
-              "enum": ["get_all_articles"]
+              "enum": ["get_all_companies"]
             },
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "full_list",
+            "description": "If set to 1, will return all entries in one array. Otherwise will return paginated results",
+            "schema": {
+              "type": "number",
+              "enum": [1]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "description": "A simplified substring search, will return objects matching the supplied string",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_index",
+            "description": "If requesting paginated results, determines which entry to skip",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
           }
         ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Get a list of all companies",
+        "description": "Returns all available companies",
+        "responses": {
+          "200": {
+            "description": "An array of all requested companies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createOrganization": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Create a new organization",
+        "description": "Creates a new organization within Wice CRM",
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_company"]
+          },
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createOrganizationRequest"
+              }
+            }
+          },
+          "description": "The data of the organization should be in JSON format.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#updateOrganization": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["update_company"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "organization",
+        "summary": "Update an existing organization",
+        "description": "Updates an existing organization within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateOrganizationRequest"
+              }
+            }
+          },
+          "description": "The data of the organization should be in JSON format.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#deleteOrganization": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["delete_company"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "organization",
+        "summary": "Deactivate an existing organization",
+        "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteOrganizationRequest"
+              }
+            }
+          },
+          "description": "Requires only the rowid of the organization.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getArticles": {
+      "get": {
+        "tags": [
+          "articles"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_all_articles"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "articles",
         "summary": "Get a list of all articles",
         "description": "Returns all available articles",
@@ -590,18 +570,16 @@
         "tags": [
           "articles"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["insert_article"]
-            },
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_article"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "articles",
         "summary": "Create a new article",
         "description": "Creates a new article within Wice CRM",
@@ -624,7 +602,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/createArticleRequest",
+                "$ref": "#/components/schemas/createArticleRequest"
               }
             }
           },
@@ -638,18 +616,16 @@
         "tags": [
           "articles"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["update_article"]
-            },
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["update_article"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "articles",
         "summary": "Update an article",
         "description": "Update an existing article",
@@ -686,18 +662,16 @@
         "tags": [
           "articles"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["delete_article"]
-            },
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["delete_article"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "articles",
         "summary": "Delete an article",
         "description": "Deletes an existing article",
@@ -729,377 +703,362 @@
         }
       }
     },
-      "/plugin/wp_wice_client_api_backend/json#getEvents": {
-       "get": {
-         "tags": [
-           "events"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["get_events"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "events",
-         "summary": "Get a list of all events",
-         "description": "Returns all future calendar events",
-         "responses": {
-           "200": {
-             "description": "An array of event objects",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/getEventsResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#createEvent": {
-       "post": {
-         "tags": [
-           "events"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["insert_event"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "events",
-         "summary": "Create a new event",
-         "description": "Creates a new calendar event within Wice CRM",
-         "responses": {
-           "200": {
-             "description": "Supplies the rowid of the created event",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/createEventResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/createEventRequest",
-               }
-             }
-           },
-           "description": "The data of the event should be in JSON format.",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#updateEvent": {
-       "post": {
-         "tags": [
-           "events"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["update_event"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "events",
-         "summary": "Update an event",
-         "description": "Update an existing calendar event",
-         "responses": {
-           "200": {
-             "description": "Supplies the rowid of the updated event",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/updateEventResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/updateEventRequest",
-               }
-             }
-           },
-           "description": "The data of the event should be in JSON format and include the event's rowid.",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#deleteEvent": {
-       "post": {
-         "tags": [
-           "events"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["delete_event"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "event",
-         "summary": "Delete event or yourself from an event",
-         "description": "Deletes yourself as participant from existing event. Deletes event if it has no more participants.",
-         "responses": {
-           "200": {
-             "description": "Confirms a successful deletion",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/deleteEventResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/deleteEventRequest",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#getOpportunities": {
-       "get": {
-         "tags": [
-           "opportunities"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the type of resource to be fetched.",
-             "schema": {
-               "type": "string",
-               "enum": ["get_opportunities"]
-             },
-             "required": true
-           },
-           {
-             "in": "query",
-             "name": "chance_date_start_month",
-             "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month",
-             "schema": {
-               "type": "integer",
-               "minimum": 1,
-               "maximum": 12
-             },
-             "required": false
-           },
-           {
-             "in": "query",
-             "name": "chance_date_end_month",
-             "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month",
-             "schema": {
-               "type": "integer",
-               "minimum": 1,
-               "maximum": 12
-             },
-             "required": false
-           },
-           {
-             "in": "query",
-             "name": "chance_date_start_year",
-             "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",
-             "schema": {
-               "type": "number"
-             },
-             "required": false
-           },
-           {
-             "in": "query",
-             "name": "chance_date_end_year",
-             "description": "Year (format YYYY) of latest opportunities to be fetched. Defaults to current year",
-             "schema": {
-               "type": "number"
-             },
-             "required": false
-           },
-         ],
-         "x-swagger-router-controller": "opportunities",
-         "summary": "Get a list of opportunities",
-         "description": "Returns all available opportunities within the specified time range. Defaults to current month",
-         "responses": {
-           "200": {
-             "description": "An array of all requested opportunities",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/getOpportunitiesResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#createTicket": {
-       "post": {
-         "tags": [
-           "tickets"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["insert_ticket"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "ticket",
-         "summary": "Create a new ticket",
-         "description": "Creates a new ticket",
-         "responses": {
-           "200": {
-             "description": "Returns the ticket's rowid",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/createTicketResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/createTicketRequest",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#createNote": {
-       "post": {
-         "tags": [
-           "tickets"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["insert_note"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "ticket",
-         "summary": "Creates a new note for a ticket",
-         "description": "Each note must be attached to an already existing ticket by rowid",
-         "responses": {
-           "200": {
-             "description": "Returns the ticket's rowid",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/createNoteResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/createNoteRequest",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#getTicketTypes": {
+    "/plugin/wp_wice_client_api_backend/json#getEvents": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_events"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "events",
+        "summary": "Get a list of all events",
+        "description": "Returns all future calendar events",
+        "responses": {
+          "200": {
+            "description": "An array of event objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getEventsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createEvent": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_event"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "events",
+        "summary": "Create a new event",
+        "description": "Creates a new calendar event within Wice CRM",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the created event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createEventResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createEventRequest"
+              }
+            }
+          },
+          "description": "The data of the event should be in JSON format.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#updateEvent": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["update_event"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "events",
+        "summary": "Update an event",
+        "description": "Update an existing calendar event",
+        "responses": {
+          "200": {
+            "description": "Supplies the rowid of the updated event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateEventResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateEventRequest"
+              }
+            }
+          },
+          "description": "The data of the event should be in JSON format and include the event's rowid.",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#deleteEvent": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["delete_event"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "event",
+        "summary": "Delete event or yourself from an event",
+        "description": "Deletes yourself as participant from existing event. Deletes event if it has no more participants.",
+        "responses": {
+          "200": {
+            "description": "Confirms a successful deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteEventResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteEventRequest"
+              }
+            }
+          },
+          "description": "Requires only the event's rowid",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getOpportunities": {
+      "get": {
+        "tags": [
+          "opportunities"
+        ],
+        "parameters": [{
+            "in": "query",
+            "name": "method",
+            "description": "Determines the type of resource to be fetched.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_opportunities"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "chance_date_start_month",
+            "description": "Calendar month (1-12) of earliest opportunities to be fetched. Defaults to current month",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "chance_date_end_month",
+            "description": "Calendar month (1-12) of latest opportunities to be fetched. Defaults to current month",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "chance_date_start_year",
+            "description": "Year (format YYYY) of earliest opportunities to be fetched. Defaults to current year",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "chance_date_end_year",
+            "description": "Year (format YYYY) of latest opportunities to be fetched. Defaults to current year",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          }
+        ],
+        "x-swagger-router-controller": "opportunities",
+        "summary": "Get a list of opportunities",
+        "description": "Returns all available opportunities within the specified time range. Defaults to current month",
+        "responses": {
+          "200": {
+            "description": "An array of all requested opportunities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getOpportunitiesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createTicket": {
+      "post": {
+        "tags": [
+          "tickets"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_ticket"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "ticket",
+        "summary": "Create a new ticket",
+        "description": "Creates a new ticket",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket's rowid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createTicketResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTicketRequest"
+              }
+            }
+          },
+          "description": "Requires only the event's rowid",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#createNote": {
+      "post": {
+        "tags": [
+          "tickets"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_note"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "ticket",
+        "summary": "Creates a new note for a ticket",
+        "description": "Each note must be attached to an already existing ticket by rowid",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket's rowid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createNoteResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createNoteRequest"
+              }
+            }
+          },
+          "description": "Requires only the event's rowid",
+          "required": true
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getTicketTypes": {
       "get": {
         "tags": [
           "tickets"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["get_ticket_types"]
-            },
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_ticket_types"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "tickets",
         "summary": "Get a list of all ticket types",
         "description": "Returns all available ticket types",
@@ -1119,61 +1078,57 @@
           }
         }
       }
-      },
-      "/plugin/wp_wice_client_api_backend/json#getWorkflows": {
-       "get": {
-         "tags": [
-           "workflows"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["get_workflows"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "workflows",
-         "summary": "Get a list of all workflows",
-         "description": "Returns a list of all workflows",
-         "responses": {
-           "200": {
-             "description": "An array containing all workflows",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/getWorkflowsResponse"
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#getWorkflowSteps": {
+    },
+    "/plugin/wp_wice_client_api_backend/json#getWorkflows": {
       "get": {
         "tags": [
           "workflows"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["get_workflow_steps"]
-            },
-            "required": true
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_workflows"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "workflows",
+        "summary": "Get a list of all workflows",
+        "description": "Returns a list of all workflows",
+        "responses": {
+          "200": {
+            "description": "An array containing all workflows",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getWorkflowsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
           }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getWorkflowSteps": {
+      "get": {
+        "tags": [
+          "workflows"
         ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_workflow_steps"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "workflows",
         "summary": "Get a list of all workflows steps",
         "description": "Returns a list of all possible workflow steps for a given workflow, which can be used when executing them.",
@@ -1194,23 +1149,21 @@
         }
       }
     },
-     "/plugin/wp_wice_client_api_backend/json#getCategories": {
+    "/plugin/wp_wice_client_api_backend/json#getCategories": {
       "get": {
         "tags": [
           "categories"
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "method",
-            "description": "Determines the operation.",
-            "schema": {
-              "type": "string",
-              "enum": ["get_categories"]
-            },
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_categories"]
+          },
+          "required": true
+        }],
         "x-swagger-router-controller": "categories",
         "summary": "Get a list of all categories",
         "description": "Returns all available categories aggregated by category type",
@@ -1231,565 +1184,760 @@
         }
       }
     },
-     "/plugin/wp_wice_client_api_backend/json#executeWorkflow": {
-       "post": {
-         "tags": [
-           "workflows"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["execute_workflow"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "workflows",
-         "summary": "Executes a workflow step",
-         "description": "Must supply the ticket's rowid and the rowid of the next step. If the step is not branching, use workflow_step. If the step is branching, use branching_step. Sending both workflow_step and branching_step in the same request can lead to an error.",
-         "responses": {
-           "200": {
-             "description": "Returns the ticket's rowid",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/executeWorkflowResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/executeWorkflowRequest",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
-         }
-       }
-     },
-     "/plugin/wp_wice_client_api_backend/json#addWorkflowToTicket": {
-       "post": {
-         "tags": [
-           "workflows"
-         ],
-         "parameters": [
-           {
-             "in": "query",
-             "name": "method",
-             "description": "Determines the operation.",
-             "schema": {
-               "type": "string",
-               "enum": ["add_workflow_to_ticket"]
-             },
-             "required": true
-           }
-         ],
-         "x-swagger-router-controller": "workflows",
-         "summary": "Add a workflow to a ticket",
-         "description": "Adds a workflow to a ticket",
-         "responses": {
-           "200": {
-             "description": "Returns the ticket's rowid",
-             "content": {
-               "application/json": {
-                 "schema": {
-                   "$ref": "#/components/schemas/addWorkflowToTicketResponse",
-                 }
-               }
-             }
-           },
-           "401": {
-             "description": "Invalid input"
-           }
-         },
-         "requestBody": {
-           "content": {
-             "application/json": {
-               "schema": {
-                 "$ref": "#/components/schemas/addWorkflowToTicketRequest",
-               }
-             }
-           },
-           "description": "Requires only the event's rowid",
-           "required": true
-         }
-       }
-     }
+    "/plugin/wp_wice_client_api_backend/json#executeWorkflow": {
+      "post": {
+        "tags": [
+          "workflows"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["execute_workflow"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "workflows",
+        "summary": "Executes a workflow step",
+        "description": "Must supply the ticket's rowid and the rowid of the next step. If the step is not branching, use workflow_step. If the step is branching, use branching_step. Sending both workflow_step and branching_step in the same request can lead to an error.",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket's rowid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/executeWorkflowResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/executeWorkflowRequest"
+              }
+            }
+          },
+          "description": "Requires only the event's rowid",
+          "required": true
+        }
+      }
     },
-    "externalDocs": {
-      "description": "Find out more about Wice CRM",
-      "url": "https://wice.de"
+    "/plugin/wp_wice_client_api_backend/json#addWorkflowToTicket": {
+      "post": {
+        "tags": [
+          "workflows"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["add_workflow_to_ticket"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "workflows",
+        "summary": "Add a workflow to a ticket",
+        "description": "Adds a workflow to a ticket",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket's rowid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addWorkflowToTicketResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addWorkflowToTicketRequest"
+              }
+            }
+          },
+          "description": "Requires only the event's rowid",
+          "required": true
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Wice CRM",
+    "url": "https://wice.de"
+  },
+  "servers": [{
+      "url": "https://{server}.wice-net.de",
+      "variables": {
+        "server": {
+          "default": "oihwice"
+        }
+      }
     },
-    "servers": [{
-        "url": "https://{server}.wice-net.de",
-        "variables": {
-          "server": {
-            "default": "oihwice"
+    {
+      "url": "http://localhost:5000/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "CookieAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "cookie"
+      }
+    },
+    "schemas": {
+      "loginUser": {
+        "type": "object",
+        "required": [
+          "mandant_name",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "mandant_name": {
+            "type": "string",
+            "example": "companygmbh"
+          },
+          "username": {
+            "type": "string",
+            "example": "maxmustermann"
+          },
+          "password": {
+            "type": "string",
+            "example": "yourpassword"
           }
         }
       },
-      {
-        "url": "http://localhost:5000/"
-      }
-    ],
-    "components": {
-      "securitySchemes": {
-       "CookieAuth": {
-         "type": "apiKey",
-         "in": "query",
-         "name": "cookie"
-       }
-      },
-      "schemas": {
-        "loginUser": {
-          "type": "object",
-          "required": [
-            "mandant_name",
-            "username",
-            "password"
-          ],
-          "properties": {
-            "mandant_name": {
-              "type": "string",
-              "example": "companygmbh"
-            },
-            "username": {
-              "type": "string",
-              "example": "maxmustermann"
-            },
-            "password": {
-              "type": "string",
-              "example": "yourpassword"
-            }
+      "loginUserResponse": {
+        "type": "object",
+        "properties": {
+          "cookie": {
+            "type": "string",
+            "example": "5pd8m4jxaab8sp3mi4yluhkjrhmhqpug"
           }
-        },
-        "loginUserResponse": {
-          "type": "object",
-          "properties": {
-            "cookie": {
-              "type": "string",
-              "example": "5pd8m4jxaab8sp3mi4yluhkjrhmhqpug"
-            }
-          }
+        }
 
-        },
-        "getPersonResponse": {
-          "type": "object",
-          "properties": {
-            "loop_addresses": {
-              "type": "array",
-              "items": {
-            "type": "object",
-                "properties": {
-                  "rowid": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "mandant": {
-                    "type": "string",
-                    "example": "sandbox"
-                  },
-                  "for_rowid": {
-                    "type": "string",
-                    "example": "946512"
-                  },
-                  "same_contactperson": {
-                    "type": "string",
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "Doe"
-                  },
-                  "firstName": {
-                    "type": "string",
-                    "example": "Jane"
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "jane@doe.com"
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Dr."
-                  },
-                  "salutation": {
-                    "type": "string",
-                    "example": "Greetings"
-                  },
-                  "birthday": {
-                    "type": "string",
-                    "example": "01.01.2000"
-                  },
-                  "private_street": {
-                    "type": "string",
-                    "example": "Europaplatz"
-                  },
-                  "private_street_number": {
-                    "type": "string",
-                    "example": "12"
-                  },
-                  "private_zip_code": {
-                    "type": "string",
-                    "example": "10115"
-                  },
-                  "private_town": {
-                    "type": "string",
-                    "example": "Berlin"
-                  },
-                  "private_state": {
-                    "type": "string",
-                    "example": "Berlin"
-                  },
-                  "private_country": {
-                    "type": "string",
-                    "example": "Germany"
-                  },
-                  "phone": {
-                    "type": "string",
-                    "example": "0124/5478"
-                  },
-                  "fax": {
-                    "type": "string",
-                    "example": "0124/5478"
-                  },
-                  "private_phone": {
-                    "type": "string",
-                    "example": "0124/5478"
-                  },
-                  "private_mobile_phone": {
-                    "type": "string",
-                    "example": "0124/5478"
-                  },
-                  "private_email": {
-                    "type": "string",
-                    "example": "jandedoe@gmail.com"
-                  }
+      },
+      "getPersonResponse": {
+        "type": "object",
+        "properties": {
+          "loop_addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "mandant": {
+                  "type": "string",
+                  "example": "sandbox"
+                },
+                "for_rowid": {
+                  "type": "string",
+                  "example": "946512"
+                },
+                "same_contactperson": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Jane"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "jane@doe.com"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Dr."
+                },
+                "salutation": {
+                  "type": "string",
+                  "example": "Greetings"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "01.01.2000"
+                },
+                "private_street": {
+                  "type": "string",
+                  "example": "Europaplatz"
+                },
+                "private_street_number": {
+                  "type": "string",
+                  "example": "12"
+                },
+                "private_zip_code": {
+                  "type": "string",
+                  "example": "10115"
+                },
+                "private_town": {
+                  "type": "string",
+                  "example": "Berlin"
+                },
+                "private_state": {
+                  "type": "string",
+                  "example": "Berlin"
+                },
+                "private_country": {
+                  "type": "string",
+                  "example": "Germany"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_mobile_phone": {
+                  "type": "string",
+                  "example": "0124/5478"
+                },
+                "private_email": {
+                  "type": "string",
+                  "example": "jandedoe@gmail.com"
                 }
               }
             }
           }
-        },
-        "getArticleResponse": {
-          "type": "object",
-          "properties": {
-            "loop_articles": {
-              "type": "array",
-              "items": {
-            "type": "object",
-                "properties": {
-            "description": {
-              "type": "string",
-              "example": "Beispielartikel",
-              "description": "Article description in your default language"
-            },
-            "description2": {
-              "type": "string",
-              "example": "Example article",
-              "description": "Article description in your secondary language"
-            },
-            "long_description": {
-              "type": "string",
-              "example": "Dies ist ein Beispielartikel",
-              "description": "Longer article description in your default language"
-            },
-            "long_description2": {
-              "type": "string",
-              "example": "This is an example article",
-              "description": "Longer article description in your secondary language"
-            },
-            "number": {
-              "type": "string",
-              "example": "auto"
-            },
-            "purchase_price": {
-              "type": "string",
-              "example": "400"
-            },
-            "sales_price": {
-              "type": "string",
-              "example": "500"
-            },
-            "tax": {
-              "type": "string",
-              "example": "19"
-            }
-          }
-              }
-            }
-          }
-        },
-        "getOpportunitiesResponse": {
-          "type": "object",
-          "properties": {
-            "loop_entries": {
-              "type": "array",
-              "items": {
-            "type": "object",
-                "properties": {
-                  "rowid": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "Example Corp",
-                    "description": "Name of associated organization"
-                  },
-                  "article": {
-                    "type": "string",
-                    "example": "Example Article"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "This is an example article",
-                    "description": "Description of associated article"
-                  },
-                  "articles_amount": {
-                    "type": "number",
-                    "example": 5
-                  },
-                  "tax": {
-                    "type": "number",
-                    "example": 19,
-                    "description": "Tax rate in percent"
-                  },
-                  "sales_price": {
-                    "type": "number",
-                    "example": 100,
-                    "description": "Sales price per article"
-                  },
-                  "actual_sales_price": {
-                    "type": "number",
-                    "example": 90,
-                    "description": "Sales price per article with discount included"
-                  },
-                  "actual_sales_price_total_net": {
-                    "type": "number",
-                    "example": 450,
-                    "description": "Summed up total sales price before tax"
-                  },
-                  "actual_sales_price_total_raw": {
-                    "type": "number",
-                    "example": 535.5,
-                    "description": "Summed up total sales price including tax"
-                  },
-                  "purchase_price": {
-                    "type": "number",
-                    "example": 50,
-                    "description": "Purchase price per article"
-                  },
-                  "actual_purchase_price": {
-                    "type": "number",
-                    "example": 40,
-                    "description": "Purchase price per article with discount included"
-                  },
-                  "actual_purchase_price_total_net": {
-                    "type": "number",
-                    "example": 200,
-                    "description": "Summed up total purchase price before tax"
-                  },
-                  "actual_purchase_price_total_raw": {
-                    "type": "number",
-                    "example": 238,
-                    "description": "Summed up total purchase price including tax"
-                  },
-                  "planned_for_date": {
-                    "type": "string",
-                    "example": "2023-01-15"
-                  },
-                  "actual_sales_date": {
-                    "type": "string",
-                    "example": "2023-01-15",
-                    "description": "Defaults to empty string if sale has not yet taken place"
-                  },
+        }
+      },
+      "getArticleResponse": {
+        "type": "object",
+        "properties": {
+          "loop_articles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "Beispielartikel",
+                  "description": "Article description in your default language"
+                },
+                "description2": {
+                  "type": "string",
+                  "example": "Example article",
+                  "description": "Article description in your secondary language"
+                },
+                "long_description": {
+                  "type": "string",
+                  "example": "Dies ist ein Beispielartikel",
+                  "description": "Longer article description in your default language"
+                },
+                "long_description2": {
+                  "type": "string",
+                  "example": "This is an example article",
+                  "description": "Longer article description in your secondary language"
+                },
+                "number": {
+                  "type": "string",
+                  "example": "auto"
+                },
+                "purchase_price": {
+                  "type": "string",
+                  "example": "400"
+                },
+                "sales_price": {
+                  "type": "string",
+                  "example": "500"
+                },
+                "tax": {
+                  "type": "string",
+                  "example": "19"
                 }
               }
             }
           }
-        },
-        "createPersonRequest": {
-          "type": "object",
-          "properties": {
-            "firstname": {
-              "type": "string",
-              "example": "Jane"
-            },
-            "name": {
-              "type": "string",
-              "example": "Doe"
-            },
-            "email": {
-              "type": "string",
-              "example": "jdoe@doecorp.com"
+        }
+      },
+      "getOpportunitiesResponse": {
+        "type": "object",
+        "properties": {
+          "loop_entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Example Corp",
+                  "description": "Name of associated organization"
+                },
+                "article": {
+                  "type": "string",
+                  "example": "Example Article"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "This is an example article",
+                  "description": "Description of associated article"
+                },
+                "articles_amount": {
+                  "type": "number",
+                  "example": 5
+                },
+                "tax": {
+                  "type": "number",
+                  "example": 19,
+                  "description": "Tax rate in percent"
+                },
+                "sales_price": {
+                  "type": "number",
+                  "example": 100,
+                  "description": "Sales price per article"
+                },
+                "actual_sales_price": {
+                  "type": "number",
+                  "example": 90,
+                  "description": "Sales price per article with discount included"
+                },
+                "actual_sales_price_total_net": {
+                  "type": "number",
+                  "example": 450,
+                  "description": "Summed up total sales price before tax"
+                },
+                "actual_sales_price_total_raw": {
+                  "type": "number",
+                  "example": 535.5,
+                  "description": "Summed up total sales price including tax"
+                },
+                "purchase_price": {
+                  "type": "number",
+                  "example": 50,
+                  "description": "Purchase price per article"
+                },
+                "actual_purchase_price": {
+                  "type": "number",
+                  "example": 40,
+                  "description": "Purchase price per article with discount included"
+                },
+                "actual_purchase_price_total_net": {
+                  "type": "number",
+                  "example": 200,
+                  "description": "Summed up total purchase price before tax"
+                },
+                "actual_purchase_price_total_raw": {
+                  "type": "number",
+                  "example": 238,
+                  "description": "Summed up total purchase price including tax"
+                },
+                "planned_for_date": {
+                  "type": "string",
+                  "example": "2023-01-15"
+                },
+                "actual_sales_date": {
+                  "type": "string",
+                  "example": "2023-01-15",
+                  "description": "Defaults to empty string if sale has not yet taken place"
+                }
+              }
             }
           }
-        },
-        "updatePersonRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "12345"
-            },
-            "firstname": {
-              "type": "string",
-              "example": "Jane"
-            },
-            "name": {
-              "type": "string",
-              "example": "Doe"
-            },
-            "email": {
-              "type": "string",
-              "example": "jdoe@doecorp.com"
-            }
+        }
+      },
+      "createPersonRequest": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jdoe@doecorp.com"
           }
-        },
-        "deletePersonRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "12345"
-            }
+        }
+      },
+      "updatePersonRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jdoe@doecorp.com"
           }
-        },
-        "createOrganizationRequest": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "Corp Ltd."
-            },
-            "email": {
-              "type": "string",
-              "example": "info@corp.com"
-            }
+        }
+      },
+      "deletePersonRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
           }
-        },
-        "updateOrganizationRequest": {
+        }
+      },
+      "createOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Corp Ltd."
+          },
+          "email": {
+            "type": "string",
+            "example": "info@corp.com"
+          }
+        }
+      },
+      "updateOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "54321"
+          },
+          "name": {
+            "type": "string",
+            "example": "Corp United"
+          },
+          "email": {
+            "type": "string",
+            "example": "info@corp.com"
+          }
+        }
+      },
+      "deleteOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "54321"
+          }
+        }
+      },
+      "createArticleRequest": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Example Article"
+          },
+          "long_description": {
+            "type": "string",
+            "example": "This is an example article"
+          },
+          "number": {
+            "type": "string",
+            "example": "auto"
+          },
+          "purchase_price": {
+            "type": "string",
+            "example": "250"
+          },
+          "sales_price": {
+            "type": "string",
+            "example": "500"
+          },
+          "tax": {
+            "type": "string",
+            "example": "19"
+          }
+        }
+      },
+      "updateArticleRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
+          },
+          "description": {
+            "type": "string",
+            "example": "Updated Article"
+          },
+          "long_description": {
+            "type": "string",
+            "example": "This is an example article that has been updated"
+          },
+          "number": {
+            "type": "string",
+            "example": "auto"
+          },
+          "purchase_price": {
+            "type": "string",
+            "example": "350"
+          },
+          "sales_price": {
+            "type": "string",
+            "example": "600"
+          },
+          "tax": {
+            "type": "string",
+            "example": "19"
+          }
+        }
+      },
+      "deleteArticleRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "createEventRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Important Meeting!"
+          },
+          "description": {
+            "type": "string",
+            "example": "Presentation of our new project to shareholders"
+          },
+          "employees": {
+            "type": "string",
+            "example": "useremail@somewhere.com"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-06-30"
+          },
+          "time_start": {
+            "type": "string",
+            "example": "09:00:00"
+          },
+          "time_end": {
+            "type": "string",
+            "example": "09:30:00"
+          },
+          "dt_start": {
+            "type": "string",
+            "example": "2023-06-30 09:00:00"
+          },
+          "dt_end": {
+            "type": "string",
+            "example": "2023-06-30 09:30:00"
+          }
+        }
+      },
+      "updateEventRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
+          },
+          "title": {
+            "type": "string",
+            "example": "Important Meeting!"
+          },
+          "description": {
+            "type": "string",
+            "example": "Presentation of our new project to shareholders"
+          },
+          "employees": {
+            "type": "string",
+            "example": "useremail@somewhere.com"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-06-30"
+          },
+          "time_start": {
+            "type": "string",
+            "example": "09:00:00"
+          },
+          "time_end": {
+            "type": "string",
+            "example": "09:30:00"
+          },
+          "dt_start": {
+            "type": "string",
+            "example": "2023-06-30 09:00:00"
+          },
+          "dt_end": {
+            "type": "string",
+            "example": "2023-06-30 09:30:00"
+          }
+        }
+      },
+      "deleteEventRequest": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "createTicketRequest": {
+        "type": "object",
+        "required": [
+          "for_rowid",
+          "subject",
+          "ticket_type"
+        ],
+        "properties": {
+          "for_rowid": {
+            "type": "string",
+            "example": "12345"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Test Ticket"
+          },
+          "ticket_type": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "createNoteRequest": {
+        "type": "object",
+        "required": [
+          "ticket",
+          "text"
+        ],
+        "properties": {
+          "ticket": {
+            "type": "number",
+            "example": 123456
+          },
+          "text": {
+            "type": "string",
+            "example": "This is a new note"
+          }
+        }
+      },
+      "addWorkflowToTicketRequest": {
+        "type": "object",
+        "required": [
+          "rowid",
+          "workflow"
+        ],
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 123456
+          },
+          "workflow": {
+            "type": "number",
+            "example": 182
+          }
+        }
+      },
+      "executeWorkflowRequest": {
+        "type": "object",
+        "required": [
+          "ticketid"
+        ],
+        "properties": {
+          "ticketid": {
+            "type": "number",
+            "example": 123456
+          },
+          "workflow_step": {
+            "type": "number",
+            "example": 1
+          },
+          "branching_step": {
+            "type": "number",
+            "example": 2
+          }
+        }
+      },
+      "createPersonResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "updatePersonResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "deletePersonResponse": {
+        "type": "string",
+        "example": "Deletion successful!"
+      },
+      "deleteOrganizationResponse": {
+        "type": "string",
+        "example": "Deletion successful!"
+      },
+      "deleteArticleResponse": {
+        "type": "string",
+        "example": "Deletion successful!"
+      },
+      "getEventsResponse": {
+        "type": "array",
+        "items": {
           "type": "object",
           "properties": {
             "rowid": {
               "type": "string",
               "example": "54321"
             },
-            "name": {
-              "type": "string",
-              "example": "Corp United"
-            },
-            "email": {
-              "type": "string",
-              "example": "info@corp.com"
-            }
-          }
-        },
-        "deleteOrganizationRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "54321"
-            }
-          }
-        },
-        "createArticleRequest": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string",
-              "example": "Example Article"
-            },
-            "long_description": {
-              "type": "string",
-              "example": "This is an example article"
-            },
-            "number": {
-              "type": "string",
-              "example": "auto"
-            },
-            "purchase_price": {
-              "type": "string",
-              "example": "250"
-            },
-            "sales_price": {
-              "type": "string",
-              "example": "500"
-            },
-            "tax": {
-              "type": "string",
-              "example": "19"
-            }
-          }
-        },
-        "updateArticleRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
+            "for_rowid": {
               "type": "string",
               "example": "12345"
             },
-            "description": {
-              "type": "string",
-              "example": "Updated Article"
-            },
-            "long_description": {
-              "type": "string",
-              "example": "This is an example article that has been updated"
-            },
-            "number": {
-              "type": "string",
-              "example": "auto"
-            },
-            "purchase_price": {
-              "type": "string",
-              "example": "350"
-            },
-            "sales_price": {
-              "type": "string",
-              "example": "600"
-            },
-            "tax": {
-              "type": "string",
-              "example": "19"
-            }
-          }
-        },
-        "deleteArticleRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "12345"
-            }
-          }
-        },
-        "createEventRequest": {
-          "type": "object",
-          "properties": {
             "title": {
               "type": "string",
-              "example": "Important Meeting!"
+              "example": "Project presentation"
             },
             "description": {
               "type": "string",
               "example": "Presentation of our new project to shareholders"
-            },
-            "employees": {
-              "type": "string",
-              "example": "useremail@somewhere.com"
             },
             "date": {
               "type": "string",
@@ -1811,478 +1959,325 @@
               "type": "string",
               "example": "2023-06-30 09:30:00"
             },
-          }
-        },
-        "updateEventRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
+            "company_name": {
               "type": "string",
-              "example": "12345"
+              "example": "Example Inc."
             },
-            "title": {
+            "contact_name": {
               "type": "string",
-              "example": "Important Meeting!"
+              "example": "Jane Doe"
             },
-            "description": {
+            "all_day": {
               "type": "string",
-              "example": "Presentation of our new project to shareholders"
+              "example": "0"
             },
-            "employees": {
+            "private": {
               "type": "string",
-              "example": "useremail@somewhere.com"
+              "example": "0"
             },
-            "date": {
+            "last_update": {
               "type": "string",
-              "example": "2023-06-30"
+              "example": "2023-05-30 09:00:59"
             },
-            "time_start": {
+            "category_display": {
               "type": "string",
-              "example": "09:00:00"
-            },
-            "time_end": {
-              "type": "string",
-              "example": "09:30:00"
-            },
-            "dt_start": {
-              "type": "string",
-              "example": "2023-06-30 09:00:00"
-            },
-            "dt_end": {
-              "type": "string",
-              "example": "2023-06-30 09:30:00"
-            },
-          }
-        },
-        "deleteEventRequest": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "string",
-              "example": "12345"
+              "example": "video call"
             }
           }
-        },
-        "createTicketRequest": {
-          "type": "object",
-          "required": [
-            "for_rowid",
-            "subject",
-            "ticket_type"
-          ],
-          "properties": {
-              "for_rowid": {
-                "type": "string",
-                "example": "12345"
-              },
-              "subject": {
-                "type": "string",
-                "example": "Test Ticket"
-              },
-              "ticket_type": {
-                "type": "number",
-                "example": 1
+        }
+      },
+      "createEventResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "updateEventResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "deleteEventResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "createTicketResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "addWorkflowToTicketResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "createNoteResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "getOrganizationResponse": {
+        "type": "object",
+        "properties": {
+          "loop_addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "mandant": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "for_rowid": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Company Ltd."
+                },
+                "email": {
+                  "type": "string",
+                  "example": "info@company.com"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "Main Str."
+                },
+                "street_number": {
+                  "type": "string",
+                  "example": "441"
+                },
+                "zip_code": {
+                  "type": "string",
+                  "example": "821528"
+                },
+                "p_o_box": {
+                  "type": "string",
+                  "example": "B41C"
+                },
+                "town": {
+                  "type": "string",
+                  "example": "New York City"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "New York"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "USA"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "82152587588"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "82759871528"
+                }
               }
+            }
           }
-        },
-        "createNoteRequest": {
-          "type": "object",
-          "required": [
-            "ticket",
-            "text"
-          ],
-          "properties": {
-              "ticket": {
-                "type": "number",
-                "example": 123456
-              },
-              "text": {
-                "type": "string",
-                "example": "This is a new note"
-              }
+        }
+      },
+      "createOrganizationResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
           }
-        },
-        "addWorkflowToTicketRequest": {
-          "type": "object",
-          "required": [
-            "rowid",
-            "workflow"
-          ],
-          "properties": {
-              "rowid": {
-                "type": "number",
-                "example": 123456
-              },
-              "workflow":{
-                "type": "number",
-                "example": 182
-              }
+        }
+      },
+      "createArticleResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
           }
-        },
-        "executeWorkflowRequest": {
+        }
+      },
+      "updateOrganizationResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "updateArticleResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "executeWorkflowResponse": {
+        "type": "string",
+        "example": "Workflow started!"
+      },
+      "getTicketTypesResponse": {
+        "type": "array",
+        "items": {
           "type": "object",
-          "required": [
-            "ticketid"
-          ],
           "properties": {
-            "ticketid": {
-              "type": "number",
-              "example": 123456
+            "text": {
+              "type": "string",
+              "example": "Sales: Lead"
             },
-            "workflow_step":{
-              "type": "number",
-              "example": 1
-            },
-            "branching_step":{
-              "type": "number",
-              "example": 2
+            "value": {
+              "type": "string",
+              "example": "some id 123"
             }
           }
-        },
-        "createPersonResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "updatePersonResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "deletePersonResponse": {
-          "type": "string",
-          "example": "Deletion successful!"
-        },
-        "deleteOrganizationResponse": {
-          "type": "string",
-          "example": "Deletion successful!"
-        },
-        "deleteArticleResponse": {
-          "type": "string",
-          "example": "Deletion successful!"
-        },
-        "getEventsResponse": {
-          "type": "array",
-          "items": {
+        }
+      },
+      "getCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "address_category1": {
             "type": "object",
             "properties": {
-              "rowid": {"type": "string", "example": "54321"},
-              "for_rowid": {"type": "string", "example": "12345"},
-              "title": {"type": "string", "example": "Project presentation"},
-              "description": {"type": "string", "example": "Presentation of our new project to shareholders"},
-              "date": {"type": "string", "example": "2023-06-30"},
-              "time_start": {"type": "string", "example": "09:00:00"},
-              "time_end": {"type": "string", "example": "09:30:00"},
-              "dt_start": {"type": "string", "example": "2023-06-30 09:00:00"},
-              "dt_end": {"type": "string", "example": "2023-06-30 09:30:00"},
-              "company_name": {"type": "string", "example": "Example Inc."},
-              "contact_name": {"type": "string", "example": "Jane Doe"},
-              "all_day": {"type": "string", "example": "0"},
-              "private": {"type": "string", "example": "0"},
-              "last_update": {"type": "string", "example": "2023-05-30 09:00:59"},
-              "category_display": {"type": "string", "example": "video call"}
-            }
-          }
-        },
-        "createEventResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "updateEventResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "deleteEventResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "createTicketResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "addWorkflowToTicketResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "createNoteResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "getOrganizationResponse": {
-          "type": "object",
-          "properties": {
-            "loop_addresses": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "rowid": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "mandant": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "for_rowid": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "Company Ltd."
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "info@company.com"
-                  },
-                  "street": {
-                    "type": "string",
-                    "example": "Main Str."
-                  },
-                  "street_number": {
-                    "type": "string",
-                    "example": "441"            },
-                  "zip_code": {
-                    "type": "string",
-                    "example": "821528"
-                  },
-                  "p_o_box": {
-                    "type": "string",
-                    "example": "B41C"
-                  },
-                  "town": {
-                    "type": "string",
-                    "example": "New York City"
-                  },
-                  "state": {
-                    "type": "string",
-                    "example": "New York"
-                  },
-                  "country": {
-                    "type": "string",
-                    "example": "USA"
-                  },
-                  "phone": {
-                    "type": "string",
-                    "example": "82152587588"
-                  },
-                  "fax": {
-                    "type": "string",
-                    "example": "82759871528"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "createOrganizationResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "createArticleResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "updateOrganizationResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "updateArticleResponse": {
-          "type": "object",
-          "properties": {
-            "rowid": {
-              "type": "number",
-              "example": 16239
-            }
-          }
-        },
-        "executeWorkflowResponse": {
-          "type": "string",
-          "example": "Workflow started!"
-        },
-        "getTicketTypesResponse": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "example": "Sales: Lead"
-                  },
-                  "value": {
-                    "type": "string",
-                    "example": "some id 123"
-                  },
-            }
-          }
-        },
-        "getCategoriesResponse": {
-          "type": "object",
-          "properties": {
-                  "address_category1": {
-                    "type": "object",
-                    "properties": {
-                      "options": {
-                        "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "text": {
-                                "type": "string",
-                                "example": "Sales"
-                              },
-                              "value": {
-                                "type": "string",
-                                "example": "some id 123"
-                              },
-                            }
-                          }
-                        }
-                      }
-
-                  },
-                  "ticket_category1": {
-                    "type": "object",
-                    "properties": {
-                      "options": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "string",
-                              "example": "Hot leads"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "some id 123"
-                            },
-                          }
-                        }
-                      }
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "example": "Sales"
+                    },
+                    "value": {
+                      "type": "string",
+                      "example": "some id 123"
                     }
                   }
                 }
-        },
-        "getWorkflowsResponse": {
-          "type": "array",
-          "items": {
+              }
+            }
+
+          },
+          "ticket_category1": {
             "type": "object",
             "properties": {
-              "rowid": {
-                "type": "string",
-                "example": "1"
-              },
-              "title": {
-                "type": "string",
-                "example": "Workflow XY"
-              },
-              "last_update": {
-                "type": "string",
-                "example": "2023-04-06 11:15:08"
-              },
-              "username": {
-                "type": "string",
-                "example": "Frank Meier"
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "example": "Hot leads"
+                    },
+                    "value": {
+                      "type": "string",
+                      "example": "some id 123"
+                    }
+                  }
+                }
               }
             }
           }
-        },
-        "getWorkflowStepsResponse": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "rowid": {
-                "type": "string",
-                "example": "123"
-              },
-              "title": {
-                "type": "string",
-                "example": "A ticket was opened"
-              },
-              "workflow": {
-                "type": "string",
-                "example": "1",
-                "description": "rowid of worklow this is a step in"
-              },
-              "branching_option1": {
-                "type": "string",
-                "example": "Refer to sales",
-                "description": "Label of first branching option. Empty if step has no branches"
-              },
-              "branching_option2": {
-                "type": "string",
-                "example": "Refer to support",
-                "description": "Label of second branching option. Empty if step has no branches"
-              },
-              "next_step1": {
-                "type": "string",
-                "example": "124",
-                "description": "rowid of next step, 0 if this step has following"
-              },
-              "next_step2": {
-                "type": "string",
-                "example": "125",
-                "description": "rowid of alternative next step if this is a branching step, 0 if this step has no following step or is not branching"
-              },
+        }
+      },
+      "getWorkflowsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "string",
+              "example": "1"
+            },
+            "title": {
+              "type": "string",
+              "example": "Workflow XY"
+            },
+            "last_update": {
+              "type": "string",
+              "example": "2023-04-06 11:15:08"
+            },
+            "username": {
+              "type": "string",
+              "example": "Frank Meier"
+            }
+          }
+        }
+      },
+      "getWorkflowStepsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "string",
+              "example": "123"
+            },
+            "title": {
+              "type": "string",
+              "example": "A ticket was opened"
+            },
+            "workflow": {
+              "type": "string",
+              "example": "1",
+              "description": "rowid of worklow this is a step in"
+            },
+            "branching_option1": {
+              "type": "string",
+              "example": "Refer to sales",
+              "description": "Label of first branching option. Empty if step has no branches"
+            },
+            "branching_option2": {
+              "type": "string",
+              "example": "Refer to support",
+              "description": "Label of second branching option. Empty if step has no branches"
+            },
+            "next_step1": {
+              "type": "string",
+              "example": "124",
+              "description": "rowid of next step, 0 if this step has following"
+            },
+            "next_step2": {
+              "type": "string",
+              "example": "125",
+              "description": "rowid of alternative next step if this is a branching step, 0 if this step has no following step or is not branching"
             }
           }
         }
       }
     }
   }
+}
