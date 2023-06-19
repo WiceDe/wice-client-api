@@ -1914,16 +1914,31 @@
         }
       },
       "deletePersonResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
+        "type": "object",
+        "properties": {
+          "deactivated": {
+            "type": "number",
+            "example": 1
+          }
+        }
       },
       "deleteOrganizationResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
+        "type": "object",
+        "properties": {
+          "deactivated": {
+            "type": "number",
+            "example": 1
+          }
+        }
       },
       "deleteArticleResponse": {
-        "type": "string",
-        "example": "Deletion successful!"
+        "type": "object",
+        "properties": {
+          "deactivated": {
+            "type": "number",
+            "example": 1
+          }
+        }
       },
       "getEventsResponse": {
         "type": "array",
