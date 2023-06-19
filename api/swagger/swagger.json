@@ -298,7 +298,7 @@
           "required": true
         }],
         "x-swagger-router-controller": "persons",
-        "summary": "Deactivate an existing organization",
+        "summary": "Deactivate an existing person",
         "description": "Deactivates an existing person within Wice CRM, identified by its rowid",
         "responses": {
           "200": {
