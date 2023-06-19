@@ -189,7 +189,7 @@
               "description": "Invalid input"
             }
           }
-        },
+        }
       },
       "/plugin/wp_wice_client_api_backend/json#createPerson": {
         "post": {
