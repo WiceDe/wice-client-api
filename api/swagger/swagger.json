@@ -735,7 +735,7 @@
             "description": "Calendar month (1-12) of events to be fetched.",
             "schema": {
               "type": "number",
-              "example": 1,
+              "example": 1
             },
             "required": true
           }
