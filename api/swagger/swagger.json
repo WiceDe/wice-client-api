@@ -722,7 +722,7 @@
           {
             "in": "query",
             "name": "year",
-            "description": "Year",
+            "description": "Year (format YYYY) of events to be fetched.",
             "schema": {
               "type": "number",
               "example": 2023
@@ -732,7 +732,7 @@
           {
             "in": "query",
             "name": "month",
-            "description": "Month",
+            "description": "Calendar month (1-12) of events to be fetched.",
             "schema": {
               "type": "number",
               "example": 1,
