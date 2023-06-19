@@ -708,16 +708,38 @@
         "tags": [
           "events"
         ],
-        "parameters": [{
-          "in": "query",
-          "name": "method",
-          "description": "Determines the operation.",
-          "schema": {
-            "type": "string",
-            "enum": ["get_events"]
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_events"]
+            },
+            "required": true
           },
-          "required": true
-        }],
+          {
+            "in": "query",
+            "name": "year",
+            "description": "Year",
+            "schema": {
+              "type": "number",
+              "example": 2023
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "description": "Month",
+            "schema": {
+              "type": "number",
+              "example": 1,
+            },
+            "required": true
+          }
+        ],
         "x-swagger-router-controller": "events",
         "summary": "Get a list of all events",
         "description": "Returns all future calendar events",
