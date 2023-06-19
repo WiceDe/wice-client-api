@@ -992,6 +992,18 @@
          "tags": [
            "tickets"
          ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["insert_ticket"]
+             },
+             "required": true
+           }
+         ],
          "x-swagger-router-controller": "ticket",
          "summary": "Create a new ticket",
          "description": "Creates a new ticket",
@@ -1027,6 +1039,18 @@
        "post": {
          "tags": [
            "tickets"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["insert_note"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "ticket",
          "summary": "Creates a new note for a ticket",
@@ -1212,6 +1236,18 @@
          "tags": [
            "workflows"
          ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["execute_workflow"]
+             },
+             "required": true
+           }
+         ],
          "x-swagger-router-controller": "workflows",
          "summary": "Executes a workflow step",
          "description": "Must supply the ticket's rowid and the rowid of the next step. If the step is not branching, use workflow_step. If the step is branching, use branching_step. Sending both workflow_step and branching_step in the same request can lead to an error.",
@@ -1247,6 +1283,18 @@
        "post": {
          "tags": [
            "workflows"
+         ],
+         "parameters": [
+           {
+             "in": "query",
+             "name": "method",
+             "description": "Determines the operation.",
+             "schema": {
+               "type": "string",
+               "enum": ["add_workflow_to_ticket"]
+             },
+             "required": true
+           }
          ],
          "x-swagger-router-controller": "workflows",
          "summary": "Add a workflow to a ticket",
