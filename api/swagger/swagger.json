@@ -1335,9 +1335,6 @@
 
       },
       "getPersonResponse": {
-        "type": "object",
-        "properties": {
-          "loop_addresses": {
             "type": "array",
             "items": {
               "type": "object",
@@ -1427,13 +1424,8 @@
                 }
               }
             }
-          }
-        }
       },
       "getArticleResponse": {
-        "type": "object",
-        "properties": {
-          "loop_articles": {
             "type": "array",
             "items": {
               "type": "object",
@@ -1475,14 +1467,9 @@
                   "example": "19"
                 }
               }
-            }
-          }
         }
       },
       "getOpportunitiesResponse": {
-        "type": "object",
-        "properties": {
-          "loop_entries": {
             "type": "array",
             "items": {
               "type": "object",
@@ -1565,8 +1552,6 @@
                 }
               }
             }
-          }
-        }
       },
       "createPersonRequest": {
         "type": "object",
@@ -2041,9 +2026,6 @@
         }
       },
       "getOrganizationResponse": {
-        "type": "object",
-        "properties": {
-          "loop_addresses": {
             "type": "array",
             "items": {
               "type": "object",
@@ -2106,8 +2088,6 @@
                 }
               }
             }
-          }
-        }
       },
       "createOrganizationResponse": {
         "type": "object",
