@@ -658,7 +658,7 @@
       }
     },
     "/plugin/wp_wice_client_api_backend/json#deleteArticle": {
-      "post": {
+      "delete": {
         "tags": [
           "articles"
         ],
