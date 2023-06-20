@@ -1734,6 +1734,11 @@
       },
       "createEventRequest": {
         "type": "object",
+        "required": [
+          "title",
+          "dt_start",
+          "dt_end"
+        ],
         "properties": {
           "title": {
             "type": "string",
@@ -1746,18 +1751,6 @@
           "employees": {
             "type": "string",
             "example": "useremail@somewhere.com"
-          },
-          "date": {
-            "type": "string",
-            "example": "2023-06-30"
-          },
-          "time_start": {
-            "type": "string",
-            "example": "09:00:00"
-          },
-          "time_end": {
-            "type": "string",
-            "example": "09:30:00"
           },
           "dt_start": {
             "type": "string",
