@@ -853,7 +853,7 @@
       }
     },
     "/plugin/wp_wice_client_api_backend/json#deleteEvent": {
-      "post": {
+      "delete": {
         "tags": [
           "events"
         ],
