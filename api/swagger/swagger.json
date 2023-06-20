@@ -500,8 +500,8 @@
           "required": true
         }],
         "x-swagger-router-controller": "organization",
-        "summary": "Deactivate an existing organization",
-        "description": "Deactivates an existing organization within Wice CRM, identified by its rowid",
+        "summary": "Deactivate/Trash an existing organization",
+        "description": "Deactivates an existing organization within Wice CRM by moving it to the trash bin, identified by its rowid",
         "responses": {
           "200": {
             "description": "Supplies the rowid of the created organization",
@@ -1823,6 +1823,7 @@
         "type": "object",
         "required": [
           "for_rowid",
+          "for_table",
           "subject",
           "ticket_type"
         ],
@@ -1830,6 +1831,10 @@
           "for_rowid": {
             "type": "string",
             "example": "12345"
+          },
+          "for_table": {
+            "type": "string",
+            "example": "address_company"
           },
           "subject": {
             "type": "string",
