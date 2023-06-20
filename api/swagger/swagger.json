@@ -1040,7 +1040,7 @@
         "description": "Each note must be attached to an already existing ticket by rowid",
         "responses": {
           "200": {
-            "description": "Returns the ticket's rowid",
+            "description": "Returns the note's rowid",
             "content": {
               "application/json": {
                 "schema": {
@@ -1226,7 +1226,7 @@
         "description": "Must supply the ticket's rowid and the rowid of the next step. If the step is not branching, use workflow_step. If the step is branching, use branching_step. Sending both workflow_step and branching_step in the same request can lead to an error.",
         "responses": {
           "200": {
-            "description": "Returns the ticket's rowid",
+            "description": "Returns workflow_step_executed 1 if step could be executed",
             "content": {
               "application/json": {
                 "schema": {
@@ -2168,8 +2168,13 @@
         }
       },
       "executeWorkflowResponse": {
-        "type": "string",
-        "example": "Workflow started!"
+        "type": "object",
+        "properties": {
+          "workflow_step_executed": {
+            "type": "number",
+            "example": "1"
+          }
+        }
       },
       "getTicketTypesResponse": {
         "type": "array",
