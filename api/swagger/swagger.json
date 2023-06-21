@@ -671,6 +671,15 @@
             "enum": ["delete_article"]
           },
           "required": true
+        },
+        {
+          "in": "query",
+          "name": "rowid",
+          "description": "Rowid of the article to be deleted.",
+          "schema": {
+            "type": "string",
+          },
+          "required": true
         }],
         "x-swagger-router-controller": "articles",
         "summary": "Delete an article",
@@ -689,17 +698,6 @@
           "401": {
             "description": "Invalid input"
           }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deleteArticleRequest"
-              }
-            }
-          },
-          "description": "Requires only the article's rowid",
-          "required": true
         }
       }
     },
@@ -866,6 +864,15 @@
             "enum": ["delete_event"]
           },
           "required": true
+        },
+        {
+          "in": "query",
+          "name": "rowid",
+          "description": "Rowid of the event to be deleted.",
+          "schema": {
+            "type": "string",
+          },
+          "required": true
         }],
         "x-swagger-router-controller": "event",
         "summary": "Delete event or yourself from an event",
@@ -884,17 +891,6 @@
           "401": {
             "description": "Invalid input"
           }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deleteEventRequest"
-              }
-            }
-          },
-          "description": "Requires only the event's rowid",
-          "required": true
         }
       }
     },
