@@ -137,7 +137,7 @@
             "description": "Determines the type of resource to be fetched.",
             "schema": {
               "type": "string",
-              "enum": ["get_all_persons"]
+              "enum": ["get_all_contacts"]
             },
             "required": true
           },
@@ -180,6 +180,51 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getPersonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getPerson": {
+      "get": {
+        "tags": [
+          "persons"
+        ],
+        "parameters": [{
+            "in": "query",
+            "name": "method",
+            "description": "Determines the type of resource to be fetched.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_contact"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "rowid",
+            "description": "Rowid of the contact to be fetched",
+            "schema": {
+              "type": "string",
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "persons",
+        "summary": "Get a single contact person",
+        "description": "Returns one contact person by rowid",
+        "responses": {
+          "200": {
+            "description": "An object containing information about the contact person",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSinglePersonResponse"
                 }
               }
             }
@@ -382,6 +427,51 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getOrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/plugin/wp_wice_client_api_backend/json#getOrganization": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "parameters": [{
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_company"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "rowid",
+            "description": "Rowid of the company to be fetched",
+            "schema": {
+              "type": "string",
+            },
+            "required": true
+          }
+        ],
+        "x-swagger-router-controller": "organization",
+        "summary": "Get a single company",
+        "description": "Returns a single company by its rowid",
+        "responses": {
+          "200": {
+            "description": "An object containing information about the company",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSingleOrganizationResponse"
                 }
               }
             }
@@ -1443,6 +1533,94 @@
               }
             }
       },
+      "getSinglePersonResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "821528"
+          },
+          "mandant": {
+            "type": "string",
+            "example": "sandbox"
+          },
+          "for_rowid": {
+            "type": "string",
+            "example": "946512"
+          },
+          "same_contactperson": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "email": {
+            "type": "string",
+            "example": "jane@doe.com"
+          },
+          "title": {
+            "type": "string",
+            "example": "Dr."
+          },
+          "salutation": {
+            "type": "string",
+            "example": "Greetings"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "01.01.2000"
+          },
+          "private_street": {
+            "type": "string",
+            "example": "Europaplatz"
+          },
+          "private_street_number": {
+            "type": "string",
+            "example": "12"
+          },
+          "private_zip_code": {
+            "type": "string",
+            "example": "10115"
+          },
+          "private_town": {
+            "type": "string",
+            "example": "Berlin"
+          },
+          "private_state": {
+            "type": "string",
+            "example": "Berlin"
+          },
+          "private_country": {
+            "type": "string",
+            "example": "Germany"
+          },
+          "phone": {
+            "type": "string",
+            "example": "0124/5478"
+          },
+          "fax": {
+            "type": "string",
+            "example": "0124/5478"
+          },
+          "private_phone": {
+            "type": "string",
+            "example": "0124/5478"
+          },
+          "private_mobile_phone": {
+            "type": "string",
+            "example": "0124/5478"
+          },
+          "private_email": {
+            "type": "string",
+            "example": "jandedoe@gmail.com"
+          }
+        }
+      },
       "getArticleResponse": {
             "type": "array",
             "items": {
@@ -2051,68 +2229,121 @@
         }
       },
       "getOrganizationResponse": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "rowid": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "mandant": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "for_rowid": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Company Ltd."
-                },
-                "email": {
-                  "type": "string",
-                  "example": "info@company.com"
-                },
-                "street": {
-                  "type": "string",
-                  "example": "Main Str."
-                },
-                "street_number": {
-                  "type": "string",
-                  "example": "441"
-                },
-                "zip_code": {
-                  "type": "string",
-                  "example": "821528"
-                },
-                "p_o_box": {
-                  "type": "string",
-                  "example": "B41C"
-                },
-                "town": {
-                  "type": "string",
-                  "example": "New York City"
-                },
-                "state": {
-                  "type": "string",
-                  "example": "New York"
-                },
-                "country": {
-                  "type": "string",
-                  "example": "USA"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "82152587588"
-                },
-                "fax": {
-                  "type": "string",
-                  "example": "82759871528"
-                }
-              }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rowid": {
+              "type": "string",
+              "example": "821528"
+            },
+            "mandant": {
+              "type": "string",
+              "example": "821528"
+            },
+            "name": {
+              "type": "string",
+              "example": "Company Ltd."
+            },
+            "email": {
+              "type": "string",
+              "example": "info@company.com"
+            },
+            "street": {
+              "type": "string",
+              "example": "Main Str."
+            },
+            "street_number": {
+              "type": "string",
+              "example": "441"
+            },
+            "zip_code": {
+              "type": "string",
+              "example": "821528"
+            },
+            "p_o_box": {
+              "type": "string",
+              "example": "B41C"
+            },
+            "town": {
+              "type": "string",
+              "example": "New York City"
+            },
+            "state": {
+              "type": "string",
+              "example": "New York"
+            },
+            "country": {
+              "type": "string",
+              "example": "USA"
+            },
+            "phone": {
+              "type": "string",
+              "example": "82152587588"
+            },
+            "fax": {
+              "type": "string",
+              "example": "82759871528"
             }
+          }
+        }
+      },
+      "getSingleOrganizationResponse": {
+        "type": "object",
+        "properties": {
+          "rowid": {
+            "type": "string",
+            "example": "821528"
+          },
+          "mandant": {
+            "type": "string",
+            "example": "821528"
+          },
+          "name": {
+            "type": "string",
+            "example": "Company Ltd."
+          },
+          "email": {
+            "type": "string",
+            "example": "info@company.com"
+          },
+          "street": {
+            "type": "string",
+            "example": "Main Str."
+          },
+          "street_number": {
+            "type": "string",
+            "example": "441"
+          },
+          "zip_code": {
+            "type": "string",
+            "example": "821528"
+          },
+          "p_o_box": {
+            "type": "string",
+            "example": "B41C"
+          },
+          "town": {
+            "type": "string",
+            "example": "New York City"
+          },
+          "state": {
+            "type": "string",
+            "example": "New York"
+          },
+          "country": {
+            "type": "string",
+            "example": "USA"
+          },
+          "phone": {
+            "type": "string",
+            "example": "82152587588"
+          },
+          "fax": {
+            "type": "string",
+            "example": "82759871528"
+          }
+        }
       },
       "createOrganizationResponse": {
         "type": "object",
