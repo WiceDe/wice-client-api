@@ -1398,6 +1398,14 @@
       }
     },
     {
+      "url": "{custom-server}",
+      "variables": {
+        "custom-server": {
+          "default": "https://www.ihr-wice-server.de"
+        }
+      }
+    },
+    {
       "url": "http://localhost:5000/"
     }
   ],
