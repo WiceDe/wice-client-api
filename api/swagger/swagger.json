@@ -2035,7 +2035,7 @@
             "example": 123,
             "description": "Optional, assigns this note to an employee by ID"
           },
-          "(holdfile_date: ": {
+          "holdfile_date: ": {
             "type": "string",
             "example": "2023-05-21",
             "description": "Optional, includes a reminder date for the note. Format YYYY-MM-DD."
