@@ -1152,6 +1152,52 @@
         }
       }
     },
+    "/plugin/wp_wice_client_api_backend/json#createChance": {
+      "post": {
+        "tags": [
+          "tickets"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["insert_chance"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "ticket",
+        "summary": "Creates a new chance attached to a ticket",
+        "description": "Each chance must be attached to an already existing ticket by rowid",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket's rowid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createChanceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createChanceRequest"
+              }
+            }
+          },
+          "description": "Requires the rowids of the ticket and article",
+          "required": true
+        }
+      }
+    },
     "/plugin/wp_wice_client_api_backend/json#getTicketTypes": {
       "get": {
         "tags": [
@@ -2042,6 +2088,60 @@
           }
         }
       },
+      "createChanceRequest": {
+        "type": "object",
+        "required": [
+          "ticket",
+          "article"
+        ],
+        "properties": {
+          "ticket": {
+            "type": "number",
+            "example": 123456
+          },
+          "article": {
+            "type": "number",
+            "example": 654321
+          },
+          "salesman": {
+            "type": "number",
+            "example": 123,
+            "description": "Optional, defaults to current user"
+          },
+          "article_description": {
+            "type": "string",
+            "example": "An article description."
+          },
+          "article_long_description": {
+            "type": "string",
+            "example": "An article description, but with more detail."
+          },
+          "articles_amount": {
+            "type": "number",
+            "example": 1
+          },
+          "probability": {
+            "type": "number",
+            "example": 75
+          },
+          "planned_for_date": {
+            "type": "string",
+            "example": "2023-10-27"
+          },
+          "article_sales_price": {
+            "type": "number",
+            "example": 100
+          },
+          "actual_sales_price": {
+            "type": "number",
+            "example": 90
+          },
+          "discount_percentage": {
+            "type": "number",
+            "example": 10
+          }
+        }
+      },
       "addWorkflowToTicketRequest": {
         "type": "object",
         "required": [
@@ -2241,6 +2341,15 @@
         "type": "object",
         "properties": {
           "rowid": {
+            "type": "number",
+            "example": 16239
+          }
+        }
+      },
+      "createChanceResponse": {
+        "type": "object",
+        "properties": {
+          "ticket": {
             "type": "number",
             "example": 16239
           }
