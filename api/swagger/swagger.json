@@ -1106,6 +1106,50 @@
         }
       }
     },
+    "/plugin/wp_wice_client_api_backend/json#getTicket": {
+      "get": {
+        "tags": [
+          "tickets"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["get_ticket"]
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "rowid",
+          "description": "Rowid of the ticket to be fetched.",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "ticket",
+        "summary": "Get a single ticket by rowid",
+        "description": "Retrieves the ticket and its associated notes and chances",
+        "responses": {
+          "200": {
+            "description": "Returns the ticket, notes, and chances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSingleTicketResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/plugin/wp_wice_client_api_backend/json#createNote": {
       "post": {
         "tags": [
@@ -2352,6 +2396,91 @@
           "ticket": {
             "type": "number",
             "example": 16239
+          }
+        }
+      },
+      "getSingleTicketResponse": {
+        "type": "object",
+        "properties": {
+          "ticket": {
+            "type": "object",
+            "example": {
+              "for_rowid": 1234,
+              "for_rowid_display": "Example Company",
+              "date": "2023-10-22",
+              "time": "09:08:00",
+              "last_update": "2023-10-20T09:55:21",
+              "employee_name": "example employee",
+              "employee_assigned": 895,
+              "ticket_closed_on_date": "2023-10-20",
+              "ticket_closed_on_time": "13:21:00",
+            }
+          },
+          "chances": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {
+                  "actual_sales_price_sum": 500,
+                  "reproducing_interval": null,
+                  "profit_sum": 500,
+                  "actual_purchase_price_sum": "100",
+                  "sales_price": 250,
+                  "article_sales_price": 250,
+                  "planned_for_month": 10,
+                  "article_description": "Example Product",
+                  "actual_sales_price_sum_raw": 500,
+                  "description": "Example Chance.",
+                  "username": "exampleuser",
+                  "profit_sum_raw": 400,
+                  "last_update": "2023-10-20T13:45:10",
+                  "purchase_price": 50,
+                  "currency": null,
+                  "actual_purchase_price": 50,
+                  "purchase_price_sum_raw": "100",
+                  "article_number": 5809,
+                  "actual_sales_price": 250,
+                  "articles_amount": 2,
+                  "planned_for_year": 2023,
+                  "rowid": 22738,
+                  "mandant": 176,
+                  "salesman": 884,
+                  "sales_price_sum": 500,
+                  "article": 5809,
+                  "planned_for_date": "2023-10-22",
+                  "ticket": 31390,
+                  "sales_price_sum_raw": 500,
+                  "probability": 50,
+                  "purchase_price_sum": "100",
+                  "tax": 19,
+                  "actual_sales_date": "0000-00-00",
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {
+                "last_update": "2023-10-20T09:55:21",
+                "note_author_rowid": 891,
+                "text": "This is a new note",
+                "reply_text": "This is a new note",
+                "holdfile_date": "2023-10-23",
+                "reply_time": "09:55",
+                "contactperson": "Example Customer",
+                "contactperson_rowid": 852479,
+                "rowid": 1173209,
+                "is_reply_to": null,
+                "note_author_fullname": "John Doe",
+                "status": 1,
+                "mandant": 176,
+                "reply_date": "2023-10-20",
+                "employee_assigned": 891,
+                "ticket": 31390,
+                "reply_forwarded_to": 891
+              }
+            }
           }
         }
       },
