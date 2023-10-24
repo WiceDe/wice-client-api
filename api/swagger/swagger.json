@@ -1311,6 +1311,38 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "category1",
+            "in": "query",
+            "description": "Tickets by category 1",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "category2",
+            "in": "query",
+            "description": "Tickets by category 2",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "category3",
+            "in": "query",
+            "description": "Tickets by category 3",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "category4",
+            "in": "query",
+            "description": "Tickets by category 4",
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
