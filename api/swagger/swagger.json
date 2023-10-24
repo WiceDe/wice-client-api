@@ -1150,6 +1150,187 @@
         }
       }
     },
+
+    "/plugin/wp_wice_client_api_backend/json#getTickets": {
+      "get": {
+        "tags": [
+          "tickets"
+        ],
+        "x-swagger-router-controller": "ticket",
+        "summary": "Get a list of tickets",
+        "description": "Retrieves several tickets starting from limitstart. Number of tickets per page depends on wice config, normally 12. ",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "description": "Determines the operation.",
+            "schema": {
+              "type": "string",
+              "enum": ["get_tickets"]
+            },
+            "required": true
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "description": "Order tickets by a specific field",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limitstart",
+            "in": "query",
+            "description": "Start index for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+            }
+          },
+          {
+            "name": "ticket_type_category",
+            "in": "query",
+            "description": "Filter tickets by category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ticket_type",
+            "in": "query",
+            "description": "Filter tickets by type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchstring",
+            "in": "query",
+            "description": "Search tickets by keyword",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "select_employee",
+            "in": "query",
+            "description": "Filter tickets by employee",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter_closed",
+            "in": "query",
+            "description": "Filter closed tickets",
+            "schema": {
+                "type": "string",
+                "enum": [ "", "1", "2"],
+                "default": ""
+             },
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter tickets by status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "viewall",
+            "in": "query",
+            "description": "Show all tickets",
+            "schema": {
+                "type": "string",
+                "enum": [ "0", "1"],
+                "default": "0"
+            },
+          },
+          {
+            "name": "filter_category1",
+            "in": "query",
+            "description": "Filter tickets by category 1",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter_category2",
+            "in": "query",
+            "description": "Filter tickets by category 2",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter_category3",
+            "in": "query",
+            "description": "Filter tickets by category 3",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter_category4",
+            "in": "query",
+            "description": "Filter tickets by category 4",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "select_category1",
+            "in": "query",
+            "description": "Select tickets by category 1",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "select_category2",
+            "in": "query",
+            "description": "Select tickets by category 2",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "select_category3",
+            "in": "query",
+            "description": "Select tickets by category 3",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "select_category4",
+            "in": "query",
+            "description": "Select tickets by category 4",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns several tickets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getTicketsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+
     "/plugin/wp_wice_client_api_backend/json#createNote": {
       "post": {
         "tags": [
@@ -2479,6 +2660,28 @@
                 "employee_assigned": 891,
                 "ticket": 31390,
                 "reply_forwarded_to": 891
+              }
+            }
+          }
+        }
+      },
+      "getTicketsResponse": {
+        "type": "object",
+        "properties": {
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {
+                "for_rowid": 1234,
+                "for_rowid_display": "Example Company",
+                "date": "2023-10-22",
+                "time": "09:08:00",
+                "last_update": "2023-10-20T09:55:21",
+                "employee_name": "example employee",
+                "employee_assigned": 895,
+                "ticket_closed_on_date": "2023-10-20",
+                "ticket_closed_on_time": "13:21:00",
               }
             }
           }
