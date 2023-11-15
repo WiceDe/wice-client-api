@@ -1409,10 +1409,10 @@
         }
       }
     },
-    "/plugin/wp_wice_client_api_backend/json#createChance": {
+    "/plugin/wp_wice_client_api_backend/json#createOpportunity": {
       "post": {
         "tags": [
-          "tickets"
+          "opportunities"
         ],
         "parameters": [{
           "in": "query",
@@ -1420,13 +1420,13 @@
           "description": "Determines the operation.",
           "schema": {
             "type": "string",
-            "enum": ["insert_chance"]
+            "enum": ["insert_opportunity"]
           },
           "required": true
         }],
-        "x-swagger-router-controller": "ticket",
-        "summary": "Creates a new chance attached to a ticket",
-        "description": "Each chance must be attached to an already existing ticket by rowid",
+        "x-swagger-router-controller": "opportunities",
+        "summary": "Creates a new opportunity attached to a ticket",
+        "description": "Each opportunity must be attached to an already existing ticket by rowid",
         "responses": {
           "200": {
             "description": "Returns the ticket's rowid",
@@ -2629,7 +2629,7 @@
               "ticket_closed_on_time": "13:21:00",
             }
           },
-          "chances": {
+          "opportunities": {
             "type": "array",
             "items": {
               "type": "object",
