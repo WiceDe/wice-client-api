@@ -54,16 +54,16 @@
       }
     },
     {
-      "name": "opportunities",
-      "description": "Manipulate stored opportunities. Currently under development and subject to change.",
+      "name": "tickets",
+      "description": "Manipulate stored tickets and notes. Currently under development and subject to change.",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
       }
     },
     {
-      "name": "tickets",
-      "description": "Manipulate stored tickets and notes. Currently under development and subject to change.",
+      "name": "opportunities",
+      "description": "Manipulate stored opportunities. Currently under development and subject to change.",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://wice.de"
