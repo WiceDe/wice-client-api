@@ -70,6 +70,14 @@
       }
     },
     {
+      "name": "payments",
+      "description": "Manipulate stored payments. Currently under development and subject to change.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://wice.de"
+      }
+    },
+    {
       "name": "categories",
       "description": "Getting categories for each category type. Currently under development and subject to change.",
       "externalDocs": {
@@ -1362,7 +1370,52 @@
         }
       }
     },
-
+    "/plugin/wp_wice_client_api_backend/json#savePayment": {
+      "post": {
+        "tags": [
+          "payments"
+        ],
+        "parameters": [{
+          "in": "query",
+          "name": "method",
+          "description": "Determines the operation.",
+          "schema": {
+            "type": "string",
+            "enum": ["save_payment"]
+          },
+          "required": true
+        }],
+        "x-swagger-router-controller": "payment",
+        "summary": "Create a new payment",
+        "description": "Creates a new payment for an organization",
+        "responses": {
+          "200": {
+            "description": "Returns a success message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addPaymentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addPaymentRequest"
+              }
+            }
+          },
+          "description": "Requires the amount, date, and organization's rowid",
+          "required": true
+        }
+      }
+    },
     "/plugin/wp_wice_client_api_backend/json#createNote": {
       "post": {
         "tags": [
@@ -2436,6 +2489,28 @@
           }
         }
       },
+      "addPaymentRequest": {
+        "type": "object",
+        "required": [
+          "amount",
+          "date",
+          "for_rowid"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 149.99
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-05-25"
+          },
+          "for_rowid": {
+            "type": "string",
+            "example": "123456"
+          }
+        }
+      },
       "createPersonResponse": {
         "type": "object",
         "properties": {
@@ -2869,6 +2944,15 @@
           "rowid": {
             "type": "number",
             "example": 16239
+          }
+        }
+      },
+      "addPaymentResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "Successfully added payment"
           }
         }
       },
