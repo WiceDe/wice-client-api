@@ -1387,7 +1387,7 @@
         }],
         "x-swagger-router-controller": "payment",
         "summary": "Create a new payment",
-        "description": "Creates a new payment for an organization",
+        "description": "Creates a new payment for an organization. Refer to the organization's rowid with the for_rowid parameter, and to the invoice's rowid with the invoice parameter.",
         "responses": {
           "200": {
             "description": "Returns a success message",
@@ -2508,6 +2508,10 @@
           "for_rowid": {
             "type": "string",
             "example": "123456"
+          },
+          "invoice": {
+            "type": "number",
+            "example": 8642
           }
         }
       },
